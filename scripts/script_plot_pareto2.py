@@ -12,9 +12,9 @@ conjunto_homogeneo = 'pareto25_hom/'
 conjunto_heterogeneo = 'pareto/'
 
 #BASE
-base = 'Circle'
+base = 'Line'
 inicio = 1
-termino = 4000
+termino = 2000
 
 def pontos(inicio, termino, tamanho, cor, path):
     X_PTS_BEFORE = []
@@ -46,12 +46,12 @@ def pontos_atuais(iteracao, tamanho, cor, cor_pareto, path):
     X_pareto = dataset2['diversidade'].values
     Y_pareto = dataset2['acc'].values
     
-    plt.scatter(X, Y, s=tamanho, label='Comitê', color=cor)
-    plt.scatter(X_pareto, Y_pareto, s=tamanho, label='Comitê(Pareto)', color=cor_pareto)    
+    plt.scatter(X, Y, s=tamanho, label='Comitê', marker='^', color=cor)
+    plt.scatter(X_pareto, Y_pareto, s=tamanho, label='Comitê(Pareto)', marker='s', color=cor_pareto)    
 
 def subplot(iteracao, conjunto):
-    path_csv = '/home/regis/Documents/git/regis/mestrado/implementacoes/resultados/ensembles/'+ conjunto + base + '/csv/' + base + '_pareto_it_'
-    path_img = '/home/regis/Documents/git/regis/mestrado/implementacoes/resultados/ensembles/'+ conjunto + base + '/img/' + base + '_pareto_it_'
+    path_csv = '/Users/regis/Documents/regis/mestrado/mestrado_old/implementacoes/resultados/ensembles/'+ conjunto + base + '/csv/' + base + '_pareto_it_'
+    path_img = '/Users/regis/Documents/regis/mestrado/mestrado_old/implementacoes/resultados/ensembles/'+ conjunto + base + '/img/' + base + '_pareto_it_'
     
     # TODOS OS PONTOS - ANTERIORES
     pontos(inicio, iteracao, TAM_PONTO, '0.75', path_csv)

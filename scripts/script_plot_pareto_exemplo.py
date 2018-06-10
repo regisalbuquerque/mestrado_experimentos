@@ -19,7 +19,9 @@ termino = 10000
     
 def pontos_atuais(iteracao, tamanho, cor, cor_pareto, conjunto):
     
-    path = '/home/regis/Documents/git/regis/mestrado/implementacoes/resultados/ensembles/'+ conjunto + base + '/csv/' + base + '_pareto_it_'
+    #path = '/home/regis/Documents/git/regis/mestrado/implementacoes/resultados/ensembles/'+ conjunto + base + '/csv/' + base + '_pareto_it_'
+    path = '/Users/regis/Documents/regis/mestrado/mestrado_old/implementacoes/resultados/ensembles/'+ conjunto + base + '/csv/' + base + '_pareto_it_'
+    
     
     dataset = pd.read_csv(path + str(iteracao) + '.csv')
     
@@ -35,8 +37,8 @@ def pontos_atuais(iteracao, tamanho, cor, cor_pareto, conjunto):
     
         plt.subplot(111)
         
-        plt.scatter(X, Y, s=tamanho, label='Comitê', color=cor)
-        plt.scatter(X_pareto, Y_pareto, s=tamanho, label='Comitê(Pareto)', color=cor_pareto)  
+        plt.scatter(X, Y, s=tamanho, label='Comitê', marker='^', color=cor)
+        plt.scatter(X_pareto, Y_pareto, s=tamanho, label='Comitê(Pareto)', marker='s', color=cor_pareto)  
         
         axes = plt.gca()
         axes.set_xlim([-0.01,0.52])
