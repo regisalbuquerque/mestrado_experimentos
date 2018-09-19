@@ -7,6 +7,7 @@ import experimental.model.BaseDrifts;
 import experimental.model.MetodoFactory;
 import experimental.analise.ResultadoClassificador;
 import experimental.analise.RelatResumo;
+import experimental.analise.RelatResumo30;
 import experimental.metodos.DDMConfig1;
 import experimental.testes.TestePrequential;
 import java.util.ArrayList;
@@ -54,6 +55,8 @@ public class TestarClassificadorBase {
 			}
 
 			RelatResumo.gravar(listaResultados, path, this.base.getNome() + "_comp_" + seed + "__", true);
+			
+			RelatResumo30.gravar(listaResultados, path, this.base.getNome() + "_comp30_" + seed + "__");
 		
 	}
 
