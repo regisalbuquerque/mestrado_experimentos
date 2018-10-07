@@ -12,9 +12,12 @@ xcoords_gauss = [1000,2000,3000,4000,5000,6000,7000,8000,9000]
 xcoords_circle = [1000,2000,3000]
 
 base = 'KDDCup99'
-xcoords = xcoords_circle
+real = True
+xcoords = xcoords_line
 
-path_file = '/home/regis/Documents/git/regis/mestrado/implementacoes/resultados/metodos/comparacao/' + base
+#Path
+ROOT_PATH = '/Users/regisalbuquerque/Documents/git/regis/mestrado/'
+path_file = ROOT_PATH + 'implementacoes/resultados/metodos/comparacao/' + base
 
 
 dataset_DESDD = pd.read_csv(path_file + '_comp_1__V12_RetreinaTodosComBufferWarning_Ambiguidade_DDM_iteracao.csv')
@@ -57,17 +60,21 @@ fig = plt.figure()
 
 
 plt.plot(X, Y_DESDD, '-', label='DESDD', color='k', markersize=50)
-plt.scatter(DESDD_X_DRIFT, DESDD_Y_DRIFT, label='Detecção DESDD', color='k')
+if real == False:
+    plt.scatter(DESDD_X_DRIFT, DESDD_Y_DRIFT, label='DESDD Detection', color='k')
 
 plt.plot(X, Y_DDM, '--', label='DDM', color='b', markersize=10)
-plt.scatter(DDM_X_DRIFT, DDM_Y_DRIFT, label='Detecção DDM', color='b')
+if real == False:
+    plt.scatter(DDM_X_DRIFT, DDM_Y_DRIFT, label='DDM Detection', color='b')
 
 plt.plot(X, Y_LB, ':', label='LB', color='g', markersize=10)
-plt.scatter(LB_X_DRIFT, LB_Y_DRIFT, label='Detecção LB', color='g')
+if real == False:
+    plt.scatter(LB_X_DRIFT, LB_Y_DRIFT, label='LB Detection', color='g')
 
 #Desabilitar as duas linhas a seguir para as bases reais
-for xc in xcoords:
-    plt.axvline(x=xc)
+if real == False:
+    for xc in xcoords:
+        plt.axvline(x=xc)
 
 
 #ax = fig.add_subplot(111)
@@ -76,9 +83,9 @@ for xc in xcoords:
 #axes.set_xlim([0,1])
 #axes.set_ylim([0,1])
 
-plt.xlabel('x - Iteração')
-plt.ylabel('y - Acurácia')
-plt.title(' Gráfico Iteração x Acurácia \n Base ' + base)
+plt.xlabel('Interation')
+plt.ylabel('Accuracy')
+#plt.title(' Gráfico Iteração x Acurácia \n Base ' + base)
 plt.legend()
 plt.show()
 

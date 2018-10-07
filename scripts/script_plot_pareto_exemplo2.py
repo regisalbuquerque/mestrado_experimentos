@@ -7,6 +7,9 @@ import pandas as pd
 TAM_PONTO = 16;
 TAM_PONTO_ATUAL = 16;
 
+#Path
+ROOT_PATH = '/Users/regisalbuquerque/Documents/git/regis/mestrado/'
+
 #PASTA_CONJUNTOS
 conjunto_homogeneo = 'pareto25_hom/'
 conjunto_heterogeneo = 'pareto/'
@@ -46,12 +49,12 @@ def pontos_atuais(iteracao, tamanho, cor, cor_pareto, path):
     X_pareto = dataset2['diversidade'].values
     Y_pareto = dataset2['acc'].values
     
-    plt.scatter(X, Y, s=tamanho, label='Comitê', marker='^', color=cor)
-    plt.scatter(X_pareto, Y_pareto, s=tamanho, label='Comitê(Pareto)', marker='s', color=cor_pareto)    
+    plt.scatter(X, Y, s=tamanho, label='Ensemble', marker='^', color=cor)
+    plt.scatter(X_pareto, Y_pareto, s=tamanho, label='Ensemble(Pareto)', marker='s', color=cor_pareto)    
 
 def subplot(iteracao, conjunto):
-    path_csv = '/home/regis/Documents/git/regis/mestrado/implementacoes/resultados/ensembles/'+ conjunto + base + '/csv/' + base + '_pareto_it_'
-    path_img = '/home/regis/Documents/git/regis/mestrado/implementacoes/resultados/ensembles/'+ conjunto + base + '/img/' + base + '_pareto_it_'
+    path_csv = ROOT_PATH + 'implementacoes/resultados/ensembles/'+ conjunto + base + '/csv/' + base + '_pareto_it_'
+    path_img = ROOT_PATH + 'implementacoes/resultados/ensembles/'+ conjunto + base + '/img/' + base + '_pareto_it_'
     
     # TODOS OS PONTOS - ANTERIORES
     #pontos(inicio, iteracao, TAM_PONTO, '0.75', path_csv)
@@ -65,9 +68,9 @@ def subplot(iteracao, conjunto):
     axes.set_xlim([-0.01,0.52])
     axes.set_ylim([0,1])
     
-    plt.xlabel('Diversidade')
-    plt.ylabel('Acurácia Prequencial')
-    plt.title('Iteração ' + str(iteracao))
+    plt.xlabel('Diversity')
+    plt.ylabel('Prequential Accuracy')
+    plt.title('Interation ' + str(iteracao))
     plt.legend()
     
 plt.subplot(111)
