@@ -9,6 +9,7 @@ TAM_PONTO_ATUAL = 16;
 
 #Path
 ROOT_PATH = '/Users/regisalbuquerque/Documents/git/regis/mestrado/'
+ROOT_PATH_IMG = '/Users/regisalbuquerque/Desktop/'
 
 #PASTA_CONJUNTOS
 conjunto_homogeneo = 'pareto25_hom/'
@@ -76,7 +77,8 @@ def subplot(iteracao, conjunto):
 plt.subplot(111)
 subplot(3155, conjunto_heterogeneo)   
     
-#fig = plt.figure() 
+#fig = plt.figure()
 plt.show()
 
 #fig.savefig(path_img + str(iteracao_atual) + '.png', bbox_inches='tight')
+plt.savefig(ROOT_PATH_IMG + 'figura.png', dpi=300)

@@ -18,6 +18,7 @@ xcoords = xcoords_line
 #Path
 ROOT_PATH = '/Users/regisalbuquerque/Documents/git/regis/mestrado/'
 path_file = ROOT_PATH + 'implementacoes/resultados/metodos/comparacao/' + base
+ROOT_PATH_IMG = '/Users/regisalbuquerque/Desktop/'
 
 
 dataset_DESDD = pd.read_csv(path_file + '_comp_1__V12_RetreinaTodosComBufferWarning_Ambiguidade_DDM_iteracao.csv')
@@ -48,15 +49,7 @@ LB_Y_DRIFT = DRIFT_LB['taxa'].values;
 LB_QTD_DETECCAO = len(LB_X_DRIFT)
 
 
-
-fig = plt.figure()
-
-# Line   Y_DESDD_RB
-# Sine1  Y_DESDD_RB
-# Gauss  Y_DESDD_LB_RS
-# Circle Y_DESDD_SR
-
-# REAIS Y_DESDD_SR
+fig, ax = plt.subplots()
 
 
 plt.plot(X, Y_DESDD, '-', label='DESDD', color='k', markersize=50)
@@ -87,7 +80,11 @@ plt.xlabel('Interation')
 plt.ylabel('Accuracy')
 #plt.title(' Gráfico Iteração x Acurácia \n Base ' + base)
 plt.legend()
-plt.show()
+#plt.show()
+
+ax.set_ylim(99.9, 100)
+#plt.savefig(ROOT_PATH_IMG + 'figura.eps', format='eps', dpi=1000)
+fig.savefig(ROOT_PATH_IMG + 'figura.eps', format='eps', dpi=1000, bbox_inches='tight')
 
 print('DRIFTS:')
 print(len(xcoords))
