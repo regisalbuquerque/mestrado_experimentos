@@ -6,14 +6,41 @@ import pandas as pd
 
 #style.use('default')
 
-xcoords_line = [1000]
-xcoords_sine1 = [1000,2000,3000,4000,5000,6000,7000,8000,9000]
-xcoords_gauss = [1000,2000,3000,4000,5000,6000,7000,8000,9000]
-xcoords_circle = [1000,2000,3000]
+xcoords = {
+           'Line':[1000], 
+           'Sine1': [1000,2000,3000,4000,5000,6000,7000,8000,9000], 
+           'Gauss': [1000,2000,3000,4000,5000,6000,7000,8000,9000], 
+           'Circle': [1000,2000,3000],
+           'Elec': [],
+           'Spam': [],
+           'KDDCup99': []
+           }
+
+rangesy = {
+        'Line':[91,100], 
+        'Sine1': [70,100], 
+        'Gauss': [70,100], 
+        'Circle': [87,100],
+        'Elec': [80,100],
+        'Spam': [87,100],
+        'KDDCup99': [99.9,100]
+        }
+
+baseEhReal = {
+        'Line':False, 
+        'Sine1': False, 
+        'Gauss': False, 
+        'Circle': False,
+        'Elec': True,
+        'Spam': True,
+        'KDDCup99': True
+        }
+
 
 base = 'KDDCup99'
-real = True
-xcoords = xcoords_line
+real = baseEhReal[base]
+xcoord = xcoords[base]
+rangey = rangesy[base]
 
 #Path
 ROOT_PATH = '/Users/regisalbuquerque/Documents/git/regis/mestrado/'
@@ -66,7 +93,7 @@ if real == False:
 
 #Desabilitar as duas linhas a seguir para as bases reais
 if real == False:
-    for xc in xcoords:
+    for xc in xcoord:
         plt.axvline(x=xc)
 
 
@@ -82,9 +109,9 @@ plt.ylabel('Accuracy')
 plt.legend()
 #plt.show()
 
-ax.set_ylim(99.9, 100)
+ax.set_ylim(rangey[0], rangey[1])
 #plt.savefig(ROOT_PATH_IMG + 'figura.eps', format='eps', dpi=1000)
-fig.savefig(ROOT_PATH_IMG + 'figura.eps', format='eps', dpi=1000, bbox_inches='tight')
+fig.savefig(ROOT_PATH_IMG + 'figura_' + base + '.eps', format='eps', dpi=1200, bbox_inches='tight')
 
 print('DRIFTS:')
 print(len(xcoords))
@@ -97,10 +124,10 @@ DDM_1_DETECCAO = []
 DDM_ATRASO_ACUMULADO = 0;
 LB_1_DETECCAO = []
 LB_ATRASO_ACUMULADO = 0;
-for idx, val in enumerate(xcoords):
-    if (idx+1 < len(xcoords)):
+for idx, val in enumerate(xcoord):
+    if (idx+1 < len(xcoord)):
         #Proximo
-        proximo = xcoords[idx+1]
+        proximo = xcoord[idx+1]
         
         for desdd in DESDD_X_DRIFT:
             if (desdd >= val and desdd < proximo):
@@ -135,13 +162,13 @@ for idx, val in enumerate(xcoords):
                 break
         
         
-TAXA_DESDD = DESDD_ATRASO_ACUMULADO / len(xcoords)
-TAXA_DDM = DDM_ATRASO_ACUMULADO / len(xcoords)
-TAXA_LB = LB_ATRASO_ACUMULADO / len(xcoords)
+TAXA_DESDD = DESDD_ATRASO_ACUMULADO / len(xcoord)
+TAXA_DDM = DDM_ATRASO_ACUMULADO / len(xcoord)
+TAXA_LB = LB_ATRASO_ACUMULADO / len(xcoord)
 
-FD_DESDD = DESDD_QTD_DETECACAO - len(xcoords)
-FD_DDM = DDM_QTD_DETECCAO - len(xcoords)
-FD_LB = LB_QTD_DETECCAO - len(xcoords)
+FD_DESDD = DESDD_QTD_DETECACAO - len(xcoord)
+FD_DDM = DDM_QTD_DETECCAO - len(xcoord)
+FD_LB = LB_QTD_DETECCAO - len(xcoord)
         
         
 
