@@ -71,14 +71,13 @@ def subplot(iteracao, conjunto):
     
     plt.xlabel('Diversity')
     plt.ylabel('Prequential Accuracy')
-    plt.title('Interation ' + str(iteracao))
+    plt.title('Iteration ' + str(iteracao))
     plt.legend()
     
 plt.subplot(111)
 subplot(3155, conjunto_heterogeneo)   
     
 #fig = plt.figure()
-plt.show()
+#plt.show()
 
-#fig.savefig(path_img + str(iteracao_atual) + '.png', bbox_inches='tight')
-plt.savefig(ROOT_PATH_IMG + 'figura.png', dpi=300)
+plt.savefig(ROOT_PATH_IMG + 'pareto_exemplo3_corrigido_en' + '.eps', format='eps', dpi=1200, bbox_inches='tight')

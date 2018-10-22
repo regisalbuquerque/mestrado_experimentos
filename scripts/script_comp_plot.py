@@ -103,7 +103,7 @@ if real == False:
 #axes.set_xlim([0,1])
 #axes.set_ylim([0,1])
 
-plt.xlabel('Interation')
+plt.xlabel('Iteration')
 plt.ylabel('Accuracy')
 #plt.title(' Gráfico Iteração x Acurácia \n Base ' + base)
 plt.legend()
