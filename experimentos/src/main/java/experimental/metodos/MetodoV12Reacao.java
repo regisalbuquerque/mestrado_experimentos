@@ -19,6 +19,7 @@ public class MetodoV12Reacao implements MetodoTeste{
     private String medidaCalculo;
     private int randomSeed = 1;
     private String detector = "DDM";
+    private int numBaseLeaners = 1;
     
     public MetodoV12Reacao(String reacao)
     {
@@ -31,6 +32,14 @@ public class MetodoV12Reacao implements MetodoTeste{
        this.reacao = reacao;
        this.medidaCalculo = medida;
        this.randomSeed = randomSeed;
+    }
+    
+    public MetodoV12Reacao(String reacao, String medida, int randomSeed, int numBaseLeaners)
+    {
+       this.reacao = reacao;
+       this.medidaCalculo = medida;
+       this.randomSeed = randomSeed;
+       this.numBaseLeaners = numBaseLeaners;
     }
     
     public MetodoV12Reacao(String reacao, String medida, int randomSeed, String detectorOpt)
@@ -54,7 +63,7 @@ public class MetodoV12Reacao implements MetodoTeste{
         metodoClassificadorV12.selectionOptionEstrategiaSelecao.setChosenLabel("Pareto");
         metodoClassificadorV12.selectionOptionEstrategiaRecuperacao.setChosenLabel(this.reacao);
         metodoClassificadorV12.ensemblesNumRemoverRecuperacaoOption.setValue(-1);
-        metodoClassificadorV12.numBaseLeanersOption.setValue(1);
+        metodoClassificadorV12.numBaseLeanersOption.setValue(this.numBaseLeaners);
         metodoClassificadorV12.baseLearner1Option.setValueViaCLIString(Configuracoes.BASE_CLASSIFIER);
         metodoClassificadorV12.baseLearner2Option.setValueViaCLIString("lazy.kNN");
         metodoClassificadorV12.baseLearner3Option.setValueViaCLIString("trees.RandomHoeffdingTree");

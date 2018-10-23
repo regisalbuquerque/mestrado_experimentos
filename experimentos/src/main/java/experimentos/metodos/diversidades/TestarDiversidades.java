@@ -37,31 +37,33 @@ public class TestarDiversidades {
         
         MetodoFactory[] classificadores = new MetodoFactory[6];
         
+        int num_bases = 5;
+        
         
         //classificadores[0] = new LeveragingBagSelectionV2Reacao("SimpleReset", "Ambiguidade", seed).getMetodo();
         //classificadores[1] = new MetodoV12Reacao("SimpleReset","Ambiguidade", seed).getMetodo(); 
-        classificadores[0] = new MetodoV12Reacao("RetreinaTodosComBufferWarning","Ambiguidade", seed).getMetodo(); 
+        classificadores[0] = new MetodoV12Reacao("RetreinaTodosComBufferWarning","Ambiguidade", seed, num_bases).getMetodo(); 
         
         //classificadores[3] = new LeveragingBagSelectionV2Reacao("SimpleReset", "Margem", seed).getMetodo();
         //classificadores[4] = new MetodoV12Reacao("SimpleReset","Margem", seed).getMetodo(); 
-        classificadores[1] = new MetodoV12Reacao("RetreinaTodosComBufferWarning","Margem", seed).getMetodo();
+        classificadores[1] = new MetodoV12Reacao("RetreinaTodosComBufferWarning","Margem", seed, num_bases).getMetodo();
         
         //classificadores[6] = new LeveragingBagSelectionV2Reacao("SimpleReset", "Qstatistics", seed).getMetodo();
         //classificadores[7] = new MetodoV12Reacao("SimpleReset","Qstatistics", seed).getMetodo(); 
-        classificadores[2] = new MetodoV12Reacao("RetreinaTodosComBufferWarning","Qstatistics", seed).getMetodo();
+        classificadores[2] = new MetodoV12Reacao("RetreinaTodosComBufferWarning","Qstatistics", seed, num_bases).getMetodo();
         
         //classificadores[9] = new LeveragingBagSelectionV2Reacao("SimpleReset", "Correlation", seed).getMetodo();
         //classificadores[10] = new MetodoV12Reacao("SimpleReset","Correlation", seed).getMetodo(); 
-        classificadores[3] = new MetodoV12Reacao("RetreinaTodosComBufferWarning","Correlation", seed).getMetodo();
+        classificadores[3] = new MetodoV12Reacao("RetreinaTodosComBufferWarning","Correlation", seed, num_bases).getMetodo();
         
         //classificadores[12] = new LeveragingBagSelectionV2Reacao("SimpleReset", "Disagreement", seed).getMetodo();
         //classificadores[13] = new MetodoV12Reacao("SimpleReset","Disagreement", seed).getMetodo(); 
-        classificadores[4] = new MetodoV12Reacao("RetreinaTodosComBufferWarning","Disagreement", seed).getMetodo();
+        classificadores[4] = new MetodoV12Reacao("RetreinaTodosComBufferWarning","Disagreement", seed, num_bases).getMetodo();
 
        
         //classificadores[15] = new LeveragingBagSelectionV2Reacao("SimpleReset", "DoubleFault", seed).getMetodo();
         //classificadores[16] = new MetodoV12Reacao("SimpleReset","DoubleFault", seed).getMetodo(); 
-        classificadores[5] = new MetodoV12Reacao("RetreinaTodosComBufferWarning","DoubleFault", seed).getMetodo();
+        classificadores[5] = new MetodoV12Reacao("RetreinaTodosComBufferWarning","DoubleFault", seed, num_bases).getMetodo();
         
         
         for (int i = 0; i < classificadores.length; i++) {
@@ -73,7 +75,7 @@ public class TestarDiversidades {
             listaResultados.add(resultado);
         }
         
-        RelatResumo.gravar(listaResultados, path, this.base.getNome(), false);
+        RelatResumo.gravar(listaResultados, path, this.base.getNome()+'_'+num_bases, false);
     }
     
 }
