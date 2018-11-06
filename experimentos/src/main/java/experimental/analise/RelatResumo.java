@@ -13,7 +13,7 @@ public class RelatResumo {
         //Gravar o CSV
         CSVUtil csv = new CSVUtil(path, fileNameWithoutEXT + "_resumo.csv");
 
-        csv.cabecalho("cod,ambiguidade_media,margem_media,qstatistics_media,correlation_media,disagreement_media,doublefault_media,taxa_media,acc_media,tempo,RamHours");
+        csv.cabecalho("cod,taxa_media,acc_media,tempo,RamHours");
 
         CSVUtil csvITER = null;
         
@@ -78,12 +78,6 @@ public class RelatResumo {
             double media_acc = soma_acc / tam;
 
             csv.registro(rt.getCodigo() + ","
-                    + media_ambiguidade + ","
-                    + media_margem + ","
-                    + media_qstatistics + ","
-                    + media_correlation + ","
-                    + media_disagreement + ","
-                    + media_doublefault + ","
                     + media_taxa + ","
                     + media_acc + ","
                     + rt.getTempo() + ","

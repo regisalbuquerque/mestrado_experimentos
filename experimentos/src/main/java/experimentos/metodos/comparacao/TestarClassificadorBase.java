@@ -3,6 +3,7 @@ package experimentos.metodos.comparacao;
 import experimental.metodos.LeveragingBagVersaoOriginal;
 import experimental.metodos.MetodoV12Reacao;
 import experimental.metodos.MetodoV13Config1;
+import experimental.metodos.MetodoV14Config1;
 import experimental.model.Base;
 import experimental.model.BaseDrifts;
 import experimental.model.MetodoFactory;
@@ -33,7 +34,7 @@ public class TestarClassificadorBase {
 			
 			List<ResultadoClassificador> listaResultados = new ArrayList<>();
 
-			MetodoFactory[] classificadores = new MetodoFactory[5];
+			MetodoFactory[] classificadores = new MetodoFactory[7];
 
 			// Método v12
 			classificadores[0] = new MetodoV12Reacao("RetreinaTodosComBufferWarning", "Ambiguidade", seed).getMetodo();
@@ -49,6 +50,12 @@ public class TestarClassificadorBase {
 			
 			// Método v13
 			classificadores[4] = new MetodoV13Config1("RetreinaTodosComBufferWarning", "Ambiguidade", seed, "DDM", 5).getMetodo();
+			
+			// Método v14
+			classificadores[5] = new MetodoV14Config1("RetreinaTodosComBufferWarning", "Ambiguidade", seed, "DDM", 1).getMetodo();
+						
+			// Método v14
+			classificadores[6] = new MetodoV14Config1("RetreinaTodosComBufferWarning", "Ambiguidade", seed, "DDM", 5).getMetodo();
 
 			for (int i = 0; i < classificadores.length; i++) {
 				System.out.println();
