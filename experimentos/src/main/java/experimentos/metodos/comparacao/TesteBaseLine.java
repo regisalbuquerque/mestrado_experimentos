@@ -8,11 +8,10 @@ public class TesteBaseLine {
     
     public static void main(String[] args) {
         
-        BaseFactory base = new BaseLine();
+		BaseFactory base = new BaseLine();
         
         TestarClassificadorBase testarBase = new TestarClassificadorBase(Configuracoes.PATH_COMPARACAO, base.getBase(), base.getBaseDrifts());
         testarBase.executa();
-        
         
     }
     

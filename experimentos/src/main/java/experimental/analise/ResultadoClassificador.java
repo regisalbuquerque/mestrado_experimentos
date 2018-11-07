@@ -13,6 +13,8 @@ public class ResultadoClassificador{
     private List<Integer> logDrifts;
     private double tempo;
     private double ramHours;
+    private Double acuraciaMedia;
+    private Double acuraciaPrequencialMedia;
 
     public ResultadoClassificador() {
         listaRegistrosIteracoes = new ArrayList<>();
@@ -58,9 +60,39 @@ public class ResultadoClassificador{
         
         return registroIteracao;
     }
-
     
-    public String getCodigo() {
+    private void calcular()
+    {
+    	int i = 0;
+    	double soma_taxa = 0;
+    	double soma_acc = 0;
+        for (RegistroIteracao registro : getListaRegistrosIteracoes()) {
+            i++;
+            soma_taxa += registro.getTaxaAcerto();
+            soma_acc += registro.getAcuraciaPrequencial();
+
+        }
+
+        double tam = i;
+        
+        double media_taxa = soma_taxa / tam;
+        double media_acc = soma_acc / tam;
+        
+        this.acuraciaMedia = media_taxa;
+        this.acuraciaPrequencialMedia = media_acc;
+    }
+
+    public Double getAcuraciaMedia() {
+    	if (acuraciaMedia == null) calcular();
+		return acuraciaMedia;
+	}
+
+	public Double getAcuraciaPrequencialMedia() {
+		if (acuraciaPrequencialMedia == null) calcular();
+		return acuraciaPrequencialMedia;
+	}
+
+	public String getCodigo() {
         return codigo;
     }
 
