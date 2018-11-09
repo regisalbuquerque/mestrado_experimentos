@@ -10,6 +10,7 @@ import experimental.metodos.MetodoV13Config1;
 import experimental.metodos.MetodoV14Config1;
 import experimental.model.MetodoFactory;
 import experimental.util.CSVUtil;
+import experimental.util.Registro;
 import experimentos.config.Configuracoes;
 
 public class TesteV13_V14_30x_Sinteticas {
@@ -41,8 +42,11 @@ public class TesteV13_V14_30x_Sinteticas {
 		for (int i = 0; i < NUM_EXECUCOES; i++) {
 			System.out.println(" EXECUÇÃO " + (i + 1) + " de " + NUM_EXECUCOES);
 			
+			bases[0] = new BaseLine();
+			//bases[1] = new BaseSine1();
+			//bases[2] = new BaseGauss();
+			//bases[3] = new BaseCircle();
 			
-
 
 			MetodoFactory[] classificadores = new MetodoFactory[NUM_CLASSIFICADORES];
 
@@ -66,10 +70,10 @@ public class TesteV13_V14_30x_Sinteticas {
 
 			for (int c = 0; c < NUM_CLASSIFICADORES; c++) {
 				System.out.println(" >>> CLASSIFICADOR " + (c + 1) + " de " + classificadores.length);
-				for (int b = 0; b < NUM_BASES; b++) {
+				for (int b = 0; b < NUM_BASES; b++) 
+				{
 					System.out.println(" >>> ooo BASE " + (b + 1) + " de " + bases.length);
-					TestarClassificadorBase testarBase = new TestarClassificadorBase(bases[b].getBase(),
-							bases[b].getBaseDrifts());
+					TestarClassificadorBase testarBase = new TestarClassificadorBase(bases[b].getBase(), bases[b].getBaseDrifts());
 					ResultadoClassificador resultadoClassificador = testarBase.executa(classificadores[c]);
 					resultado[i][c][b] = resultadoClassificador.getAcuraciaMedia();
 				}
@@ -96,38 +100,55 @@ public class TesteV13_V14_30x_Sinteticas {
 
 				medias[c][b] = media;
 				desvios[c][b] = desvio;
-				
 			}
 		}
 		
 		//Gravar o CSV
         CSVUtil csv = new CSVUtil(Configuracoes.PATH_COMPARACAO, "Testev13_v14_30x_Sinteticas.csv");
 
-       // csv.cabecalho("classificador,line_acc,line_des,sine1_acc,sine1_dess,gauss_acc,gauss_dess,circle_acc,circle_dess");
-        csv.cabecalho("classificador,line_acc,line_des");
+        Registro registroCab1 = new Registro();
+        registroCab1.adiciona("classificador");
+        for (int i = 0; i < NUM_EXECUCOES; i++) {
+        	registroCab1.adiciona("m"+i);
+        	registroCab1.adiciona("d"+i);
+		}
+        csv.registro(registroCab1.toString());
         
-        for (int c = 0; c < NUM_CLASSIFICADORES; c++) {
-        	
-//        	csv.registro(
-//        			classificadores_nome[c] + ","
-//                    + medias[c][0] + ","
-//                    + desvios[c][0] + ","
-//                    		+ medias[c][1] + ","
-//                            + desvios[c][1] + ","
-//                            		+ medias[c][2] + ","
-//                                    + desvios[c][2] + ","
-//                                    		+ medias[c][3] + ","
-//                                            + desvios[c][3]);
-        	
-        	csv.registro(
-        			classificadores_nome[c] + ","
-                    + medias[c][0] + ","
-                    + desvios[c][0] );
-        	
+        
+        for (int c = 0; c < NUM_CLASSIFICADORES; c++) 
+        {
+        	Registro registro = new Registro();
+        	registro.adiciona(classificadores_nome[c]);
+        	for (int b = 0; b < NUM_BASES; b++) {
+        		registro.adiciona(medias[c][b]);
+            	registro.adiciona(desvios[c][b]);
+			}
+        	csv.registro(registro.toString());
 		}
         csv.fechar();
+        
+        
+        //Gravar o CSV
+        CSVUtil csvDados = new CSVUtil(Configuracoes.PATH_COMPARACAO, "Testev13_v14_30x_Dados_Sinteticas.csv");
 
-
+        Registro registroCab2 = new Registro();
+        registroCab2.adiciona("classificador");
+        for (int i = 0; i < NUM_EXECUCOES; i++) {
+        	registroCab2.adiciona("i"+i);
+		}
+        csvDados.registro(registroCab2.toString());
+        
+        for (int c = 0; c < NUM_CLASSIFICADORES; c++) 
+        {
+        	Registro registro = new Registro();
+        	registro.adiciona(classificadores_nome[c]);
+        	for (int b = 0; b < NUM_BASES; b++) {
+        		for (int i = 0; i < NUM_EXECUCOES; i++) {
+        			registro.adiciona(resultado[i][c][b]);
+        		}
+			}
+        	csvDados.registro(registro.toString());
+		}
+        csvDados.fechar();
 	}
-
 }
