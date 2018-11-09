@@ -1,5 +1,8 @@
 package experimentos.metodos.comparacao;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import experimental.analise.ResultadoClassificador;
 import experimental.bases.BaseCircle;
 import experimental.bases.BaseFactory;
@@ -21,6 +24,8 @@ public class TesteV13_V14_30x_Sinteticas {
 		int seed = 1;
 		int NUM_CLASSIFICADORES = 4;
 		int NUM_BASES = 1;
+		
+		List<ResultadoClassificador> listaResultados = new ArrayList<>();
 		
 		BaseFactory[] bases = new BaseFactory[NUM_BASES];
 
@@ -76,6 +81,7 @@ public class TesteV13_V14_30x_Sinteticas {
 					TestarClassificadorBase testarBase = new TestarClassificadorBase(bases[b].getBase(), bases[b].getBaseDrifts());
 					ResultadoClassificador resultadoClassificador = testarBase.executa(classificadores[c]);
 					resultado[i][c][b] = resultadoClassificador.getAcuraciaMedia();
+					listaResultados.add(resultadoClassificador);
 				}
 			}
 		}
