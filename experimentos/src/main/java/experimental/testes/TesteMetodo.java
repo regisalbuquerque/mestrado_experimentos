@@ -60,7 +60,7 @@ public class TesteMetodo {
                 if (detector.detectouDrift()) 
                 {
                 	ResultadoTeste.registraDrift(iteracao);
-                	System.out.print("" + iteracao + ", ");
+                	//System.out.print("" + iteracao + ", ");
                 }
             }
             
