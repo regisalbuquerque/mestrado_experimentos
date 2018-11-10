@@ -20,20 +20,16 @@ public class TesteV13_V14_30x_Sinteticas {
 
 	public static void main(String[] args) {
 
-		int NUM_EXECUCOES = 2;
+		int NUM_EXECUCOES = 30;
 		int seed = 1;
 		int NUM_CLASSIFICADORES = 4;
-		int NUM_BASES = 1;
+		int NUM_BASES = 4;
 		
 		List<ResultadoClassificador> listaResultados = new ArrayList<>();
 		
 		BaseFactory[] bases = new BaseFactory[NUM_BASES];
+		MetodoFactory[] classificadores = new MetodoFactory[NUM_CLASSIFICADORES];
 
-		bases[0] = new BaseLine();
-		//bases[1] = new BaseSine1();
-		//bases[2] = new BaseGauss();
-		//bases[3] = new BaseCircle();
-		
 		double[][][] resultado = new double[NUM_EXECUCOES][NUM_CLASSIFICADORES][NUM_BASES];
 		double[][] medias = new double[NUM_CLASSIFICADORES][NUM_BASES];
 		double[][] desvios = new double[NUM_CLASSIFICADORES][NUM_BASES];
@@ -48,12 +44,10 @@ public class TesteV13_V14_30x_Sinteticas {
 			System.out.println(" EXECUÇÃO " + (i + 1) + " de " + NUM_EXECUCOES);
 			
 			bases[0] = new BaseLine();
-			//bases[1] = new BaseSine1();
-			//bases[2] = new BaseGauss();
-			//bases[3] = new BaseCircle();
+			bases[1] = new BaseSine1();
+			bases[2] = new BaseGauss();
+			bases[3] = new BaseCircle();
 			
-
-			MetodoFactory[] classificadores = new MetodoFactory[NUM_CLASSIFICADORES];
 
 			// Método v13
 			classificadores[0] = new MetodoV13Config1("RetreinaTodosComBufferWarning", "Ambiguidade", seed, "DDM", 1)
@@ -114,7 +108,7 @@ public class TesteV13_V14_30x_Sinteticas {
 
         Registro registroCab1 = new Registro();
         registroCab1.adiciona("classificador");
-        for (int i = 0; i < NUM_EXECUCOES; i++) {
+        for (int i = 0; i < NUM_BASES; i++) {
         	registroCab1.adiciona("m"+i);
         	registroCab1.adiciona("d"+i);
 		}
