@@ -3,6 +3,7 @@ package experimentos.metodos.comparacao;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.ufam.metodos.v13.MetodoClassificadorV13;
 import experimental.analise.ResultadoClassificador;
 import experimental.bases.BaseCircle;
 import experimental.bases.BaseFactory;
@@ -22,7 +23,7 @@ public class TesteV13_V14_30x_Sinteticas {
 
 		int NUM_EXECUCOES = 30;
 		int seed = 1;
-		int NUM_CLASSIFICADORES = 4;
+		int NUM_CLASSIFICADORES = 1;
 		int NUM_BASES = 4;
 		
 		List<ResultadoClassificador> listaResultados = new ArrayList<>();
@@ -36,9 +37,9 @@ public class TesteV13_V14_30x_Sinteticas {
 		
 		String[] classificadores_nome = new String[NUM_CLASSIFICADORES];
 		classificadores_nome[0] = "V13_HOM";
-		classificadores_nome[1] = "V13_HET";
-		classificadores_nome[2] = "V14_HOM";
-		classificadores_nome[3] = "V14_HET";
+//		classificadores_nome[1] = "V13_HET";
+//		classificadores_nome[2] = "V14_HOM";
+//		classificadores_nome[3] = "V14_HET";
 		
 		for (int i = 0; i < NUM_EXECUCOES; i++) {
 			System.out.println(" EXECUÇÃO " + (i + 1) + " de " + NUM_EXECUCOES);
@@ -53,17 +54,17 @@ public class TesteV13_V14_30x_Sinteticas {
 			classificadores[0] = new MetodoV13Config1("RetreinaTodosComBufferWarning", "Ambiguidade", seed, "DDM", 1)
 					.getMetodo();
 
-			// Método v13
-			classificadores[1] = new MetodoV13Config1("RetreinaTodosComBufferWarning", "Ambiguidade", seed, "DDM", 5)
-					.getMetodo();
-
-			// Método v14
-			classificadores[2] = new MetodoV14Config1("RetreinaTodosComBufferWarning", "Ambiguidade", seed, "DDM", 1)
-					.getMetodo();
-
-			// Método v14
-			classificadores[3] = new MetodoV14Config1("RetreinaTodosComBufferWarning", "Ambiguidade", seed, "DDM", 5)
-					.getMetodo();
+//			// Método v13
+//			classificadores[1] = new MetodoV13Config1("RetreinaTodosComBufferWarning", "Ambiguidade", seed, "DDM", 5)
+//					.getMetodo();
+//
+//			// Método v14
+//			classificadores[2] = new MetodoV14Config1("RetreinaTodosComBufferWarning", "Ambiguidade", seed, "DDM", 1)
+//					.getMetodo();
+//
+//			// Método v14
+//			classificadores[3] = new MetodoV14Config1("RetreinaTodosComBufferWarning", "Ambiguidade", seed, "DDM", 5)
+//					.getMetodo();
 			
 			
 
