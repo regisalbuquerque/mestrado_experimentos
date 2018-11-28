@@ -6,6 +6,7 @@ import com.yahoo.labs.samoa.instances.Instance;
 
 import br.ufam.metodo.util.dados.Dados;
 import br.ufam.metodo.util.drift.DetectorDrift;
+import br.ufam.metodo.util.model.IEnsembleSelection;
 import experimental.analise.ResultadoClassificador;
 import experimental.model.Base;
 import experimental.model.BaseDrifts;
@@ -48,7 +49,16 @@ public class TesteMetodo {
                 indicadores.errou();
             }
 
-            ResultadoTeste.registra(iteracao, null, indicadores, acertou);
+            if (classificadorEmTeste instanceof IEnsembleSelection)
+            {
+            	 ResultadoTeste.registra(iteracao, null, indicadores, acertou, ((IEnsembleSelection)classificadorEmTeste).getUltimoEnsembleSelecionadoLambda());
+            }
+            else
+            {
+            	 ResultadoTeste.registra(iteracao, null, indicadores, acertou, null);
+            }
+            
+           
             
             // ####  TREINA   ########################################
             classificadorEmTeste.trainOnInstance(instanciaAtual);

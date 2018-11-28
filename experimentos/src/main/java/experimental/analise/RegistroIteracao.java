@@ -9,13 +9,23 @@ public class RegistroIteracao {
     private final double taxaAcerto;
     private final double taxaErro;
     private final boolean acertou;
+    private final Double lambdaSelecionado;
     
     private final double acuraciaPrequencial;
     private final double desvioAcuraciaPrequencial;
     private final double erroPrequencial;
     private final double desvioErroPrequencial;
 
-    public RegistroIteracao(int iteracao, Diversidades diversidades, double taxaAcerto, double taxaErro, boolean acertou, double acuraciaPrequencial, double desvioAcuraciaPrequencial, double erroPrequencial, double desvioErroPrequencial) {
+    public RegistroIteracao(int iteracao, 
+    		Diversidades diversidades, 
+    		double taxaAcerto, 
+    		double taxaErro, 
+    		boolean acertou, 
+    		double acuraciaPrequencial, 
+    		double desvioAcuraciaPrequencial, 
+    		double erroPrequencial, 
+    		double desvioErroPrequencial,
+    		double lambdaSelecionado) {
         this.iteracao = iteracao;
         this.diversidades = diversidades;
         this.taxaAcerto = taxaAcerto;
@@ -25,6 +35,7 @@ public class RegistroIteracao {
         this.desvioAcuraciaPrequencial = desvioAcuraciaPrequencial;
         this.erroPrequencial = erroPrequencial;
         this.desvioErroPrequencial = desvioErroPrequencial;
+        this.lambdaSelecionado = lambdaSelecionado;
     }
 
     public int getIteracao() {
@@ -65,6 +76,11 @@ public class RegistroIteracao {
         return acertou;
     }
 
+	public double getLambdaSelecionado() {
+		return lambdaSelecionado;
+	}
+
+    
  
      
 }

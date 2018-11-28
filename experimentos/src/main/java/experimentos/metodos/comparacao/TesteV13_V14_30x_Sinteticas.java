@@ -36,8 +36,8 @@ public class TesteV13_V14_30x_Sinteticas {
 		double[][] desvios = new double[NUM_CLASSIFICADORES][NUM_BASES];
 		
 		String[] classificadores_nome = new String[NUM_CLASSIFICADORES];
-		classificadores_nome[0] = "V13_HOM";
-//		classificadores_nome[1] = "V13_HET";
+//		classificadores_nome[0] = "V13_HOM";
+		classificadores_nome[0] = "V13_HET";
 //		classificadores_nome[2] = "V14_HOM";
 //		classificadores_nome[3] = "V14_HET";
 		
@@ -51,13 +51,15 @@ public class TesteV13_V14_30x_Sinteticas {
 			
 
 			// Método v13
-			classificadores[0] = new MetodoV13Config1("RetreinaTodosComBufferWarning", "Ambiguidade", seed, "DDM", 1)
-					.getMetodo();
-
-//			// Método v13
-//			classificadores[1] = new MetodoV13Config1("RetreinaTodosComBufferWarning", "Ambiguidade", seed, "DDM", 5)
+//			classificadores[0] = new MetodoV13Config1("RetreinaTodosComBufferWarning", "Ambiguidade", seed, "DDM", 1)
 //					.getMetodo();
-//
+
+			// Método v13
+			classificadores[0] = new MetodoV13Config1("RetreinaTodosComBufferWarning", "Ambiguidade", seed, "DDM", 5)
+					.getMetodo();
+			
+			MetodoClassificadorV13.gerarLambdas(); //Para o V13 os lambdas são gerados para cada execução
+
 //			// Método v14
 //			classificadores[2] = new MetodoV14Config1("RetreinaTodosComBufferWarning", "Ambiguidade", seed, "DDM", 1)
 //					.getMetodo();

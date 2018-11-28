@@ -81,7 +81,7 @@ public class TesteEnsemble {
             //Calcular a diversidade usando os subclassificadores
             Diversidades diversidades = DiversidadeUtil.calculaDiversidades(predicoes);
             
-            teste.registra(iteracao, diversidades, indicadores, acertou);
+            teste.registra(iteracao, diversidades, indicadores, acertou, null);
             
             // ####  TREINA   ########################################
             classificadorEmTeste.trainOnInstance(instanciaAtual);

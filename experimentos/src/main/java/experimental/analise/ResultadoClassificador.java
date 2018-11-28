@@ -36,14 +36,19 @@ public class ResultadoClassificador{
         logDrifts.add(iteracao);
     }
     
-    public void registra(int iteracao, Diversidades diversidades, Indicadores indicadores, boolean acertou)
+    public void registra(int iteracao, Diversidades diversidades, Indicadores indicadores, boolean acertou, Double lambdaSelecionado)
     {
-        listaRegistrosIteracoes.add(new RegistroIteracao(iteracao, diversidades, indicadores.getTaxaAcertoAtual(), indicadores.getTaxaErroAtual(), acertou, indicadores.getAcuraciaPrequencial(), indicadores.getDesvioAcuraciaPrequencial(), indicadores.getErroPrequencial(), indicadores.getDesvioErroPrequencial()));
+        listaRegistrosIteracoes.add(new RegistroIteracao(iteracao, diversidades, indicadores.getTaxaAcertoAtual(), 
+        		indicadores.getTaxaErroAtual(), acertou, indicadores.getAcuraciaPrequencial(), 
+        		indicadores.getDesvioAcuraciaPrequencial(), indicadores.getErroPrequencial(), indicadores.getDesvioErroPrequencial(),
+        		lambdaSelecionado));
     }
     
-    public void registra(int iteracao, Diversidades diversidades, double taxaAcerto, double taxaErro, boolean acertou, double acuraciaPrequencial, double desvioAcuraciaPrequencial, double erroPrequencial, double desvioErroPrequencial)
+    public void registra(int iteracao, Diversidades diversidades, double taxaAcerto, double taxaErro, boolean acertou,
+    		double acuraciaPrequencial, double desvioAcuraciaPrequencial, double erroPrequencial, double desvioErroPrequencial, Double lambdaSelecionado)
     {
-        listaRegistrosIteracoes.add(new RegistroIteracao(iteracao, diversidades, taxaAcerto, taxaErro, acertou, acuraciaPrequencial, desvioAcuraciaPrequencial, erroPrequencial, desvioErroPrequencial));
+        listaRegistrosIteracoes.add(new RegistroIteracao(iteracao, diversidades, taxaAcerto, taxaErro, 
+        		acertou, acuraciaPrequencial, desvioAcuraciaPrequencial, erroPrequencial, desvioErroPrequencial, lambdaSelecionado));
     }
 
     public List<Integer> getLogDrifts() {
