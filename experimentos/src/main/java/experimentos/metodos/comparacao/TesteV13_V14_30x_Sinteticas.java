@@ -3,8 +3,12 @@ package experimentos.metodos.comparacao;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.ufam.metodo.util.medidor.Resultado;
+import br.ufam.metodo.util.model.IEnsemblesResultados;
 import br.ufam.metodos.v13.MetodoClassificadorV13;
-import experimental.analise.ResultadoClassificador;
+import br.ufam.util.CSVUtil;
+import br.ufam.util.Registro;
+import experimental.analise.AnaliseCompleta;
 import experimental.bases.BaseCircle;
 import experimental.bases.BaseFactory;
 import experimental.bases.BaseGauss;
@@ -13,20 +17,18 @@ import experimental.bases.BaseSine1;
 import experimental.metodos.MetodoV13Config1;
 import experimental.metodos.MetodoV14Config1;
 import experimental.model.MetodoFactory;
-import experimental.util.CSVUtil;
-import experimental.util.Registro;
 import experimentos.config.Configuracoes;
 
 public class TesteV13_V14_30x_Sinteticas {
 
 	public static void main(String[] args) {
 
-		int NUM_EXECUCOES = 30;
+		int NUM_EXECUCOES = 3;
 		int seed = 1;
 		int NUM_CLASSIFICADORES = 1;
-		int NUM_BASES = 4;
+		int NUM_BASES = 1;
 		
-		List<ResultadoClassificador> listaResultados = new ArrayList<>();
+		List<Resultado> listaResultados = new ArrayList<>();
 		
 		BaseFactory[] bases = new BaseFactory[NUM_BASES];
 		MetodoFactory[] classificadores = new MetodoFactory[NUM_CLASSIFICADORES];
@@ -41,13 +43,19 @@ public class TesteV13_V14_30x_Sinteticas {
 //		classificadores_nome[2] = "V14_HOM";
 //		classificadores_nome[3] = "V14_HET";
 		
+		String[] bases_nome = new String[NUM_BASES];
+		bases_nome[0] = "Line";
+//		bases_nome[1] = "Sine1";
+//		bases_nome[2] = "Gauss";
+//		bases_nome[3] = "Circle";
+		
 		for (int i = 0; i < NUM_EXECUCOES; i++) {
 			System.out.println(" EXECUÇÃO " + (i + 1) + " de " + NUM_EXECUCOES);
 			
 			bases[0] = new BaseLine();
-			bases[1] = new BaseSine1();
-			bases[2] = new BaseGauss();
-			bases[3] = new BaseCircle();
+//			bases[1] = new BaseSine1();
+//			bases[2] = new BaseGauss();
+//			bases[3] = new BaseCircle();
 			
 
 			// Método v13
@@ -76,9 +84,21 @@ public class TesteV13_V14_30x_Sinteticas {
 				{
 					System.out.println(" >>> ooo BASE " + (b + 1) + " de " + bases.length);
 					TestarClassificadorBase testarBase = new TestarClassificadorBase(bases[b].getBase(), bases[b].getBaseDrifts());
-					ResultadoClassificador resultadoClassificador = testarBase.executa(classificadores[c]);
+					Resultado resultadoClassificador = testarBase.executa(classificadores[c]);
 					resultado[i][c][b] = resultadoClassificador.getAcuraciaMedia();
 					listaResultados.add(resultadoClassificador);
+					
+					if (classificadores[c].getClassificador() instanceof IEnsemblesResultados)
+					{
+						IEnsemblesResultados classificadorEnsembler = (IEnsemblesResultados) classificadores[c].getClassificador();
+						
+						//Análise de Pareto - Dos Ensembles
+						AnaliseCompleta analiseCompleta = new AnaliseCompleta(classificadorEnsembler.getEnsemblesResultados(), 
+								Configuracoes.PATH_PARETO_METODO, 
+								bases_nome[b], 
+								bases_nome[b] + "_pareto__exec_" + i);
+						analiseCompleta.analisa(false); //False para minimizar
+					}
 				}
 			}
 		}

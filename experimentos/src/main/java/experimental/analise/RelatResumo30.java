@@ -1,7 +1,10 @@
 package experimental.analise;
 
-import experimental.util.CSVUtil;
 import java.util.List;
+
+import br.ufam.metodo.util.medidor.RegistroIteracao;
+import br.ufam.metodo.util.medidor.Resultado;
+import br.ufam.util.CSVUtil;
 
 /**
  *
@@ -9,13 +12,13 @@ import java.util.List;
  */
 public class RelatResumo30 {
 
-    public static void gravar(List<ResultadoClassificador> listaResultados, String path, String fileNameWithoutEXT) {
+    public static void gravar(List<Resultado> listaResultados, String path, String fileNameWithoutEXT) {
         //Gravar o CSV
         CSVUtil csv = new CSVUtil(path, fileNameWithoutEXT + "_resumo.csv");
 
         csv.cabecalho("cod, taxa30_media, acc30_media");
 
-        for (ResultadoClassificador rt : listaResultados) //Para cada MÉTODO
+        for (Resultado rt : listaResultados) //Para cada MÉTODO
         {
             
             double tam = 30;

@@ -1,27 +1,29 @@
 package experimental.analise;
 
-import experimental.util.CSVUtil;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import br.ufam.metodo.util.medidor.RegistroIteracao;
+import br.ufam.metodo.util.medidor.Resultado;
 import br.ufam.metodo.util.pareto.ParetoFront;
 import br.ufam.metodo.util.pareto.Solucao;
+import br.ufam.util.CSVUtil;
 
 /**
  *
  * @author regis
  */
 public class AnaliseCompleta {
-    List<ResultadoClassificador> listaResultadosClassificador = new ArrayList<>();
+    List<Resultado> listaResultadosClassificador = new ArrayList<>();
     
     int num_iteracoes;
     String path;
     String base;
     String fileName_without_ext;
     
-    public AnaliseCompleta(List<ResultadoClassificador> listaResultados, String path, String base, String fileName_without_ext){
+    public AnaliseCompleta(List<Resultado> listaResultados, String path, String base, String fileName_without_ext){
         this.listaResultadosClassificador = listaResultados;
         this.num_iteracoes = listaResultados.get(0).getListaRegistrosIteracoes().size();
         this.path = path;
@@ -46,7 +48,7 @@ public class AnaliseCompleta {
         int indexMenorDiv, indexMaiorDiv, indexParetoMenor, indexParetoMaior;
         String codMenorDiv, codMaiorDiv, codParetoMenor, codParetoMaior;
         
-        ResultadoClassificador resultadoClassificadorAux;
+        Resultado resultadoClassificadorAux;
         RegistroIteracao registroIteracaoAux;
         
         
@@ -55,7 +57,7 @@ public class AnaliseCompleta {
             Solucao[] solucoes = new Solucao[this.listaResultadosClassificador.size()];
             for (int c = 0; c < this.listaResultadosClassificador.size(); c++) {
                 
-                ResultadoClassificador resultadoClassificador = this.listaResultadosClassificador.get(c);
+                Resultado resultadoClassificador = this.listaResultadosClassificador.get(c);
                 RegistroIteracao registro = resultadoClassificador.getRegistro(iteracao); 
                 
                 solucoes[c] = new Solucao(c, registro.getDiversidades().getAmbiguidade(), registro.getAcuraciaPrequencial());
@@ -115,14 +117,14 @@ public class AnaliseCompleta {
     
     private void gravarIteracao(int iteracao, Solucao[] solucoes, List<Solucao> listaPareto, String codMenorDiv, String codMaiorDiv, String codParetoMenor, String codParetoMaior) {
         //Gravar o CSV
-        CSVUtil csv = new CSVUtil(path + base + "/csv/", fileName_without_ext + "_it_" + iteracao + ".csv");
+        CSVUtil csv = new CSVUtil(path + base + "/", fileName_without_ext + "_it_" + iteracao + ".csv");
 
         csv.cabecalho("cod,iteracao,diversidade,acc,acertou,menor_div,maior_div,pareto_member,pareto_menor,pareto_maior");
         
         
         for (int c = 0; c < solucoes.length; c++) {
             
-            ResultadoClassificador resultadoClassificador = this.listaResultadosClassificador.get(c);
+            Resultado resultadoClassificador = this.listaResultadosClassificador.get(c);
             RegistroIteracao registro = resultadoClassificador.getRegistro(iteracao); 
             
             boolean pareto_member = false;

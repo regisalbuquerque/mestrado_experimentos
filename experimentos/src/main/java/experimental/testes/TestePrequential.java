@@ -2,7 +2,7 @@ package experimental.testes;
 
 import java.util.List;
 
-import experimental.analise.ResultadoClassificador;
+import br.ufam.metodo.util.medidor.Resultado;
 import experimental.model.Base;
 import experimental.model.BaseDrifts;
 import experimental.model.Classificador;
@@ -20,7 +20,7 @@ public class TestePrequential {
         this.listaBaseDrifts = listaDrifts;
     }
 
-    public ResultadoClassificador test() {
+    public Resultado test() {
             
     	if (classificador.isMetodo())
     		return TesteMetodo.testPrequencial(base, listaBaseDrifts, classificador);

@@ -8,7 +8,8 @@ import br.ufam.metodo.diversidade.util.DiversidadeUtil;
 import br.ufam.metodo.diversidade.util.Diversidades;
 import br.ufam.metodo.util.calculo.Predicoes;
 import br.ufam.metodo.util.dados.Dados;
-import experimental.analise.ResultadoClassificador;
+import br.ufam.metodo.util.medidor.Indicadores;
+import br.ufam.metodo.util.medidor.Resultado;
 import experimental.model.Base;
 import experimental.model.BaseDrifts;
 import experimental.model.Classificador;
@@ -17,8 +18,8 @@ import moa.core.TimingUtils;
 
 public class TesteEnsemble {
 
-	public static ResultadoClassificador testPrequencial(Base base, List<BaseDrifts> listaBaseDrifts, Classificador classificador) {
-        ResultadoClassificador teste = new ResultadoClassificador();
+	public static Resultado testPrequencial(Base base, List<BaseDrifts> listaBaseDrifts, Classificador classificador) {
+        Resultado teste = new Resultado();
         
         
         

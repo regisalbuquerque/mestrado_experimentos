@@ -6,8 +6,9 @@ import com.yahoo.labs.samoa.instances.Instance;
 
 import br.ufam.metodo.util.dados.Dados;
 import br.ufam.metodo.util.drift.DetectorDrift;
+import br.ufam.metodo.util.medidor.Indicadores;
+import br.ufam.metodo.util.medidor.Resultado;
 import br.ufam.metodo.util.model.IEnsembleSelection;
-import experimental.analise.ResultadoClassificador;
 import experimental.model.Base;
 import experimental.model.BaseDrifts;
 import experimental.model.Classificador;
@@ -16,9 +17,9 @@ import moa.core.TimingUtils;
 
 public class TesteMetodo {
 	
-	public static ResultadoClassificador testPrequencial(Base base, List<BaseDrifts> listaBaseDrifts, Classificador classificador) {
+	public static Resultado testPrequencial(Base base, List<BaseDrifts> listaBaseDrifts, Classificador classificador) {
         
-		ResultadoClassificador ResultadoTeste = new ResultadoClassificador();
+		Resultado ResultadoTeste = new Resultado();
         
         Indicadores indicadores = new Indicadores();
 

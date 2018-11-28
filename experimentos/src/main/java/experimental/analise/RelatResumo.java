@@ -1,7 +1,10 @@
 package experimental.analise;
 
-import experimental.util.CSVUtil;
 import java.util.List;
+
+import br.ufam.metodo.util.medidor.RegistroIteracao;
+import br.ufam.metodo.util.medidor.Resultado;
+import br.ufam.util.CSVUtil;
 
 /**
  *
@@ -9,7 +12,7 @@ import java.util.List;
  */
 public class RelatResumo {
 
-    public static void gravar(List<ResultadoClassificador> listaResultados, String path, String fileNameWithoutEXT, boolean gravaIteracao) {
+    public static void gravar(List<Resultado> listaResultados, String path, String fileNameWithoutEXT, boolean gravaIteracao) {
         //Gravar o CSV
         CSVUtil csv = new CSVUtil(path, fileNameWithoutEXT + "_resumo.csv");
 
@@ -17,7 +20,7 @@ public class RelatResumo {
 
         CSVUtil csvITER = null;
         
-        for (ResultadoClassificador rt : listaResultados) //Para cada TESTE
+        for (Resultado rt : listaResultados) //Para cada TESTE
         {
             double soma_ambiguidade = 0;
             double soma_margem = 0;

@@ -2,7 +2,7 @@ package experimentos.metodos.comparacao;
 
 import java.util.List;
 
-import experimental.analise.ResultadoClassificador;
+import br.ufam.metodo.util.medidor.Resultado;
 import experimental.model.Base;
 import experimental.model.BaseDrifts;
 import experimental.model.MetodoFactory;
@@ -19,11 +19,11 @@ public class TestarClassificadorBase {
 		this.baseDrifts = baseDrifts;
 	}
 
-	public ResultadoClassificador executa(MetodoFactory classificador) {
+	public Resultado executa(MetodoFactory classificador) {
 		
 		TestePrequential testePrequential = new TestePrequential(this.base, this.baseDrifts,
 				classificador);
-		ResultadoClassificador resultado = testePrequential.test();
+		Resultado resultado = testePrequential.test();
 
 		resultado.setCodigo(classificador.getCodigo());
 		

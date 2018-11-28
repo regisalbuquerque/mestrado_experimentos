@@ -3,7 +3,7 @@ package experimental.analise;
 import com.yahoo.labs.samoa.instances.Instance;
 
 import br.ufam.metodo.util.model.IEnsembleSelection;
-import experimental.util.CSVUtil;
+import br.ufam.util.CSVUtil;
 import moa.classifiers.Classifier;
 import moa.core.Utils;
 

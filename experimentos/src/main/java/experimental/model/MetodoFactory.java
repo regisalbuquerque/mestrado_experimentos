@@ -10,6 +10,7 @@ public class MetodoFactory implements Classificador {
     private String codigo;
    
     private final AbstractClassifier classificadorConfigs;
+    private Classifier classificador;
 
     public MetodoFactory(AbstractClassifier classificadorConfigs) {
         this.classificadorConfigs = classificadorConfigs;
@@ -17,7 +18,7 @@ public class MetodoFactory implements Classificador {
 
     @Override
     public Classifier reset(Dados dados) {
-        Classifier classificador = classificadorConfigs.copy();
+        classificador = classificadorConfigs.copy();
         
 
         classificador.setModelContext(dados.getDataHeader());
@@ -27,6 +28,12 @@ public class MetodoFactory implements Classificador {
     }
     
     @Override
+	public Classifier getClassificador() {
+		return this.classificador;
+	}
+    
+
+	@Override
     public boolean resetWhenDrift() {
         return false; //Para métodos o reset é INTERNO ao método (a critério do método)
     }

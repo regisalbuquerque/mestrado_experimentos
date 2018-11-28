@@ -1,7 +1,10 @@
 package experimental.analise;
 
-import experimental.util.CSVUtil;
 import java.util.List;
+
+import br.ufam.metodo.util.medidor.RegistroIteracao;
+import br.ufam.metodo.util.medidor.Resultado;
+import br.ufam.util.CSVUtil;
 
 /**
  *
@@ -9,7 +12,7 @@ import java.util.List;
  */
 public class RelatDiversidade {
 
-    public static void gravar(ResultadoClassificador resultadoClassificador, String path, String fileName) {
+    public static void gravar(Resultado resultadoClassificador, String path, String fileName) {
         //Gravar o CSV
         CSVUtil csv = new CSVUtil(path, fileName);
 

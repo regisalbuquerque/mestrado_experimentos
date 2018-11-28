@@ -3,8 +3,8 @@ package experimentos.metodos.reacao;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.ufam.metodo.util.medidor.Resultado;
 import experimental.analise.RelatResumo;
-import experimental.analise.ResultadoClassificador;
 import experimental.metodos.DDMConfig1;
 import experimental.metodos.LeveragingBagSelectionV2Reacao;
 import experimental.metodos.LeveragingBagVersaoOriginal;
@@ -33,7 +33,7 @@ public class TestarReacao {
     	
     	int seed = 1;
     	
-        List<ResultadoClassificador> listaResultados = new ArrayList<>();
+        List<Resultado> listaResultados = new ArrayList<>();
         
         MetodoFactory[] classificadores = new MetodoFactory[12];
         
@@ -70,7 +70,7 @@ public class TestarReacao {
         for (int i = 0; i < classificadores.length; i++) {
         	System.out.println("************ TESTE DE REAÇÃO: " + (i+1) +"de" + classificadores.length);
             TestePrequential testePrequential = new TestePrequential(this.base, this.baseDrifts, classificadores[i]);
-            ResultadoClassificador resultado = testePrequential.test();
+            Resultado resultado = testePrequential.test();
             
             resultado.setCodigo(classificadores[i].getCodigo());
             listaResultados.add(resultado);

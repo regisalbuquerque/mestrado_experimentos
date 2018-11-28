@@ -5,8 +5,10 @@ import moa.classifiers.Classifier;
 
 public interface Classificador {
     public Classifier reset(Dados dados);
+    public Classifier getClassificador();
     public boolean resetWhenDrift();
     public boolean isMetodo();
     public boolean isEnsemble();
+    
     
 }
