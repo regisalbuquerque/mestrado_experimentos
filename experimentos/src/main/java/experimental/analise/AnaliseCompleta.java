@@ -144,7 +144,7 @@ public class AnaliseCompleta {
             boolean pareto_menor = resultadoClassificador.getCodigo().equals(codParetoMenor);
             boolean pareto_maior = resultadoClassificador.getCodigo().equals(codParetoMaior);
 
-            csv.registro(resultadoClassificador.getCodigo() + ","
+            csv.registro(registro.getCodigo() + ","
                     	+ iteracao + ","
                     	+ registro.getDiversidades().getAmbiguidade() + ","
             			+ registro.getAcuraciaPrequencial() + ","

@@ -14,6 +14,8 @@ public class EnsembleFactory implements Classificador{
     private boolean reset;
     private Integer ordem;
     private String classe;
+    
+    private Classifier classificador;
 
     public EnsembleFactory(double lambda, int numClassificadores, int numBaseLearners, boolean reset, Integer ordem, String classe) {
         this.lambda = lambda;
@@ -37,8 +39,15 @@ public class EnsembleFactory implements Classificador{
         ensemble.setModelContext(dados.getDataHeader());
         ensemble.prepareForUse();
         
+        classificador = ensemble;
+        
         return ensemble;
     }
+    
+    @Override
+	public Classifier getClassificador() {
+		return this.classificador;
+	}
     
 
     @Override

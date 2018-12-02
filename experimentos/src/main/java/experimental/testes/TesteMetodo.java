@@ -52,11 +52,11 @@ public class TesteMetodo {
 
             if (classificadorEmTeste instanceof IEnsembleSelection)
             {
-            	 ResultadoTeste.registra(iteracao, null, indicadores, acertou, ((IEnsembleSelection)classificadorEmTeste).getUltimoEnsembleSelecionadoLambda());
+            	 ResultadoTeste.registra(iteracao, "", null, indicadores, acertou, ((IEnsembleSelection)classificadorEmTeste).getUltimoEnsembleSelecionadoLambda());
             }
             else
             {
-            	 ResultadoTeste.registra(iteracao, null, indicadores, acertou, null);
+            	 ResultadoTeste.registra(iteracao, "", null, indicadores, acertou, null);
             }
             
            
