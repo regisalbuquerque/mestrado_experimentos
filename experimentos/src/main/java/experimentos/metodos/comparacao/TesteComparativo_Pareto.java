@@ -5,7 +5,6 @@ import java.util.List;
 
 import br.ufam.metodo.util.medidor.Resultado;
 import br.ufam.metodo.util.model.IEnsemblesResultados;
-import br.ufam.metodos.v13.MetodoClassificadorV13;
 import br.ufam.util.CSVUtil;
 import br.ufam.util.Registro;
 import experimental.analise.AnaliseCompleta;
@@ -14,19 +13,19 @@ import experimental.bases.BaseFactory;
 import experimental.bases.BaseGauss;
 import experimental.bases.BaseLine;
 import experimental.bases.BaseSine1;
-import experimental.metodos.MetodoV13Config1;
+import experimental.metodos.MetodoV12Config1;
 import experimental.metodos.MetodoV14Config1;
 import experimental.model.MetodoFactory;
 import experimentos.config.Configuracoes;
 
-public class TesteV13_V14_30x_Sinteticas {
+public class TesteComparativo_Pareto {
 
 	public static void main(String[] args) {
 
-		int NUM_EXECUCOES = 3;
+		int NUM_EXECUCOES = 1;
 		int seed = 1;
-		int NUM_CLASSIFICADORES = 1;
-		int NUM_BASES = 1;
+		int NUM_CLASSIFICADORES = 4;
+		int NUM_BASES = 4;
 		
 		List<Resultado> listaResultados = new ArrayList<>();
 		
@@ -38,43 +37,43 @@ public class TesteV13_V14_30x_Sinteticas {
 		double[][] desvios = new double[NUM_CLASSIFICADORES][NUM_BASES];
 		
 		String[] classificadores_nome = new String[NUM_CLASSIFICADORES];
-//		classificadores_nome[0] = "V13_HOM";
-//		classificadores_nome[0] = "V13_HET";
-		classificadores_nome[0] = "V14_HOM";
-//		classificadores_nome[3] = "V14_HET";
+		classificadores_nome[0] = "V12_HOM";
+		classificadores_nome[1] = "V12_HET";
+		classificadores_nome[2] = "V14_HOM";
+		classificadores_nome[3] = "V14_HET";
 		
 		String[] bases_nome = new String[NUM_BASES];
 		bases_nome[0] = "Line";
-//		bases_nome[1] = "Sine1";
-//		bases_nome[2] = "Gauss";
-//		bases_nome[3] = "Circle";
+		bases_nome[1] = "Sine1";
+		bases_nome[2] = "Gauss";
+		bases_nome[3] = "Circle";
 		
 		for (int i = 0; i < NUM_EXECUCOES; i++) {
 			System.out.println(" EXECUÇÃO " + (i + 1) + " de " + NUM_EXECUCOES);
 			
 			bases[0] = new BaseLine();
-//			bases[1] = new BaseSine1();
-//			bases[2] = new BaseGauss();
-//			bases[3] = new BaseCircle();
+			bases[1] = new BaseSine1();
+			bases[2] = new BaseGauss();
+			bases[3] = new BaseCircle();
 			
 
-			// Método v13
-//			classificadores[0] = new MetodoV13Config1("RetreinaTodosComBufferWarning", "Ambiguidade", seed, "DDM", 1)
-//					.getMetodo();
+			// Método v12
+			classificadores[0] = new MetodoV12Config1("RetreinaTodosComBufferWarning", "Ambiguidade", seed, "DDM", 1)
+					.getMetodo();
 
-//			// Método v13
-//			classificadores[0] = new MetodoV13Config1("RetreinaTodosComBufferWarning", "Ambiguidade", seed, "DDM", 5)
-//					.getMetodo();
-//			
+			// Método v12
+			classificadores[1] = new MetodoV12Config1("RetreinaTodosComBufferWarning", "Ambiguidade", seed, "DDM", 5)
+					.getMetodo();
+			
 //			MetodoClassificadorV13.gerarLambdas(11); //Para o V13 os lambdas são gerados para cada execução
 
 			// Método v14
-			classificadores[0] = new MetodoV14Config1("RetreinaTodosComBufferWarning", "Ambiguidade", seed, "DDM", 1)
+			classificadores[2] = new MetodoV14Config1("RetreinaTodosComBufferWarning", "Ambiguidade", seed, "DDM", 1)
 					.getMetodo();
-//
-//			// Método v14
-//			classificadores[3] = new MetodoV14Config1("RetreinaTodosComBufferWarning", "Ambiguidade", seed, "DDM", 5)
-//					.getMetodo();
+
+			// Método v14
+			classificadores[3] = new MetodoV14Config1("RetreinaTodosComBufferWarning", "Ambiguidade", seed, "DDM", 5)
+					.getMetodo();
 			
 			
 
@@ -94,8 +93,7 @@ public class TesteV13_V14_30x_Sinteticas {
 						
 						//Análise de Pareto - Dos Ensembles
 						AnaliseCompleta analiseCompleta = new AnaliseCompleta(classificadorEnsembler.getEnsemblesResultados(), 
-								Configuracoes.PATH_PARETO_METODO, 
-								bases_nome[b], 
+								Configuracoes.PATH_PARETO_METODO + "/" + classificadores_nome[c] + "/" + bases_nome[b] + "/", 
 								bases_nome[b] + "_pareto__exec_" + i);
 						analiseCompleta.analisa(false); //False para minimizar
 					}

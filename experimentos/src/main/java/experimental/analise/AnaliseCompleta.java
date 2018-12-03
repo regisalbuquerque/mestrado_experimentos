@@ -20,14 +20,12 @@ public class AnaliseCompleta {
     
     int num_iteracoes;
     String path;
-    String base;
     String fileName_without_ext;
     
-    public AnaliseCompleta(List<Resultado> listaResultados, String path, String base, String fileName_without_ext){
+    public AnaliseCompleta(List<Resultado> listaResultados, String path, String fileName_without_ext){
         this.listaResultadosClassificador = listaResultados;
         this.num_iteracoes = listaResultados.get(0).getListaRegistrosIteracoes().size();
         this.path = path;
-        this.base = base;
         this.fileName_without_ext = fileName_without_ext;
     }
     
@@ -117,7 +115,7 @@ public class AnaliseCompleta {
     
     private void gravarIteracao(int iteracao, Solucao[] solucoes, List<Solucao> listaPareto, String codMenorDiv, String codMaiorDiv, String codParetoMenor, String codParetoMaior) {
         //Gravar o CSV
-        CSVUtil csv = new CSVUtil(path + base + "/", fileName_without_ext + "_it_" + iteracao + ".csv");
+        CSVUtil csv = new CSVUtil(path, fileName_without_ext + "_it_" + iteracao + ".csv");
 
         csv.cabecalho("cod,iteracao,diversidade,acc,acertou,menor_div,maior_div,pareto_member,pareto_menor,pareto_maior");
         

@@ -40,7 +40,7 @@ public class TestarEnsemblesBase {
             listaResultados.add(resultado);
         }
         
-        AnaliseCompleta analiseCompleta = new AnaliseCompleta(listaResultados, path, base.getNome(), base.getNome() + "_pareto");
+        AnaliseCompleta analiseCompleta = new AnaliseCompleta(listaResultados, path + "/" + base.getNome() + "/", base.getNome() + "_pareto");
         analiseCompleta.analisa(false); //False para minimizar
     }
     
