@@ -15,6 +15,11 @@ public class MetodoFactory implements Classificador {
     public MetodoFactory(AbstractClassifier classificadorConfigs) {
         this.classificadorConfigs = classificadorConfigs;
     }
+    
+    public MetodoFactory(String codigo, AbstractClassifier classificadorConfigs) {
+    	this.codigo = codigo;
+        this.classificadorConfigs = classificadorConfigs;
+    }
 
     @Override
     public Classifier reset(Dados dados) {

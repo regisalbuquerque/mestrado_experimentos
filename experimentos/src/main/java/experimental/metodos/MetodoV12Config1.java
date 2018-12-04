@@ -50,7 +50,9 @@ public class MetodoV12Config1 implements MetodoTeste{
         metodoClassificadorV12.baseLearner5Option.setValueViaCLIString("bayes.NaiveBayes");
         
         MetodoFactory metodo = new MetodoFactory(metodoClassificadorV12);
-        metodo.setCodigo("V12_Config1");
+        metodo.setCodigo("V12_HOM");
+        if (this.numBaseLeaners > 1)
+			metodo.setCodigo("V12_HET");
         return metodo;
     }
     

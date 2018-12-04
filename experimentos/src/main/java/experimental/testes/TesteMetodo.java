@@ -4,6 +4,9 @@ import java.util.List;
 
 import com.yahoo.labs.samoa.instances.Instance;
 
+import br.ufam.diversidade.impl.AmbiguidadeCalculoDiversidade;
+import br.ufam.metodo.diversidade.util.Diversidades;
+import br.ufam.metodo.util.calculo.DiversidadePrequencial;
 import br.ufam.metodo.util.dados.Dados;
 import br.ufam.metodo.util.drift.DetectorDrift;
 import br.ufam.metodo.util.medidor.Indicadores;
@@ -22,11 +25,16 @@ public class TesteMetodo {
 		Resultado ResultadoTeste = new Resultado();
         
         Indicadores indicadores = new Indicadores();
+        
 
         Dados dados = new Dados(base.getPathFile(), -1);
         dados.prepareForUse();
 
         Classifier classificadorEmTeste = classificador.reset(dados);
+        
+        
+        DiversidadePrequencial diversidadePrequencial = new DiversidadePrequencial(classificadorEmTeste.getSubClassifiers().length, null, new AmbiguidadeCalculoDiversidade());
+
         
         //PARA O CALCULO DO TEMPO DE EXECUCAO ------------------------------------
         long evaluateStartTime = TimingUtils.getNanoCPUTimeOfCurrentThread();
@@ -39,6 +47,8 @@ public class TesteMetodo {
             if (base.getNumInstances() < iteracao) break;
             
             Instance instanciaAtual = dados.getProximaInstancia();
+            
+            
 
             boolean acertou;
             if (classificadorEmTeste.correctlyClassifies(instanciaAtual)) {
@@ -49,14 +59,19 @@ public class TesteMetodo {
                 acertou = false;
                 indicadores.errou();
             }
+            
+            diversidadePrequencial.calcula(classificadorEmTeste.getSubClassifiers(), instanciaAtual);
+            
+            Diversidades diversidades = new Diversidades();
+            diversidades.setAmbiguidade(diversidadePrequencial.getDiv());
 
             if (classificadorEmTeste instanceof IEnsembleSelection)
             {
-            	 ResultadoTeste.registra(iteracao, "", null, indicadores, acertou, ((IEnsembleSelection)classificadorEmTeste).getUltimoEnsembleSelecionadoLambda());
+            	 ResultadoTeste.registra(iteracao, "", diversidades, indicadores, acertou, ((IEnsembleSelection)classificadorEmTeste).getUltimoEnsembleSelecionadoLambda());
             }
             else
             {
-            	 ResultadoTeste.registra(iteracao, "", null, indicadores, acertou, null);
+            	 ResultadoTeste.registra(iteracao, "", diversidades, indicadores, acertou, null);
             }
             
            

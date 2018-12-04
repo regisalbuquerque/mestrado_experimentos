@@ -8,13 +8,13 @@ import br.ufam.metodo.util.model.IEnsemblesResultados;
 import br.ufam.util.CSVUtil;
 import br.ufam.util.Registro;
 import experimental.analise.AnaliseCompleta;
+import experimental.analise.RelatDiversidade;
 import experimental.bases.BaseCircle;
 import experimental.bases.BaseFactory;
 import experimental.bases.BaseGauss;
 import experimental.bases.BaseLine;
 import experimental.bases.BaseSine1;
-import experimental.metodos.MetodoV12Config1;
-import experimental.metodos.MetodoV14Config1;
+import experimental.metodos.LeveragingBagVersaoOriginal;
 import experimental.model.MetodoFactory;
 import experimentos.config.Configuracoes;
 
@@ -24,152 +24,142 @@ public class TesteComparativo_Pareto {
 
 		int NUM_EXECUCOES = 1;
 		int seed = 1;
-		int NUM_CLASSIFICADORES = 4;
-		int NUM_BASES = 4;
-		
-		List<Resultado> listaResultados = new ArrayList<>();
-		
-		BaseFactory[] bases = new BaseFactory[NUM_BASES];
-		MetodoFactory[] classificadores = new MetodoFactory[NUM_CLASSIFICADORES];
 
-		double[][][] resultado = new double[NUM_EXECUCOES][NUM_CLASSIFICADORES][NUM_BASES];
-		double[][] medias = new double[NUM_CLASSIFICADORES][NUM_BASES];
-		double[][] desvios = new double[NUM_CLASSIFICADORES][NUM_BASES];
+		List<Resultado> listaResultados = new ArrayList<>();
+
+		List<BaseFactory> bases = new ArrayList<>();
+		List<MetodoFactory> classificadores = new ArrayList<>();
+
+		bases.add(new BaseLine());
+		bases.add(new BaseSine1());
+		bases.add(new BaseGauss());
+		bases.add(new BaseCircle());
+
+		classificadores
+			.add(new LeveragingBagVersaoOriginal().getMetodo());
 		
-		String[] classificadores_nome = new String[NUM_CLASSIFICADORES];
-		classificadores_nome[0] = "V12_HOM";
-		classificadores_nome[1] = "V12_HET";
-		classificadores_nome[2] = "V14_HOM";
-		classificadores_nome[3] = "V14_HET";
-		
-		String[] bases_nome = new String[NUM_BASES];
-		bases_nome[0] = "Line";
-		bases_nome[1] = "Sine1";
-		bases_nome[2] = "Gauss";
-		bases_nome[3] = "Circle";
-		
+		/*
+		// Método v12
+		classificadores
+				.add(new MetodoV12Config1("RetreinaTodosComBufferWarning", "Ambiguidade", seed, "DDM", 1).getMetodo());
+		classificadores
+				.add(new MetodoV12Config1("RetreinaTodosComBufferWarning", "Ambiguidade", seed, "DDM", 5).getMetodo());
+		// Método v14
+		classificadores
+				.add(new MetodoV14Config1("RetreinaTodosComBufferWarning", "Ambiguidade", seed, "DDM", 1).getMetodo());
+		classificadores
+				.add(new MetodoV14Config1("RetreinaTodosComBufferWarning", "Ambiguidade", seed, "DDM", 5).getMetodo());
+				
+				*/
+
+		double[][][] resultado = new double[NUM_EXECUCOES][classificadores.size()][bases.size()];
+		double[][] medias = new double[classificadores.size()][bases.size()];
+		double[][] desvios = new double[classificadores.size()][bases.size()];
+
 		for (int i = 0; i < NUM_EXECUCOES; i++) {
 			System.out.println(" EXECUÇÃO " + (i + 1) + " de " + NUM_EXECUCOES);
-			
-			bases[0] = new BaseLine();
-			bases[1] = new BaseSine1();
-			bases[2] = new BaseGauss();
-			bases[3] = new BaseCircle();
-			
 
-			// Método v12
-			classificadores[0] = new MetodoV12Config1("RetreinaTodosComBufferWarning", "Ambiguidade", seed, "DDM", 1)
-					.getMetodo();
-
-			// Método v12
-			classificadores[1] = new MetodoV12Config1("RetreinaTodosComBufferWarning", "Ambiguidade", seed, "DDM", 5)
-					.getMetodo();
-			
-//			MetodoClassificadorV13.gerarLambdas(11); //Para o V13 os lambdas são gerados para cada execução
-
-			// Método v14
-			classificadores[2] = new MetodoV14Config1("RetreinaTodosComBufferWarning", "Ambiguidade", seed, "DDM", 1)
-					.getMetodo();
-
-			// Método v14
-			classificadores[3] = new MetodoV14Config1("RetreinaTodosComBufferWarning", "Ambiguidade", seed, "DDM", 5)
-					.getMetodo();
-			
-			
-
-			for (int c = 0; c < NUM_CLASSIFICADORES; c++) {
-				System.out.println(" >>> CLASSIFICADOR " + (c + 1) + " de " + classificadores.length);
-				for (int b = 0; b < NUM_BASES; b++) 
-				{
-					System.out.println(" >>> ooo BASE " + (b + 1) + " de " + bases.length);
-					TestarClassificadorBase testarBase = new TestarClassificadorBase(bases[b].getBase(), bases[b].getBaseDrifts());
-					Resultado resultadoClassificador = testarBase.executa(classificadores[c]);
-					resultado[i][c][b] = resultadoClassificador.getAcuraciaMedia();
+			for (int c = 0; c < classificadores.size(); c++) {
+				System.out.println(" >>> CLASSIFICADOR " + (c + 1) + " de " + classificadores.size());
+				for (int b = 0; b < bases.size(); b++) {
+					System.out.println(" >>> ooo BASE " + (b + 1) + " de " + bases.size());
+					TestarClassificadorBase testarBase = new TestarClassificadorBase(bases.get(b).getBase(),
+							bases.get(b).getBaseDrifts());
+					Resultado resultadoClassificador = testarBase.executa(classificadores.get(c));
 					listaResultados.add(resultadoClassificador);
+					resultado[i][c][b] = resultadoClassificador.getAcuraciaMedia();
 					
-					if (classificadores[c].getClassificador() instanceof IEnsemblesResultados)
-					{
-						IEnsemblesResultados classificadorEnsembler = (IEnsemblesResultados) classificadores[c].getClassificador();
-						
-						//Análise de Pareto - Dos Ensembles
-						AnaliseCompleta analiseCompleta = new AnaliseCompleta(classificadorEnsembler.getEnsemblesResultados(), 
-								Configuracoes.PATH_PARETO_METODO + "/" + classificadores_nome[c] + "/" + bases_nome[b] + "/", 
-								bases_nome[b] + "_pareto__exec_" + i);
-						analiseCompleta.analisa(false); //False para minimizar
+					String PATH = Configuracoes.PATH_PARETO_METODO + "/" + classificadores.get(c).getCodigo() + "/"
+							+ bases.get(b).getBase().getNome() + "/";
+					
+					String FILENAME = bases.get(b).getBase().getNome() + "_pareto__exec_" + i;
+					
+					RelatDiversidade.gravar(resultadoClassificador, PATH, FILENAME);
+
+					if (classificadores.get(c).getClassificador() instanceof IEnsemblesResultados) {
+						IEnsemblesResultados classificadorEnsembler = (IEnsemblesResultados) classificadores.get(c)
+								.getClassificador();
+
+						// Análise de Pareto - Dos Ensembles
+						AnaliseCompleta analiseCompleta = new AnaliseCompleta(
+								classificadorEnsembler.getEnsemblesResultados(),
+								PATH,
+								FILENAME);
+						analiseCompleta.analisa(false); // False para minimizar
 					}
 				}
 			}
 		}
-		
-		//Calcular Média e Desvio PADRÃO
-		for (int c = 0; c < NUM_CLASSIFICADORES; c++) {
-			for (int b = 0; b < NUM_BASES; b++) {
-				
-				//Calcular Média
-				double soma = 0;
-				for (int i = 0; i < NUM_EXECUCOES; i++) {
-					soma += resultado[i][c][b];
+
+		if (NUM_EXECUCOES > 1) {
+
+			// Calcular Média e Desvio PADRÃO
+			for (int c = 0; c < classificadores.size(); c++) {
+				for (int b = 0; b < bases.size(); b++) {
+
+					// Calcular Média
+					double soma = 0;
+					for (int i = 0; i < NUM_EXECUCOES; i++) {
+						soma += resultado[i][c][b];
+					}
+					double media = soma / (double) NUM_EXECUCOES;
+
+					// Calcula Desvio PADRÃO
+					double soma_quad = 0;
+					for (int i = 0; i < NUM_EXECUCOES; i++) {
+						soma_quad += Math.pow((resultado[i][c][b] - media), 2);
+					}
+					double desvio = Math.sqrt((soma_quad / (double) NUM_EXECUCOES));
+
+					medias[c][b] = media;
+					desvios[c][b] = desvio;
 				}
-				double media = soma / (double) NUM_EXECUCOES;
-				
-				//Calcula Desvio PADRÃO
-				double soma_quad = 0;
-				for (int i = 0; i < NUM_EXECUCOES; i++) {
-					soma_quad += Math.pow((resultado[i][c][b] - media), 2);
+			}
+
+			// Gravar o CSV
+			CSVUtil csv = new CSVUtil(Configuracoes.PATH_COMPARACAO, "TesteComparativo_Sinteticas.csv");
+
+			Registro registroCab1 = new Registro();
+			registroCab1.adiciona("classificador");
+			for (int i = 0; i < bases.size(); i++) {
+				registroCab1.adiciona("m" + i);
+				registroCab1.adiciona("d" + i);
+			}
+			csv.registro(registroCab1.toString());
+
+			for (int c = 0; c < classificadores.size(); c++) {
+				Registro registro = new Registro();
+				registro.adiciona(classificadores.get(c).getCodigo());
+				for (int b = 0; b < bases.size(); b++) {
+					registro.adiciona(medias[c][b]);
+					registro.adiciona(desvios[c][b]);
 				}
-				double desvio = Math.sqrt((soma_quad/(double) NUM_EXECUCOES));
-
-				medias[c][b] = media;
-				desvios[c][b] = desvio;
+				csv.registro(registro.toString());
 			}
-		}
-		
-		//Gravar o CSV
-        CSVUtil csv = new CSVUtil(Configuracoes.PATH_COMPARACAO, "Testev13_v14_30x_Sinteticas.csv");
+			csv.fechar();
 
-        Registro registroCab1 = new Registro();
-        registroCab1.adiciona("classificador");
-        for (int i = 0; i < NUM_BASES; i++) {
-        	registroCab1.adiciona("m"+i);
-        	registroCab1.adiciona("d"+i);
-		}
-        csv.registro(registroCab1.toString());
-        
-        
-        for (int c = 0; c < NUM_CLASSIFICADORES; c++) 
-        {
-        	Registro registro = new Registro();
-        	registro.adiciona(classificadores_nome[c]);
-        	for (int b = 0; b < NUM_BASES; b++) {
-        		registro.adiciona(medias[c][b]);
-            	registro.adiciona(desvios[c][b]);
-			}
-        	csv.registro(registro.toString());
-		}
-        csv.fechar();
-        
-        
-        //Gravar o CSV
-        CSVUtil csvDados = new CSVUtil(Configuracoes.PATH_COMPARACAO, "Testev13_v14_30x_Dados_Sinteticas.csv");
+			// Gravar o CSV
+			CSVUtil csvDados = new CSVUtil(Configuracoes.PATH_COMPARACAO, "TesteComparativo_Dados_Sinteticas.csv");
 
-        Registro registroCab2 = new Registro();
-        registroCab2.adiciona("classificador");
-        for (int i = 0; i < NUM_EXECUCOES; i++) {
-        	registroCab2.adiciona("i"+i);
-		}
-        csvDados.registro(registroCab2.toString());
-        
-        for (int c = 0; c < NUM_CLASSIFICADORES; c++) 
-        {
-        	Registro registro = new Registro();
-        	registro.adiciona(classificadores_nome[c]);
-        	for (int b = 0; b < NUM_BASES; b++) {
-        		for (int i = 0; i < NUM_EXECUCOES; i++) {
-        			registro.adiciona(resultado[i][c][b]);
-        		}
+			Registro registroCab2 = new Registro();
+			registroCab2.adiciona("classificador");
+			for (int i = 0; i < NUM_EXECUCOES; i++) {
+				registroCab2.adiciona("i" + i);
 			}
-        	csvDados.registro(registro.toString());
+			csvDados.registro(registroCab2.toString());
+
+			for (int c = 0; c < classificadores.size(); c++) {
+				Registro registro = new Registro();
+				registro.adiciona(classificadores.get(c).getCodigo());
+				for (int b = 0; b < bases.size(); b++) {
+					for (int i = 0; i < NUM_EXECUCOES; i++) {
+						registro.adiciona(resultado[i][c][b]);
+					}
+				}
+				csvDados.registro(registro.toString());
+			}
+			csvDados.fechar();
+
 		}
-        csvDados.fechar();
 	}
 }
