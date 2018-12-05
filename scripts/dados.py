@@ -12,9 +12,15 @@ def get_metodo():
 conjunto_homogeneo = '_HOM/'
 conjunto_heterogeneo = '_HET/'
 
+STEP = 250
+
 #Path
 ROOT_PATH = '/Users/regisalbuquerque/Documents/git/regis/mestrado_resultados/comparacao3/pareto/'
+ROOT_PATH_LB = ROOT_PATH + 'LB_Original'
+
 ROOT_PATH_IMG = '/Users/regisalbuquerque/Desktop/'
+
+
 
 
 drifts = {
@@ -97,15 +103,15 @@ def pontos_atuais(tamanho, cor, cor_pareto, path_file):
     Y_pareto = dataset2['acc'].values
 
 
-    plt.scatter(X, Y, s=tamanho, label='Ensemble', marker='^', color=cor)
-    plt.scatter(X_pareto, Y_pareto, s=tamanho, label='Ensemble(Pareto)', marker='s', color=cor_pareto)
+    plt.scatter(X, Y, s=tamanho, marker='^', color=cor)
+    plt.scatter(X_pareto, Y_pareto, s=tamanho, marker='s', color=cor_pareto)
     
     VENCEDOR = dataset.loc[dataset['pareto_maior'] == True]
     lambda_vencedor = VENCEDOR['cod'].values[0]
     div_vencedor = VENCEDOR['diversidade'].values[0]
     acc_vencedor = VENCEDOR['acc'].values[0]
 
-    texto = "λ=" + str(lambda_vencedor) + " (" + str("%.2f" % round(div_vencedor,2)) + "," + str("%.2f" % round(acc_vencedor,2)) + ")"
+    texto = "λ=" + str("%.2f" % round(lambda_vencedor,2)) + " (" + str("%.2f" % round(div_vencedor,2)) + "," + str("%.2f" % round(acc_vencedor,2)) + ")"
 
     
     ax = plt.gca()
@@ -138,12 +144,25 @@ def subplot_grafico1(iteracao, metodo, conjunto, base):
     plt.legend()
     plt.subplots_adjust(hspace=0.6, wspace = 0.4)
 
+def get_slice(ARRAY, base):
+    ARRAY_STEP = []
+    ARRAY_STEP.append(ARRAY[0])
+    for index in range(0, limiteBase[base], STEP):
+        ARRAY_STEP.append(ARRAY[index])
+    ARRAY_STEP.append(ARRAY[-1])
+    return ARRAY_STEP
+
+    
+
 def subplot_grafico2(metodo, conjunto, base):
     PATH_FILE = ROOT_PATH + metodo + conjunto + base + '/' + base + '_pareto__exec_0_it_';
     X = range(1, limiteBase[base]+1)
     Y = localiza_vencedores(PATH_FILE, base);
     
-    plt.plot(X, Y, '-', label='', color='k', markersize=10)
+    X_STEP = get_slice(X, base)
+    Y_STEP = get_slice(Y, base)
+    
+    plt.plot(X_STEP, Y_STEP, '-', label='', color='k', markersize=10)
     
      # DRIFTS 
     if baseEhReal[base] == False:
@@ -162,10 +181,19 @@ def subplot_grafico2(metodo, conjunto, base):
     
 def subplot_grafico3(metodo, conjunto, base):
     PATH_FILE = ROOT_PATH + metodo + conjunto + base + '/' + base + '_pareto__exec_0_it_';
+    FILE_PATH_LB = ROOT_PATH_LB +  '/' + base + '/' + base + '_pareto__exec_0';
+    
     X = range(1, limiteBase[base]+1)
     Y = localiza_diversidades(PATH_FILE, base);
     
-    plt.plot(X, Y, '-', label='', color='k', markersize=10)
+    Y_LB = localiza_diversidades_lb(FILE_PATH_LB, base);
+    
+    X_STEP = get_slice(X, base)
+    Y_STEP = get_slice(Y, base)
+    Y_LB_STEP = get_slice(Y_LB, base)
+    
+    plt.plot(X_STEP, Y_STEP, '-', label='', color='k', markersize=10)
+    plt.plot(X_STEP, Y_LB_STEP, ':', label='', color='g', markersize=10)
     
      # DRIFTS 
     if baseEhReal[base] == False:
@@ -188,8 +216,12 @@ def subplot_grafico4(metodo, conjunto, base):
     Y = localiza_diversidades(PATH_FILE, base);
     Y_MENOR = localiza_diversidades_pareto_menor(PATH_FILE, base);
     
-    plt.plot(X, Y, '-', label='Pareto Maior', color='k', markersize=10)
-    plt.plot(X, Y_MENOR, ':', label='Pareto Menor', color='b', markersize=10)
+    X_STEP = get_slice(X, base)
+    Y_STEP = get_slice(Y, base)
+    Y_MENOR_STEP = get_slice(Y_MENOR, base)
+    
+    plt.plot(X_STEP, Y_STEP, '-', label='Pareto Maior', color='k', markersize=10)
+    plt.plot(X_STEP, Y_MENOR_STEP, ':', label='Pareto Menor', color='b', markersize=10)
     
      # DRIFTS 
     if baseEhReal[base] == False:
@@ -225,6 +257,12 @@ def localiza_diversidades(path_file, base):
         #print('\nVENCEDOR:' + str(VENCEDOR))
         VENCEDORES.append(VENCEDOR)
     return VENCEDORES
+
+def localiza_diversidades_lb(path_file, base):
+     
+    RESULTADO = pd.read_csv(path_file)
+    DIVERSIDADES = RESULTADO['ambiguidade'].values
+    return DIVERSIDADES
 
 def localiza_diversidades_pareto_menor(path_file, base):
     VENCEDORES = []
