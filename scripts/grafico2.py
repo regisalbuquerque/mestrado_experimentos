@@ -19,8 +19,8 @@ def executa(base, metodo):
     
     #plt.show()
     
-    fig.set_figheight(5)
-    fig.set_figwidth(8)
+    fig.set_figheight(8)
+    fig.set_figwidth(15)
     fig.savefig(dados.ROOT_PATH_IMG + 'grafico2_' + metodo + '_' + base + '.eps', format='eps', dpi=1200, bbox_inches='tight')
 
 

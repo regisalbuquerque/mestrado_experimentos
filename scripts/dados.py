@@ -33,7 +33,17 @@ drifts = {
            'KDDCup99': []
            }
 
-rangesy = {
+range_div = {
+        'Line':[-0.1,1], 
+        'Sine1': [-0.1,1], 
+        'Gauss': [-0.1,1], 
+        'Circle': [-0.1,1],
+        'Elec': [-0.1,1],
+        'Spam': [-0.1,1],
+        'KDDCup99': [-0.1,1]
+        }
+
+ranges_ensemble = {
         'Line':[0,11], 
         'Sine1': [0,11], 
         'Gauss': [0,11], 
@@ -41,6 +51,16 @@ rangesy = {
         'Elec': [0,11],
         'Spam': [0,11],
         'KDDCup99': [0,11]
+        }
+
+ranges_acc = {
+        'Line':[-0.1, 1.2], 
+        'Sine1': [-0.1, 1.2], 
+        'Gauss': [-0.1, 1.2], 
+        'Circle': [-0.1, 1.2],
+        'Elec': [-0.1, 1.2],
+        'Spam': [-0.1, 1.2],
+        'KDDCup99': [-0.1, 1.2]
         }
 
 baseEhReal = {
@@ -66,6 +86,7 @@ limiteBase = {
 # PONTOS
 TAM_PONTO = 16;
 TAM_PONTO_ATUAL = 16;
+TAM_PONTO_2 = 5;
 
 def termino(base):
     return limiteBase[base]
@@ -135,8 +156,8 @@ def subplot_grafico1(iteracao, metodo, conjunto, base):
     pontos_atuais(TAM_PONTO_ATUAL, 'k', 'b', file_csv)
 
     axes = plt.gca()
-    axes.set_xlim([-0.01, 0.52])
-    axes.set_ylim([-0.1, 1.2])
+    axes.set_xlim(range_div[base])
+    axes.set_ylim(ranges_acc[base])
 
     plt.xlabel('Diversity')
     plt.ylabel('Prequential Accuracy')
@@ -162,7 +183,8 @@ def subplot_grafico2(metodo, conjunto, base):
     X_STEP = get_slice(X, base)
     Y_STEP = get_slice(Y, base)
     
-    plt.plot(X_STEP, Y_STEP, '-', label='', color='k', markersize=10)
+    plt.scatter(X_STEP, Y_STEP, alpha=0.5, s=TAM_PONTO_2, color='k')
+    #plt.plot(X_STEP, Y_STEP, '-', label='', color='k', markersize=10)
     
      # DRIFTS 
     if baseEhReal[base] == False:
@@ -171,7 +193,7 @@ def subplot_grafico2(metodo, conjunto, base):
     
     axes = plt.gca()
     #axes.set_xlim([-0.01, 0.52])
-    axes.set_ylim(0,11)
+    axes.set_ylim(ranges_ensemble[base])
     
     plt.xlabel('Interation')
     plt.ylabel('Ensemble')
@@ -192,8 +214,10 @@ def subplot_grafico3(metodo, conjunto, base):
     Y_STEP = get_slice(Y, base)
     Y_LB_STEP = get_slice(Y_LB, base)
     
-    plt.plot(X_STEP, Y_STEP, '-', label='', color='k', markersize=10)
-    plt.plot(X_STEP, Y_LB_STEP, ':', label='', color='g', markersize=10)
+    plt.scatter(X_STEP, Y_STEP, alpha=0.5, s=TAM_PONTO_2, color='k')
+    #plt.plot(X_STEP, Y_STEP, '-', label='', color='k', markersize=10)
+    plt.scatter(X_STEP, Y_LB_STEP, alpha=0.5, s=TAM_PONTO_2, color='g')
+    #plt.plot(X_STEP, Y_LB_STEP, ':', label='', color='g', markersize=10)
     
      # DRIFTS 
     if baseEhReal[base] == False:
@@ -202,7 +226,7 @@ def subplot_grafico3(metodo, conjunto, base):
     
     axes = plt.gca()
     #axes.set_xlim([-0.01, 0.52])
-    axes.set_ylim(0,1)
+    axes.set_ylim(range_div[base])
     
     plt.xlabel('Interation')
     plt.ylabel('Diversity')
@@ -230,7 +254,7 @@ def subplot_grafico4(metodo, conjunto, base):
     
     axes = plt.gca()
     #axes.set_xlim([-0.01, 0.52])
-    axes.set_ylim(-0.1,1)
+    axes.set_ylim(range_div[base])
     
     plt.xlabel('Interation')
     plt.ylabel('Diversity')
