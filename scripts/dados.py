@@ -12,7 +12,7 @@ def get_metodo():
 conjunto_homogeneo = '_HOM/'
 conjunto_heterogeneo = '_HET/'
 
-STEP = 250
+STEP = 9
 
 #Path
 ROOT_PATH = '/Users/regisalbuquerque/Documents/git/regis/mestrado_resultados/comparacao3/pareto/'
@@ -214,10 +214,10 @@ def subplot_grafico3(metodo, conjunto, base):
     Y_STEP = get_slice(Y, base)
     Y_LB_STEP = get_slice(Y_LB, base)
     
-    plt.scatter(X_STEP, Y_STEP, alpha=0.5, s=TAM_PONTO_2, color='k')
-    #plt.plot(X_STEP, Y_STEP, '-', label='', color='k', markersize=10)
-    plt.scatter(X_STEP, Y_LB_STEP, alpha=0.5, s=TAM_PONTO_2, color='g')
-    #plt.plot(X_STEP, Y_LB_STEP, ':', label='', color='g', markersize=10)
+    #plt.scatter(X_STEP, Y_STEP, alpha=0.5, s=TAM_PONTO_2, color='k')
+    plt.plot(X_STEP, Y_STEP, '-', label='', color='k', markersize=10)
+    #plt.scatter(X_STEP, Y_LB_STEP, alpha=0.5, s=TAM_PONTO_2, color='g')
+    plt.plot(X_STEP, Y_LB_STEP, ':', label='', color='g', markersize=10)
     
      # DRIFTS 
     if baseEhReal[base] == False:
