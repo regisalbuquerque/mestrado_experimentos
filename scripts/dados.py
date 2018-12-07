@@ -12,8 +12,6 @@ def get_metodo():
 conjunto_homogeneo = '_HOM/'
 conjunto_heterogeneo = '_HET/'
 
-STEP = 9
-
 #Path
 ROOT_PATH = '/Users/regisalbuquerque/Documents/git/regis/mestrado_resultados/comparacao3/pareto/'
 ROOT_PATH_LB = ROOT_PATH + 'LB_Original'
@@ -81,6 +79,17 @@ limiteBase = {
         'Elec': -1,
         'Spam': -1,
         'KDDCup99': -1
+        }
+
+
+stepBase = {
+        'Line': 9, 
+        'Sine1': 20, 
+        'Gauss': 20, 
+        'Circle': 15,
+        'Elec': 250,
+        'Spam': 250,
+        'KDDCup99': 250
         }
 
 # PONTOS
@@ -168,7 +177,7 @@ def subplot_grafico1(iteracao, metodo, conjunto, base):
 def get_slice(ARRAY, base):
     ARRAY_STEP = []
     ARRAY_STEP.append(ARRAY[0])
-    for index in range(0, limiteBase[base], STEP):
+    for index in range(0, limiteBase[base], stepBase[base]):
         ARRAY_STEP.append(ARRAY[index])
     ARRAY_STEP.append(ARRAY[-1])
     return ARRAY_STEP
@@ -183,8 +192,8 @@ def subplot_grafico2(metodo, conjunto, base):
     X_STEP = get_slice(X, base)
     Y_STEP = get_slice(Y, base)
     
-    plt.scatter(X_STEP, Y_STEP, alpha=0.5, s=TAM_PONTO_2, color='k')
-    #plt.plot(X_STEP, Y_STEP, '-', label='', color='k', markersize=10)
+    #plt.scatter(X_STEP, Y_STEP, alpha=0.5, s=TAM_PONTO_2, color='k')
+    plt.plot(X_STEP, Y_STEP, '-', label='', color='k', markersize=10)
     
      # DRIFTS 
     if baseEhReal[base] == False:
@@ -195,7 +204,7 @@ def subplot_grafico2(metodo, conjunto, base):
     #axes.set_xlim([-0.01, 0.52])
     axes.set_ylim(ranges_ensemble[base])
     
-    plt.xlabel('Interation')
+    plt.xlabel('Iteration')
     plt.ylabel('Ensemble')
     plt.title('Gráfico 2: ' + base + ' - ' + metodo + conjunto)
     plt.legend()
@@ -228,7 +237,7 @@ def subplot_grafico3(metodo, conjunto, base):
     #axes.set_xlim([-0.01, 0.52])
     axes.set_ylim(range_div[base])
     
-    plt.xlabel('Interation')
+    plt.xlabel('Iteration')
     plt.ylabel('Diversity')
     plt.title('Gráfico 3: ' + base + ' - ' + metodo + conjunto)
     plt.legend()
@@ -256,7 +265,7 @@ def subplot_grafico4(metodo, conjunto, base):
     #axes.set_xlim([-0.01, 0.52])
     axes.set_ylim(range_div[base])
     
-    plt.xlabel('Interation')
+    plt.xlabel('Iteration')
     plt.ylabel('Diversity')
     plt.title('Gráfico 4: ' + base + ' - ' + metodo + conjunto)
     plt.legend()

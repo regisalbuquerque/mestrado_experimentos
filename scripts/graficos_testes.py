@@ -7,7 +7,7 @@ metodos = ['V12', 'V14']
 bases = ['Line', 'Sine1', 'Gauss', 'Circle']
 
 metodo = 'V12'
-base = 'Line'
+base = 'Circle'
 print(metodo + ' - ' + base)
 grafico3.executa(base, metodo)
         
