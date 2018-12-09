@@ -52,13 +52,13 @@ ranges_ensemble = {
         }
 
 ranges_acc = {
-        'Line':[-0.1, 1.2], 
-        'Sine1': [-0.1, 1.2], 
-        'Gauss': [-0.1, 1.2], 
-        'Circle': [-0.1, 1.2],
-        'Elec': [-0.1, 1.2],
-        'Spam': [-0.1, 1.2],
-        'KDDCup99': [-0.1, 1.2]
+        'Line':[-0.1, 1.19], 
+        'Sine1': [-0.1, 1.19], 
+        'Gauss': [-0.1, 1.19], 
+        'Circle': [-0.1, 1.19],
+        'Elec': [-0.1, 1.19],
+        'Spam': [-0.1, 1.19],
+        'KDDCup99': [-0.1, 1.19]
         }
 
 baseEhReal = {
@@ -170,8 +170,8 @@ def subplot_grafico1(iteracao, metodo, conjunto, base):
 
     plt.xlabel('Diversity')
     plt.ylabel('Prequential Accuracy')
-    plt.title('Iteration ' + str(iteracao))
-    plt.legend()
+    #plt.title('Iteration ' + str(iteracao))
+    #plt.legend()
     plt.subplots_adjust(hspace=0.6, wspace = 0.4)
 
 def get_slice(ARRAY, base):

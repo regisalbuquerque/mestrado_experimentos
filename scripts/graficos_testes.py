@@ -9,6 +9,6 @@ bases = ['Line', 'Sine1', 'Gauss', 'Circle']
 metodo = 'V12'
 base = 'Circle'
 print(metodo + ' - ' + base)
-grafico3.executa(base, metodo)
+grafico1.executa(base, metodo)
         
 
