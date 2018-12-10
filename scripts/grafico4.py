@@ -13,8 +13,8 @@ def executa(base, metodo):
     
     plt.subplot(211)
     dados.subplot_grafico4(metodo, dados.conjunto_heterogeneo, base)
-    plt.subplot(212)
-    dados.subplot_grafico4(metodo, dados.conjunto_homogeneo, base)
+    #plt.subplot(212)
+    #dados.subplot_grafico4(metodo, dados.conjunto_homogeneo, base)
     
     #plt.show()
     
