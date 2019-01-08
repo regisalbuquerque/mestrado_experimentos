@@ -5,8 +5,6 @@ import java.util.List;
 
 import br.ufam.metodo.util.medidor.Resultado;
 import br.ufam.metodo.util.model.IEnsemblesResultados;
-import br.ufam.util.CSVUtil;
-import br.ufam.util.Registro;
 import experimental.analise.AnaliseCompleta;
 import experimental.analise.RelatDiversidade;
 import experimental.bases.BaseCircle;
@@ -17,6 +15,8 @@ import experimental.bases.BaseSine1;
 import experimental.metodos.LeveragingBagVersaoOriginal;
 import experimental.model.MetodoFactory;
 import experimentos.config.Configuracoes;
+import regisalbuquerque.utilslib.CSVUtil;
+import regisalbuquerque.utilslib.Registro;
 
 public class TesteComparativo_Pareto {
 

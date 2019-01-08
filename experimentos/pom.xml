@@ -12,11 +12,21 @@
     </properties>
     
     <dependencies>
+    
+    	<!-- https://github.com/regisalbuquerque/mestrado_metodo.git (PRIVATE) -->
         <dependency>
             <groupId>br.ufam</groupId>
             <artifactId>selecao_diversidade</artifactId>
             <version>1.0</version>
         </dependency>
+        
+        <!-- https://github.com/regisalbuquerque/utilslib.git (PUBLIC) -->
+        <dependency>
+            <groupId>regisalbuquerque</groupId>
+            <artifactId>utilslib</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        
         <!-- https://mvnrepository.com/artifact/com.googlecode.sizeofag/sizeofag -->
         <dependency>
             <groupId>com.googlecode.sizeofag</groupId>

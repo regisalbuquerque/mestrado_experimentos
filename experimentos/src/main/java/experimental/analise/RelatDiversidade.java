@@ -4,7 +4,7 @@ import java.util.List;
 
 import br.ufam.metodo.util.medidor.RegistroIteracao;
 import br.ufam.metodo.util.medidor.Resultado;
-import br.ufam.util.CSVUtil;
+import regisalbuquerque.utilslib.CSVUtil;
 
 /**
  *
