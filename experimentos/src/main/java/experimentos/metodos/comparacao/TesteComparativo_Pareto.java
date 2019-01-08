@@ -31,9 +31,9 @@ public class TesteComparativo_Pareto {
 		List<MetodoFactory> classificadores = new ArrayList<>();
 
 		bases.add(new BaseLine());
-		bases.add(new BaseSine1());
-		bases.add(new BaseGauss());
-		bases.add(new BaseCircle());
+//		bases.add(new BaseSine1());
+//		bases.add(new BaseGauss());
+//		bases.add(new BaseCircle());
 
 		classificadores
 			.add(new LeveragingBagVersaoOriginal().getMetodo());
