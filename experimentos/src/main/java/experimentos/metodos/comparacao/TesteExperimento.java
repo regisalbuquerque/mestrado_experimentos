@@ -7,50 +7,31 @@ import br.ufam.metodo.util.medidor.Resultado;
 import br.ufam.metodo.util.model.IEnsemblesResultados;
 import experimental.analise.AnaliseCompleta;
 import experimental.analise.RelatDiversidade;
-import experimental.bases.BaseCircle;
 import experimental.bases.BaseFactory;
-import experimental.bases.BaseGauss;
-import experimental.bases.BaseLine;
-import experimental.bases.BaseSine1;
-import experimental.metodos.LeveragingBagVersaoOriginal;
 import experimental.model.MetodoFactory;
-import experimentos.config.Configuracoes;
 import regisalbuquerque.utilslib.CSVUtil;
+import regisalbuquerque.utilslib.DiretorioUtil;
 import regisalbuquerque.utilslib.Registro;
 
-public class TesteComparativo_Pareto {
-
-	public static void main(String[] args) {
-
-		int NUM_EXECUCOES = 1;
-		int seed = 1;
-
-		List<Resultado> listaResultados = new ArrayList<>();
-
-		List<BaseFactory> bases = new ArrayList<>();
-		List<MetodoFactory> classificadores = new ArrayList<>();
-
-		bases.add(new BaseLine());
-//		bases.add(new BaseSine1());
-//		bases.add(new BaseGauss());
-//		bases.add(new BaseCircle());
-
-		classificadores
-			.add(new LeveragingBagVersaoOriginal().getMetodo());
+public class TesteExperimento {
+	
+	String PATH_CSV = "";
+	int NUM_EXECUCOES = 1;
+	int seed = 1;
+	List<Resultado> listaResultados = new ArrayList<>();
+	List<BaseFactory> bases = new ArrayList<>();
+	List<MetodoFactory> classificadores = new ArrayList<>();
 		
-		/*
-		// Método v12
-		classificadores
-				.add(new MetodoV12Config1("RetreinaTodosComBufferWarning", "Ambiguidade", seed, "DDM", 1).getMetodo());
-		classificadores
-				.add(new MetodoV12Config1("RetreinaTodosComBufferWarning", "Ambiguidade", seed, "DDM", 5).getMetodo());
-		// Método v14
-		classificadores
-				.add(new MetodoV14Config1("RetreinaTodosComBufferWarning", "Ambiguidade", seed, "DDM", 1).getMetodo());
-		classificadores
-				.add(new MetodoV14Config1("RetreinaTodosComBufferWarning", "Ambiguidade", seed, "DDM", 5).getMetodo());
-				
-				*/
+		
+	public TesteExperimento(String pathCSV, int numExecucoes, List<BaseFactory> bases, List<MetodoFactory> classificadores)
+	{
+		this.PATH_CSV = pathCSV;
+		this.NUM_EXECUCOES = numExecucoes;
+		this.bases = bases;
+		this.classificadores = classificadores;
+	}
+
+	public void run() {
 
 		double[][][] resultado = new double[NUM_EXECUCOES][classificadores.size()][bases.size()];
 		double[][] medias = new double[classificadores.size()][bases.size()];
@@ -69,8 +50,9 @@ public class TesteComparativo_Pareto {
 					listaResultados.add(resultadoClassificador);
 					resultado[i][c][b] = resultadoClassificador.getAcuraciaMedia();
 					
-					String PATH = Configuracoes.PATH_PARETO_METODO + "/" + classificadores.get(c).getCodigo() + "/"
+					String PATH = PATH_CSV + classificadores.get(c).getCodigo() + "/"
 							+ bases.get(b).getBase().getNome() + "/";
+					DiretorioUtil.createPath(PATH);
 					
 					String FILENAME = bases.get(b).getBase().getNome() + "_pareto__exec_" + i;
 					
@@ -90,8 +72,6 @@ public class TesteComparativo_Pareto {
 				}
 			}
 		}
-
-		if (NUM_EXECUCOES > 1) {
 
 			// Calcular Média e Desvio PADRÃO
 			for (int c = 0; c < classificadores.size(); c++) {
@@ -117,7 +97,7 @@ public class TesteComparativo_Pareto {
 			}
 
 			// Gravar o CSV
-			CSVUtil csv = new CSVUtil(Configuracoes.PATH_COMPARACAO, "TesteComparativo_Sinteticas.csv");
+			CSVUtil csv = new CSVUtil(PATH_CSV, "TesteComparativo_Sinteticas.csv");
 
 			Registro registroCab1 = new Registro();
 			registroCab1.adiciona("classificador");
@@ -139,7 +119,7 @@ public class TesteComparativo_Pareto {
 			csv.fechar();
 
 			// Gravar o CSV
-			CSVUtil csvDados = new CSVUtil(Configuracoes.PATH_COMPARACAO, "TesteComparativo_Dados_Sinteticas.csv");
+			CSVUtil csvDados = new CSVUtil(PATH_CSV, "TesteComparativo_Dados_Sinteticas.csv");
 
 			Registro registroCab2 = new Registro();
 			registroCab2.adiciona("classificador");
@@ -161,5 +141,4 @@ public class TesteComparativo_Pareto {
 			csvDados.fechar();
 
 		}
-	}
 }
