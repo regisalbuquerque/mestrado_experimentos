@@ -56,7 +56,7 @@ public class TesteExperimento {
 					
 					String FILENAME = bases.get(b).getBase().getNome() + "_pareto__exec_" + i;
 					
-					RelatDiversidade.gravar(resultadoClassificador, PATH, FILENAME);
+					RelatDiversidade.gravar(resultadoClassificador, PATH, FILENAME + "_div");
 
 					if (classificadores.get(c).getClassificador() instanceof IEnsemblesResultados) {
 						IEnsemblesResultados classificadorEnsembler = (IEnsemblesResultados) classificadores.get(c)
