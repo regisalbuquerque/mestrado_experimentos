@@ -10,8 +10,10 @@ public class Configuracoes {
     
     public final static String BASE_CLASSIFIER = "trees.HoeffdingTree"; //"trees.RandomHoeffdingTree"
     
-    public static String PATH_BASE = "/Users/regisalbuquerque/Documents/git/regis/mestrado/mestrado_resultados/";
+    public static String PATH_BASE = "/Users/regisalbuquerque/Documents/drive/regis/mestrado/resultados/";
     
+    
+    //OLD WAYs
     public static String PATH_COMPARACAO = PATH_BASE + "comparacao4/";
     public static String PATH_PARETO_METODO = PATH_BASE + "comparacao4/pareto/";
     

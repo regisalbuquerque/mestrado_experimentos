@@ -47,9 +47,14 @@ public class MetodoV14Config1 implements MetodoTeste {
         metodoClassificadorV14.setRandomSeed(this.randomSeed);
         
         MetodoFactory metodo = new MetodoFactory(metodoClassificadorV14);
-        metodo.setCodigo("V14_HOM");
+        
+        String codigo = "V14_HOM";
         if (this.numBaseLeaners > 1)
-			metodo.setCodigo("V14_HET");
+        	codigo = "V14_HET";
+        
+        codigo = codigo + "_" + this.detector;
+        
+        metodo.setCodigo(codigo);
         return metodo;
     }
     
