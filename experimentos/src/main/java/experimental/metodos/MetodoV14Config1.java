@@ -37,7 +37,7 @@ public class MetodoV14Config1 implements MetodoTeste {
         metodoClassificadorV14.lambdaMaxOption.setValueViaCLIString("100");
         //.lambdasOption.setValueViaCLIString("100,50,10,5,1,0.5,0.1,0.05,0.01,0.005,0.001");
         metodoClassificadorV14.selectionOptionMedidaCalculo.setChosenLabel(this.medidaCalculo);
-        metodoClassificadorV14.medidaCalculoJanela.setValue(100);
+        metodoClassificadorV14.medidaCalculoJanela.setValue(-1);
         metodoClassificadorV14.selectionOptionEstrategiaSelecao.setChosenLabel("Pareto");
         metodoClassificadorV14.selectionOptionEstrategiaRecuperacao.setChosenLabel(this.reacao);
         metodoClassificadorV14.ensemblesNumRemoverRecuperacaoOption.setValue(-1);
@@ -52,11 +52,14 @@ public class MetodoV14Config1 implements MetodoTeste {
         
         MetodoFactory metodo = new MetodoFactory(metodoClassificadorV14);
         
-        String codigo = "V14_HOM";
-        if (this.numBaseLeaners > 1)
-        	codigo = "V14_HET";
+        String codigo = "V14"; 
         
-        codigo = codigo + "_" + this.detector;
+        if (this.numBaseLeaners > 1)
+        	codigo = codigo + "_HET";
+        else
+        	codigo = codigo + "_HOM";
+        
+        codigo = codigo + "_" + this.geracao + "_" + this.detector;
         
         metodo.setCodigo(codigo);
         return metodo;

@@ -12,7 +12,7 @@ import experimentos.config.Configuracoes;
 
 public class TesteV14_DDM_HOM_sinteticas {
 	
-	static String PATH_EXPERIMENTO = Configuracoes.PATH_BASE + "v14_ddm_hom/";
+	static String PATH_EXPERIMENTO = Configuracoes.PATH_BASE + "v14_ddm_hom_online/";
 	
 	public static void main(String[] args) {
 		
@@ -22,10 +22,11 @@ public class TesteV14_DDM_HOM_sinteticas {
 		List<MetodoFactory> classificadores = new ArrayList<>();
 
 		bases.add(new BaseLine());
-		bases.add(new BaseCircle());
 		
 		// Método v14
-		classificadores.add(new MetodoV14Config1("RetreinaTodosComBufferWarning", "Ambiguidade", 1, "DDM", 1).getMetodo());
+		//classificadores.add(new MetodoV14Config1("OnlineBagging", "RetreinaTodosComBufferWarning", "Ambiguidade", 1, "DDM", 1).getMetodo());
+		classificadores.add(new MetodoV14Config1("LeverageBagging", "SimpleReset", "Ambiguidade", 1, "ADWINChangeDetector", 1).getMetodo());
+		
 		
 		TesteExperimento teste = new TesteExperimento(PATH_EXPERIMENTO, 1, 5, bases, classificadores);
 		teste.run();
