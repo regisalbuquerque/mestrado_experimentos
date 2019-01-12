@@ -44,7 +44,7 @@ public class TesteExperimento {
 					//FAZER APPEND NO ARQUIVO
 					// GRAVAR: Classificador + Base + Execução + Acc + Tempo
 					RelatResumoAcc.gravar(resultadoClassificador, i, pathFileName);
-
+					testePrequential = null;
 				}
 			}
 		}
