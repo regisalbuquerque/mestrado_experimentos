@@ -6,6 +6,7 @@ import experimentos.config.Configuracoes;
 
 public class MetodoV14Config1 implements MetodoTeste {
 	
+	private String geracao;
     private String reacao;
     private String medidaCalculo;
     private int randomSeed = 1;
@@ -13,8 +14,9 @@ public class MetodoV14Config1 implements MetodoTeste {
     private int numBaseLeaners = 1;
     
     
-    public MetodoV14Config1(String reacao, String medida, int randomSeed, String detectorOpt, int numBaseLeaners)
+    public MetodoV14Config1(String geracao, String reacao, String medida, int randomSeed, String detectorOpt, int numBaseLeaners)
     {
+       this.geracao = geracao;
        this.reacao = reacao;
        this.medidaCalculo = medida;
        this.randomSeed = randomSeed;
@@ -27,6 +29,7 @@ public class MetodoV14Config1 implements MetodoTeste {
     public MetodoFactory getMetodo() {
         MetodoClassificadorV14 metodoClassificadorV14 = new MetodoClassificadorV14();
         
+        metodoClassificadorV14.selectionOptionEstrategiaGeracao.setValueViaCLIString(this.geracao);
         metodoClassificadorV14.driftDetectionMethodOption.setValueViaCLIString(this.detector);
         metodoClassificadorV14.ensemblesNumberOption.setValue(11);
         metodoClassificadorV14.ensembleSizeOption.setValue(10);
@@ -44,6 +47,7 @@ public class MetodoV14Config1 implements MetodoTeste {
         metodoClassificadorV14.baseLearner3Option.setValueViaCLIString("trees.RandomHoeffdingTree");
         metodoClassificadorV14.baseLearner4Option.setValueViaCLIString("functions.Perceptron");
         metodoClassificadorV14.baseLearner5Option.setValueViaCLIString("bayes.NaiveBayes");
+      
         metodoClassificadorV14.setRandomSeed(this.randomSeed);
         
         MetodoFactory metodo = new MetodoFactory(metodoClassificadorV14);

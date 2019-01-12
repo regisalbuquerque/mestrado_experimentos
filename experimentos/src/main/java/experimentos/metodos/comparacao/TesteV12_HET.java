@@ -3,15 +3,18 @@ package experimentos.metodos.comparacao;
 import java.util.ArrayList;
 import java.util.List;
 
+import experimental.bases.BaseElec;
 import experimental.bases.BaseFactory;
+import experimental.bases.BaseKDDCup99;
 import experimental.bases.BaseLine;
+import experimental.bases.BaseSpam;
 import experimental.metodos.MetodoV12Config1;
 import experimental.model.MetodoFactory;
 import experimentos.config.Configuracoes;
 
 public class TesteV12_HET {
 	
-	static String PATH_EXPERIMENTO = Configuracoes.PATH_BASE + "v12/";
+	static String PATH_EXPERIMENTO = Configuracoes.PATH_BASE + "v12_reais/";
 	
 	public static void main(String[] args) {
 		
@@ -20,7 +23,9 @@ public class TesteV12_HET {
 		List<BaseFactory> bases = new ArrayList<>();
 		List<MetodoFactory> classificadores = new ArrayList<>();
 
-		bases.add(new BaseLine());
+		bases.add(new BaseSpam());
+		bases.add(new BaseElec());
+		bases.add(new BaseKDDCup99());
 		
 		classificadores.add(new MetodoV12Config1("RetreinaTodosComBufferWarning", "Ambiguidade", 1, "DDM", 5).getMetodo());
 		
