@@ -34,7 +34,7 @@ public class TesteExperimento {
 			{
 				for (int b = 0; b < bases.size(); b++) 
 				{
-					
+					System.out.println("EXEC: "+i + " CLASS: " +c +" BASE: " + b);
 					TestePrequential testePrequential = new TestePrequential(bases.get(b).getBase(), bases.get(b).getBaseDrifts(), classificadores.get(c));
 					Resultado resultadoClassificador = testePrequential.test();
 					resultadoClassificador.setCodigo(classificadores.get(c).getCodigo());
