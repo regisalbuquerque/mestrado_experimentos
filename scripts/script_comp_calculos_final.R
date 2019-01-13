@@ -7,10 +7,10 @@
   LB <- "_comp_1__LB_Original_iteracao"
   
   TAM <- 30
-  DATASET <- "Kdd"
+  DATASET <- "KDDCup"
   
   getTaxasMedias <- function(base, metodo){
-    path <- "~/Documents/git/regis/mestrado/implementacoes/resultados/metodos/comparacao/";
+    path <- "/Users/regisalbuquerque/Documents/git/regis/mestrado/mestrado_resultados/comparacao/";
     tabela <- read.table(paste0(path, base, metodo, ".csv"), header=T, sep=",")
     taxas <- unlist(tabela['taxa'])
     return(taxas)
@@ -30,6 +30,15 @@
      taxas_DDM_part <- c(taxas_DDM_part, taxas_DDM[index])
      taxas_LB_part <- c(taxas_LB_part, taxas_LB[index])
   }
+  
+  mean(taxas_DESDD_part)
+  sd(taxas_DESDD_part)
+  
+  mean(taxas_DDM_part)
+  sd(taxas_DDM_part)
+  
+  mean(taxas_LB_part)
+  sd(taxas_LB_part)
   
   wilcox.test(taxas_DESDD_part, taxas_DDM_part)
   wilcox.test(taxas_DESDD_part, taxas_LB_part)
