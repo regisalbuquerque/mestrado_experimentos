@@ -27,15 +27,15 @@ public class TesteV14_reais {
 		List<MetodoFactory> classificadores = new ArrayList<>();
 
 		//bases.add(new BaseElec());
-		bases.add(new BaseSpam());
-		//bases.add(new BaseKDDCup99());
+		//bases.add(new BaseSpam());
+		bases.add(new BaseKDDCup99());
 		
 		// Método v14
-		//classificadores.add(new MetodoV14Config1("OnlineBagging", "RetreinaTodosComBufferWarning", "Ambiguidade", 1, "DDM", 1).getMetodo());
-		classificadores.add(new MetodoV14Config1("LeverageBagging", "SimpleReset", "Ambiguidade", 1, "ADWINChangeDetector", 1).getMetodo());
+		classificadores.add(new MetodoV14Config1("OnlineBagging", "RetreinaTodosComBufferWarning", "Ambiguidade", 1, "DDM", 1).getMetodo());
+		//classificadores.add(new MetodoV14Config1("LeverageBagging", "SimpleReset", "Ambiguidade", 1, "ADWINChangeDetector", 1).getMetodo());
 		
 		
-		TesteExperimento teste = new TesteExperimento(PATH_EXPERIMENTO, 1, 5, bases, classificadores);
+		TesteExperimento teste = new TesteExperimento(PATH_EXPERIMENTO, 3, 5, bases, classificadores);
 		teste.run();
 
 	}
