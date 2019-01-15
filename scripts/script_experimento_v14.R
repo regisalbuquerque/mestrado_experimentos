@@ -8,8 +8,7 @@
   DATASET <- "KDDCup99"
   
   getDados <- function(base, metodo, coluna){
-    #path <- "/Users/regisalbuquerque/Documents/drive/regis/mestrado/resultados/v14_hom/";
-    path <- "/Users/regisalbuquerque/Documents/drive/regis/mestrado/resultados/v14_hom_reais/";
+    path <- "/Users/regisalbuquerque/Documents/drive/regis/mestrado/resultados/v14_hom/";
     tabela <- read.table(paste0(path, metodo, base), header=T, sep=",")
     dados <- unlist(tabela[coluna])
     return(dados)
