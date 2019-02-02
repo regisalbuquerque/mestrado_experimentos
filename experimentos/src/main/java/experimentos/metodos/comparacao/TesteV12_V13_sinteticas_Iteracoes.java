@@ -34,7 +34,7 @@ public class TesteV12_V13_sinteticas_Iteracoes {
 		//Método v13 
 		classificadores.add(new DESDDConfig("13", "LeverageBagging", "SimpleReset", "Ambiguidade", 1, "ADWINChangeDetector", 1).getMetodo());
 		
-		TesteExperimento teste = new TesteExperimento(PATH_EXPERIMENTO, 1, 30, bases, classificadores);
+		TesteExperimento teste = new TesteExperimento(PATH_EXPERIMENTO, 1, 1, bases, classificadores);
 		teste.run();
 
 	}

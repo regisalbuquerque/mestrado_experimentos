@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.ufam.metodo.util.medidor.Resultado;
+import br.ufam.metodo.util.model.IEnsemblesResultados;
+import experimental.analise.AnaliseCompleta;
+import experimental.analise.RelatDiversidade;
 import experimental.analise.RelatResumoAcc;
 import experimental.bases.BaseFactory;
 import experimental.model.MetodoFactory;
@@ -44,7 +47,25 @@ public class TesteExperimento {
 					//FAZER APPEND NO ARQUIVO
 					// GRAVAR: Classificador + Base + Execução + Acc + Tempo
 					RelatResumoAcc.gravar(resultadoClassificador, i, pathFileName);
+					
+					String PATH = PATH_CSV + classificadores.get(c).getCodigo() + "/"+ bases.get(b).getBase().getNome() + "/";
+					String FILENAME = bases.get(b).getBase().getNome() + "_pareto__exec_" + i;
+					
+					//Gravar a diversidade do Método
+					RelatDiversidade.gravar(resultadoClassificador, PATH, FILENAME + "_div");
+					
+					if (classificadores.get(c).getClassificador() instanceof IEnsemblesResultados) {
+						IEnsemblesResultados classificadorEnsembler = (IEnsemblesResultados) classificadores.get(c).getClassificador();
+						// Análise de Pareto - Dos Ensembles
+						AnaliseCompleta analiseCompleta = new AnaliseCompleta(
+								classificadorEnsembler.getEnsemblesResultados(),
+								PATH,
+								FILENAME);
+						analiseCompleta.analisa(false); // False para minimizar
+					}
+					
 					testePrequential = null;
+
 				}
 			}
 		}
