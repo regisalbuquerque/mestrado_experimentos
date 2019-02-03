@@ -3,7 +3,9 @@ package experimentos.metodos.comparacao;
 import java.util.ArrayList;
 import java.util.List;
 
+import experimental.bases.BaseCircle;
 import experimental.bases.BaseFactory;
+import experimental.bases.BaseGauss;
 import experimental.bases.BaseLine;
 import experimental.bases.BaseSine1;
 import experimental.metodos.DESDDConfig;
@@ -23,8 +25,8 @@ public class TesteV12_V13_sinteticas_Iteracoes {
 
 		bases.add(new BaseLine());
 		bases.add(new BaseSine1());
-		//bases.add(new BaseGauss());
-		//bases.add(new BaseCircle());
+		bases.add(new BaseGauss());
+		bases.add(new BaseCircle());
 		
 		// Método v12
 		classificadores.add(new DESDDConfig("12", "LeverageBagging", "SimpleReset", "Ambiguidade", 1, "ADWINChangeDetector", 1).getMetodo());

@@ -270,6 +270,34 @@ def subplot_grafico4(metodo, conjunto, base):
     #plt.title('Gráfico 4: ' + base + ' - ' + metodo + conjunto)
     plt.legend()
     plt.subplots_adjust(hspace=0.6)
+    
+def subplot_grafico5(metodo, conjunto, base):
+    #TO DO - CRIAR HISTOGRAMA
+    
+    PATH_FILE = ROOT_PATH + metodo + conjunto + base + '/' + base + '_pareto__exec_0_it_';
+    X = range(1, limiteBase[base]+1)
+    Y = localiza_vencedores(PATH_FILE, base);
+    
+    X_STEP = get_slice(X, base)
+    Y_STEP = get_slice(Y, base)
+    
+    #plt.scatter(X_STEP, Y_STEP, alpha=0.5, s=TAM_PONTO_2, color='k')
+    plt.plot(X_STEP, Y_STEP, '-', label='', color='k', markersize=10)
+    
+     # DRIFTS 
+    if baseEhReal[base] == False:
+        for xc in drifts[base]:
+            plt.axvline(x=xc)
+    
+    axes = plt.gca()
+    #axes.set_xlim([-0.01, 0.52])
+    axes.set_ylim(ranges_ensemble[base])
+    
+    plt.xlabel('Iteration')
+    plt.ylabel('Ensemble')
+    #plt.title('Gráfico 2: ' + base + ' - ' + metodo + conjunto)
+    #plt.legend()
+    plt.subplots_adjust(hspace=0.6)
 
 def localiza_vencedores(path_file, base):
     VENCEDORES = []
