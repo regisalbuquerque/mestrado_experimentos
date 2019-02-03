@@ -48,18 +48,18 @@ public class TesteExperimento {
 					// GRAVAR: Classificador + Base + Execução + Acc + Tempo
 					RelatResumoAcc.gravar(resultadoClassificador, i, pathFileName);
 					
-					String PATH = PATH_CSV + classificadores.get(c).getCodigo() + "/"+ bases.get(b).getBase().getNome() + "/";
-					String FILENAME = bases.get(b).getBase().getNome() + "_pareto__exec_" + i;
+					String PATH_CLASS = classificadores.get(c).getCodigo() + "/"+ bases.get(b).getBase().getNome() + "/";
+					String FILENAME = classificadores.get(c).getCodigo() + "_" + bases.get(b).getBase().getNome() + "_pareto__exec_" + i;
 					
 					//Gravar a diversidade do Método
-					RelatDiversidade.gravar(resultadoClassificador, PATH, FILENAME + "_div");
+					RelatDiversidade.gravar(resultadoClassificador, PATH_CSV, FILENAME + "_div");
 					
 					if (classificadores.get(c).getClassificador() instanceof IEnsemblesResultados) {
 						IEnsemblesResultados classificadorEnsembler = (IEnsemblesResultados) classificadores.get(c).getClassificador();
 						// Análise de Pareto - Dos Ensembles
 						AnaliseCompleta analiseCompleta = new AnaliseCompleta(
 								classificadorEnsembler.getEnsemblesResultados(),
-								PATH,
+								PATH_CSV + "/pareto/" + PATH_CLASS,
 								FILENAME);
 						analiseCompleta.analisa(false); // False para minimizar
 					}
