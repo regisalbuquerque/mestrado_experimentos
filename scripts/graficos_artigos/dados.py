@@ -273,7 +273,17 @@ def subplot_grafico4(metodo, conjunto, base):
     
 def subplot_grafico5(metodo, conjunto, base):
     #TO DO - CRIAR HISTOGRAMA
+    import pandas as pd
+    import matplotlib.pyplot as plt
+    PATH = '/Users/regisalbuquerque/Documents/drive/regis/mestrado/resultados/Teste_v12_v13/pareto/V12_HOM_LeverageBagging_ADWINChangeDetector/Line/V12_HOM_LeverageBagging_ADWINChangeDetector_Line_pareto__exec_1_it_739.csv'
+    RESULTADO = pd.read_csv(PATH)
+    len(RESULTADO.index.values)
+    frequencias = [0]*len(RESULTADO.index.values)
+    X = RESULTADO.loc[RESULTADO['pareto_maior'] == True]
+    VENCEDOR = X.index.values[0]
+    frequencias[VENCEDOR] = frequencias[VENCEDOR] + 1
     
+
     PATH_FILE = ROOT_PATH + metodo + conjunto + base + '/' + base + '_pareto__exec_0_it_';
     X = range(1, limiteBase[base]+1)
     Y = localiza_vencedores(PATH_FILE, base);
@@ -298,6 +308,20 @@ def subplot_grafico5(metodo, conjunto, base):
     #plt.title('Gráfico 2: ' + base + ' - ' + metodo + conjunto)
     #plt.legend()
     plt.subplots_adjust(hspace=0.6)
+    
+    
+def calcula_frequencias(path_file, base):
+    #Cria os contadores
+    frequencias = [0]*X.index.values
+    
+    VENCEDORES = []
+    for it in range(1, limiteBase[base]+1):
+        RESULTADO = pd.read_csv(path_file + str(it) + '.csv')
+        X = RESULTADO.loc[RESULTADO['pareto_maior'] == True]
+        VENCEDOR = X.index.values[0]
+        #print('\nVENCEDOR:' + str(VENCEDOR))
+        VENCEDORES.append(VENCEDOR)
+    return VENCEDORES
 
 def localiza_vencedores(path_file, base):
     VENCEDORES = []
