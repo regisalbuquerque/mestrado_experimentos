@@ -14,6 +14,13 @@ conjunto_heterogeneo = '_HET/'
 
 #Path
 ROOT_PATH = '/Users/regisalbuquerque/Documents/git/regis/mestrado_resultados/comparacao3/pareto/'
+ROOT_PATH2 = '/Users/regisalbuquerque/Documents/drive/regis/mestrado/resultados/Teste_v12_v13/pareto/'
+
+# '/Users/regisalbuquerque/Documents/drive/regis/mestrado/resultados/Teste_v12_v13/
+# pareto/V12_HOM_LeverageBagging_ADWINChangeDetector/Line/V12_HOM_LeverageBagging_ADWINChangeDetector_Line_pareto__exec_1_it_739.csv'
+
+
+
 ROOT_PATH_LB = ROOT_PATH + 'LB_Original'
 
 ROOT_PATH_IMG = '/Users/regisalbuquerque/Desktop/'
@@ -271,28 +278,57 @@ def subplot_grafico4(metodo, conjunto, base):
     plt.legend()
     plt.subplots_adjust(hspace=0.6)
     
-def subplot_grafico5(metodo, conjunto, base):
-    #TO DO - CRIAR HISTOGRAMA
-    import pandas as pd
-    import matplotlib.pyplot as plt
-    PATH = '/Users/regisalbuquerque/Documents/drive/regis/mestrado/resultados/Teste_v12_v13/pareto/V12_HOM_LeverageBagging_ADWINChangeDetector/Line/V12_HOM_LeverageBagging_ADWINChangeDetector_Line_pareto__exec_1_it_739.csv'
-    RESULTADO = pd.read_csv(PATH)
-    len(RESULTADO.index.values)
-    frequencias = [0]*len(RESULTADO.index.values)
-    X = RESULTADO.loc[RESULTADO['pareto_maior'] == True]
-    VENCEDOR = X.index.values[0]
-    frequencias[VENCEDOR] = frequencias[VENCEDOR] + 1
+def subplot_grafico5(metodo, base):
     
+    # HISTOGRAMA DOS ENSEMBLES
 
-    PATH_FILE = ROOT_PATH + metodo + conjunto + base + '/' + base + '_pareto__exec_0_it_';
+    PATH_FILE = ROOT_PATH2 + metodo + '/' + base + '/' + metodo + '_' + base + '_pareto__exec_1_it_';
+    
+    Y = calcula_frequencias(PATH_FILE, base);
+    X = range(1, len(Y)+1)
+    
+    plt.bar(X, Y, align='center', alpha=0.5)
+    plt.xticks(X, X)
+    
+    for i in range(len(Y)):
+        plt.text(x = X[i]-0.2 , y = Y[i]+0.1, s = Y[i], size = 15)
+
+    
+    plt.xlabel('Ensembles')
+    plt.ylabel('Count')
+    #plt.title('Gráfico 5: ' + base + ' - ' + metodo + conjunto)
+    #plt.legend()
+    plt.subplots_adjust(hspace=0.6)
+    
+def subplot_grafico6(metodo, base):
+    
+    # DIVERSIDADES DOS TOP3
+    
+    PATH_FILE = ROOT_PATH2 + metodo + '/' + base + '/' + metodo + '_' + base + '_pareto__exec_1_it_';
+    
     X = range(1, limiteBase[base]+1)
-    Y = localiza_vencedores(PATH_FILE, base);
+    
+    frequencias = calcula_frequencias(PATH_FILE, base)
+    
+    INDEX_TOP1 = frequencias.index(max(frequencias))
+    frequencias[INDEX_TOP1] = -1
+    INDEX_TOP2 = frequencias.index(max(frequencias))
+    frequencias[INDEX_TOP2] = -1
+    INDEX_TOP3 = frequencias.index(max(frequencias))
+    frequencias[INDEX_TOP3] = -1
+    
+    Y_TOP1 = localiza_diversidades_top(INDEX_TOP1, PATH_FILE, base);
+    Y_TOP2 = localiza_diversidades_top(INDEX_TOP2, PATH_FILE, base);
+    Y_TOP3 = localiza_diversidades_top(INDEX_TOP3, PATH_FILE, base);
     
     X_STEP = get_slice(X, base)
-    Y_STEP = get_slice(Y, base)
+    Y_TOP1_STEP = get_slice(Y_TOP1, base)
+    Y_TOP2_STEP = get_slice(Y_TOP2, base)
+    Y_TOP3_STEP = get_slice(Y_TOP3, base)
     
-    #plt.scatter(X_STEP, Y_STEP, alpha=0.5, s=TAM_PONTO_2, color='k')
-    plt.plot(X_STEP, Y_STEP, '-', label='', color='k', markersize=10)
+    plt.plot(X_STEP, Y_TOP1_STEP, '-', label='FIRST', color='k', markersize=10)
+    plt.plot(X_STEP, Y_TOP2_STEP, ':', label='SECOND', color='b', markersize=10)
+    plt.plot(X_STEP, Y_TOP3_STEP, '.', label='THIRD', color='r', markersize=10)
     
      # DRIFTS 
     if baseEhReal[base] == False:
@@ -301,27 +337,37 @@ def subplot_grafico5(metodo, conjunto, base):
     
     axes = plt.gca()
     #axes.set_xlim([-0.01, 0.52])
-    axes.set_ylim(ranges_ensemble[base])
+    axes.set_ylim(range_div[base])
     
     plt.xlabel('Iteration')
-    plt.ylabel('Ensemble')
-    #plt.title('Gráfico 2: ' + base + ' - ' + metodo + conjunto)
-    #plt.legend()
+    plt.ylabel('Diversity')
+    #plt.title('Gráfico 4: ' + base + ' - ' + metodo + conjunto)
+    plt.legend()
     plt.subplots_adjust(hspace=0.6)
     
+
+
+def localiza_diversidades_top(indice, path_file, base):
+    DIVERSIDADES = []
+    for it in range(1, limiteBase[base]+1):
+        RESULTADO = pd.read_csv(path_file + str(it) + '.csv')
+        X = RESULTADO.loc[indice]
+        DIVERSIDADE = X['diversidade']
+        DIVERSIDADES.append(DIVERSIDADE)
+    return DIVERSIDADES
     
+
 def calcula_frequencias(path_file, base):
     #Cria os contadores
-    frequencias = [0]*X.index.values
+    RESULTADO = pd.read_csv(path_file + '1.csv')
+    frequencias = [0]*len(RESULTADO.index.values)
     
-    VENCEDORES = []
     for it in range(1, limiteBase[base]+1):
         RESULTADO = pd.read_csv(path_file + str(it) + '.csv')
         X = RESULTADO.loc[RESULTADO['pareto_maior'] == True]
         VENCEDOR = X.index.values[0]
-        #print('\nVENCEDOR:' + str(VENCEDOR))
-        VENCEDORES.append(VENCEDOR)
-    return VENCEDORES
+        frequencias[VENCEDOR] = frequencias[VENCEDOR] + 1
+    return frequencias
 
 def localiza_vencedores(path_file, base):
     VENCEDORES = []
