@@ -90,7 +90,7 @@ limiteBase = {
 
 
 stepBase = {
-        'Line': 9, 
+        'Line': 1, 
         'Sine1': 20, 
         'Gauss': 20, 
         'Circle': 15,
@@ -327,8 +327,8 @@ def subplot_grafico6(metodo, base):
     Y_TOP3_STEP = get_slice(Y_TOP3, base)
     
     plt.plot(X_STEP, Y_TOP1_STEP, '-', label='FIRST', color='k', markersize=10)
-    plt.plot(X_STEP, Y_TOP2_STEP, ':', label='SECOND', color='b', markersize=10)
-    plt.plot(X_STEP, Y_TOP3_STEP, '.', label='THIRD', color='r', markersize=10)
+    #plt.plot(X_STEP, Y_TOP2_STEP, ':', label='SECOND', color='b', markersize=10)
+    #plt.plot(X_STEP, Y_TOP3_STEP, '-', label='THIRD', color='r', markersize=10)
     
      # DRIFTS 
     if baseEhReal[base] == False:
