@@ -16,10 +16,7 @@ conjunto_heterogeneo = '_HET/'
 ROOT_PATH = '/Users/regisalbuquerque/Documents/git/regis/mestrado_resultados/comparacao3/pareto/'
 ROOT_PATH2 = '/Users/regisalbuquerque/Documents/drive/regis/mestrado/resultados/Teste_v12_v13/pareto/'
 
-# '/Users/regisalbuquerque/Documents/drive/regis/mestrado/resultados/Teste_v12_v13/
-# pareto/V12_HOM_LeverageBagging_ADWINChangeDetector/Line/V12_HOM_LeverageBagging_ADWINChangeDetector_Line_pareto__exec_1_it_739.csv'
-
-
+#PATH = '/Users/regisalbuquerque/Documents/drive/regis/mestrado/resultados/Teste_v12_v13/pareto/V12_HOM_LeverageBagging_ADWINChangeDetector/Line/V12_HOM_LeverageBagging_ADWINChangeDetector_Line_pareto__exec_1_it_1.csv'
 
 ROOT_PATH_LB = ROOT_PATH + 'LB_Original'
 
@@ -285,6 +282,8 @@ def subplot_grafico5(metodo, base):
     PATH_FILE = ROOT_PATH2 + metodo + '/' + base + '/' + metodo + '_' + base + '_pareto__exec_1_it_';
     
     Y = calcula_frequencias(PATH_FILE, base);
+    
+    
     X = range(1, len(Y)+1)
     
     plt.bar(X, Y, align='center', alpha=0.5)
@@ -310,6 +309,7 @@ def subplot_grafico6(metodo, base):
     
     frequencias = calcula_frequencias(PATH_FILE, base)
     
+    
     INDEX_TOP1 = frequencias.index(max(frequencias))
     frequencias[INDEX_TOP1] = -1
     INDEX_TOP2 = frequencias.index(max(frequencias))
@@ -327,8 +327,8 @@ def subplot_grafico6(metodo, base):
     Y_TOP3_STEP = get_slice(Y_TOP3, base)
     
     plt.plot(X_STEP, Y_TOP1_STEP, '-', label='FIRST', color='k', markersize=10)
-    #plt.plot(X_STEP, Y_TOP2_STEP, ':', label='SECOND', color='b', markersize=10)
-    #plt.plot(X_STEP, Y_TOP3_STEP, '-', label='THIRD', color='r', markersize=10)
+    plt.plot(X_STEP, Y_TOP2_STEP, ':', label='SECOND', color='b', markersize=10)
+    plt.plot(X_STEP, Y_TOP3_STEP, '-', label='THIRD', color='r', markersize=10)
     
      # DRIFTS 
     if baseEhReal[base] == False:
@@ -359,15 +359,22 @@ def localiza_diversidades_top(indice, path_file, base):
 
 def calcula_frequencias(path_file, base):
     #Cria os contadores
-    RESULTADO = pd.read_csv(path_file + '1.csv')
-    frequencias = [0]*len(RESULTADO.index.values)
+    PRIMEIRA_IT = pd.read_csv(path_file + '1.csv')
+    frequencias = [0]*len(PRIMEIRA_IT.index.values)
+    frequencias_ord = []
     
     for it in range(1, limiteBase[base]+1):
         RESULTADO = pd.read_csv(path_file + str(it) + '.csv')
         X = RESULTADO.loc[RESULTADO['pareto_maior'] == True]
         VENCEDOR = X.index.values[0]
         frequencias[VENCEDOR] = frequencias[VENCEDOR] + 1
-    return frequencias
+      
+    ORDENADO = PRIMEIRA_IT.sort_values('cod')    
+    ordem = ORDENADO.index.values
+    for it in ordem:
+        frequencias_ord.append(frequencias[it])
+    
+    return frequencias_ord
 
 def localiza_vencedores(path_file, base):
     VENCEDORES = []
