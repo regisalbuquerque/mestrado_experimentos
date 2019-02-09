@@ -275,19 +275,19 @@ def subplot_grafico4(metodo, conjunto, base):
     plt.legend()
     plt.subplots_adjust(hspace=0.6)
     
-def subplot_grafico5(metodo, base):
+def subplot_grafico5(metodo, base, titulo):
     
     # HISTOGRAMA DOS ENSEMBLES
 
     PATH_FILE = ROOT_PATH2 + metodo + '/' + base + '/' + metodo + '_' + base + '_pareto__exec_1_it_';
     
-    Y = calcula_frequencias(PATH_FILE, base);
+    Y, X_Labels, escolhas = calcula_frequencias(PATH_FILE, base);
     
     
     X = range(1, len(Y)+1)
     
     plt.bar(X, Y, align='center', alpha=0.5)
-    plt.xticks(X, X)
+    plt.xticks(X, X_Labels)
     
     for i in range(len(Y)):
         plt.text(x = X[i]-0.2 , y = Y[i]+0.1, s = Y[i], size = 15)
@@ -295,11 +295,11 @@ def subplot_grafico5(metodo, base):
     
     plt.xlabel('Ensembles')
     plt.ylabel('Count')
-    #plt.title('Gráfico 5: ' + base + ' - ' + metodo + conjunto)
+    plt.title(titulo)
     #plt.legend()
     plt.subplots_adjust(hspace=0.6)
     
-def subplot_grafico6(metodo, base):
+def subplot_grafico6(metodo, base, titulo):
     
     # DIVERSIDADES DOS TOP3
     
@@ -307,7 +307,7 @@ def subplot_grafico6(metodo, base):
     
     X = range(1, limiteBase[base]+1)
     
-    frequencias = calcula_frequencias(PATH_FILE, base)
+    frequencias, diversidades, escolhas = calcula_frequencias(PATH_FILE, base)
     
     
     INDEX_TOP1 = frequencias.index(max(frequencias))
@@ -327,8 +327,12 @@ def subplot_grafico6(metodo, base):
     Y_TOP3_STEP = get_slice(Y_TOP3, base)
     
     plt.plot(X_STEP, Y_TOP1_STEP, '-', label='FIRST', color='k', markersize=10)
-    plt.plot(X_STEP, Y_TOP2_STEP, ':', label='SECOND', color='b', markersize=10)
-    plt.plot(X_STEP, Y_TOP3_STEP, '-', label='THIRD', color='r', markersize=10)
+    X_TOP1_ESCOLHAS, Y_TOP1_ESCOLHAS = calcula_pontos_escolhidos(INDEX_TOP1, Y_TOP1, escolhas)
+    plt.plot(X_TOP1_ESCOLHAS, Y_TOP1_ESCOLHAS, 'x', label='FIRST(CHOOSEN)', color='k', markersize=20)
+    
+    
+    #plt.plot(X_STEP, Y_TOP2_STEP, ':', label='SECOND', color='b', markersize=10)
+    #plt.plot(X_STEP, Y_TOP3_STEP, '-', label='THIRD', color='r', markersize=10)
     
      # DRIFTS 
     if baseEhReal[base] == False:
@@ -341,7 +345,7 @@ def subplot_grafico6(metodo, base):
     
     plt.xlabel('Iteration')
     plt.ylabel('Diversity')
-    #plt.title('Gráfico 4: ' + base + ' - ' + metodo + conjunto)
+    plt.title(titulo)
     plt.legend()
     plt.subplots_adjust(hspace=0.6)
     
@@ -357,24 +361,37 @@ def localiza_diversidades_top(indice, path_file, base):
     return DIVERSIDADES
     
 
+def calcula_pontos_escolhidos(index, diversidade_index, escolhas):
+    pontos_escolhidos = []
+    diversidade_escolhido = []
+    for it in range(1, len(escolhas)):
+        if escolhas[it] == index:
+            pontos_escolhidos.append(it)
+            diversidade_escolhido.append(diversidade_index[it])
+    return pontos_escolhidos, diversidade_escolhido
+
 def calcula_frequencias(path_file, base):
     #Cria os contadores
     PRIMEIRA_IT = pd.read_csv(path_file + '1.csv')
     frequencias = [0]*len(PRIMEIRA_IT.index.values)
     frequencias_ord = []
+    diversidades_ord = []
+    escolhas = []
     
     for it in range(1, limiteBase[base]+1):
         RESULTADO = pd.read_csv(path_file + str(it) + '.csv')
         X = RESULTADO.loc[RESULTADO['pareto_maior'] == True]
         VENCEDOR = X.index.values[0]
         frequencias[VENCEDOR] = frequencias[VENCEDOR] + 1
+        escolhas.append(VENCEDOR)
       
     ORDENADO = PRIMEIRA_IT.sort_values('cod')    
     ordem = ORDENADO.index.values
+    diversidades = ORDENADO['cod']
     for it in ordem:
         frequencias_ord.append(frequencias[it])
-    
-    return frequencias_ord
+        diversidades_ord.append(round(diversidades[it], 6))
+    return frequencias_ord, diversidades_ord, escolhas
 
 def localiza_vencedores(path_file, base):
     VENCEDORES = []

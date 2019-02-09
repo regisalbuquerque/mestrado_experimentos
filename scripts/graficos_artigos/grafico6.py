@@ -7,14 +7,14 @@ import dados as dados
 
 #style.use('default')
 
-def executa(base, metodo1, metodo2):
+def executa(base, metodo1, titulo1, metodo2, titulo2):
 
     fig, ax = plt.subplots()
     
     plt.subplot(211)
-    dados.subplot_grafico6(metodo1, base)
+    dados.subplot_grafico6(metodo1, base, titulo1)
     plt.subplot(212)
-    dados.subplot_grafico6(metodo2, base)
+    dados.subplot_grafico6(metodo2, base, titulo2)
     
     #plt.show()
     
