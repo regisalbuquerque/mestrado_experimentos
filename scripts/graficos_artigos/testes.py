@@ -53,6 +53,24 @@ for it in range(1, limiteBase[base]+1):
     frequencias[VENCEDOR] = frequencias[VENCEDOR] + 1
     escolhas_lambdas.append(lambda_escolhido)
   
+TOP1_FREQ = max(frequencias)    
+TOP1_INDEX = frequencias.index(max(frequencias)) 
+TOP1_LAMBDA = lambdas[TOP1_INDEX]  
+
+
+
+DIVERSIDADES = []
+for it in range(1, limiteBase[base]+1):
+    RESULTADO = pd.read_csv(path_file + str(it) + '.csv')
+    LINHA = RESULTADO.loc[RESULTADO['cod'] == TOP1_LAMBDA]
+    DIVERSIDADE = LINHA['diversidade'].values[0]
+    DIVERSIDADES.append(DIVERSIDADE)
+
+
+
+    
+    
+    
 ORDENADO = PRIMEIRA_IT.sort_values('cod')    
 ordem = ORDENADO.index.values
 diversidades = ORDENADO['cod']

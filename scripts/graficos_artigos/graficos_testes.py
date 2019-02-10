@@ -1,8 +1,3 @@
-import grafico1 
-import grafico2
-import grafico3
-import grafico4
-import grafico5
 import grafico6
 
 metodos = ['V12_HOM_LeverageBagging_ADWINChangeDetector', 'V13_HOM_LeverageBagging_ADWINChangeDetector']

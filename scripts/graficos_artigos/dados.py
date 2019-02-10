@@ -281,9 +281,10 @@ def subplot_grafico5(metodo, base, titulo):
 
     PATH_FILE = ROOT_PATH2 + metodo + '/' + base + '/' + metodo + '_' + base + '_pareto__exec_1_it_';
     
-    Y, X_Labels, escolhas = calcula_frequencias(PATH_FILE, base);
+    frequencias, lambdas, escolhas_lambdas = calcula_frequencias(PATH_FILE, base)
     
-    
+    Y = frequencias
+    X_Labels = lambdas
     X = range(1, len(Y)+1)
     
     plt.bar(X, Y, align='center', alpha=0.5)
@@ -307,28 +308,14 @@ def subplot_grafico6(metodo, base, titulo):
     
     X = range(1, limiteBase[base]+1)
     
-    frequencias, diversidades, escolhas = calcula_frequencias(PATH_FILE, base)
+    frequencias, lambdas, escolhas_lambdas = calcula_frequencias(PATH_FILE, base)
+    top_index, top_lambda = consulta_top1(frequencias, lambdas)
+    Y_TOP1 = localiza_diversidades_top(top_lambda, PATH_FILE, base);
     
+    plt.plot(X, Y_TOP1, '-', label='FIRST', color='k', markersize=10)
     
-    INDEX_TOP1 = frequencias.index(max(frequencias))
-    frequencias[INDEX_TOP1] = -1
-    INDEX_TOP2 = frequencias.index(max(frequencias))
-    frequencias[INDEX_TOP2] = -1
-    INDEX_TOP3 = frequencias.index(max(frequencias))
-    frequencias[INDEX_TOP3] = -1
-    
-    Y_TOP1 = localiza_diversidades_top(INDEX_TOP1, PATH_FILE, base);
-    Y_TOP2 = localiza_diversidades_top(INDEX_TOP2, PATH_FILE, base);
-    Y_TOP3 = localiza_diversidades_top(INDEX_TOP3, PATH_FILE, base);
-    
-    X_STEP = get_slice(X, base)
-    Y_TOP1_STEP = get_slice(Y_TOP1, base)
-    Y_TOP2_STEP = get_slice(Y_TOP2, base)
-    Y_TOP3_STEP = get_slice(Y_TOP3, base)
-    
-    plt.plot(X_STEP, Y_TOP1_STEP, '-', label='FIRST', color='k', markersize=10)
-    X_TOP1_ESCOLHAS, Y_TOP1_ESCOLHAS = calcula_pontos_escolhidos(INDEX_TOP1, Y_TOP1, escolhas)
-    plt.plot(X_TOP1_ESCOLHAS, Y_TOP1_ESCOLHAS, 'x', label='FIRST(CHOOSEN)', color='k', markersize=20)
+    X_TOP1_ESCOLHAS, Y_TOP1_ESCOLHAS = calcula_pontos_escolhidos(top_lambda, Y_TOP1, escolhas_lambdas)
+    plt.plot(X_TOP1_ESCOLHAS, Y_TOP1_ESCOLHAS, '3', label='FIRST(CHOOSEN)', color='k', markersize=10)
     
     
     #plt.plot(X_STEP, Y_TOP2_STEP, ':', label='SECOND', color='b', markersize=10)
@@ -351,47 +338,55 @@ def subplot_grafico6(metodo, base, titulo):
     
 
 
-def localiza_diversidades_top(indice, path_file, base):
+def localiza_diversidades_top(lambda_x, path_file, base):
     DIVERSIDADES = []
     for it in range(1, limiteBase[base]+1):
         RESULTADO = pd.read_csv(path_file + str(it) + '.csv')
-        X = RESULTADO.loc[indice]
-        DIVERSIDADE = X['diversidade']
+        LINHA = RESULTADO.loc[RESULTADO['cod'] == lambda_x]
+        DIVERSIDADE = LINHA['diversidade'].values[0]
         DIVERSIDADES.append(DIVERSIDADE)
     return DIVERSIDADES
     
 
-def calcula_pontos_escolhidos(index, diversidade_index, escolhas):
+def calcula_pontos_escolhidos(lambda_x, diversidades, escolhas_lambdas):
     pontos_escolhidos = []
     diversidade_escolhido = []
-    for it in range(1, len(escolhas)):
-        if escolhas[it] == index:
+    for it in range(1, len(escolhas_lambdas)):
+        if escolhas_lambdas[it] == lambda_x:
             pontos_escolhidos.append(it)
-            diversidade_escolhido.append(diversidade_index[it])
+            diversidade_escolhido.append(diversidades[it])
     return pontos_escolhidos, diversidade_escolhido
+
+def consulta_top1(frequencias, lambdas):
+    top_freq = max(frequencias)    
+    top_index = frequencias.index(top_freq) 
+    top_lambda = lambdas[top_index] 
+    return top_index, top_lambda
+    
 
 def calcula_frequencias(path_file, base):
     #Cria os contadores
     PRIMEIRA_IT = pd.read_csv(path_file + '1.csv')
-    frequencias = [0]*len(PRIMEIRA_IT.index.values)
-    frequencias_ord = []
-    diversidades_ord = []
-    escolhas = []
-    
+    PRIMEIRA_IT_ORD = PRIMEIRA_IT.sort_values('cod')
+    frequencias = [0]*len(PRIMEIRA_IT.index.values) #INICIALIZA OS CONTADORES DE FREQUENCIAS
+    lambdas_df = PRIMEIRA_IT_ORD['cod']
+    lambdas = []
+    for it in lambdas_df:
+        lambdas.append(it)
+        
+    escolhas_lambdas = []
+        
+    # C O N T A G E M
     for it in range(1, limiteBase[base]+1):
         RESULTADO = pd.read_csv(path_file + str(it) + '.csv')
-        X = RESULTADO.loc[RESULTADO['pareto_maior'] == True]
-        VENCEDOR = X.index.values[0]
+        linha = RESULTADO.loc[RESULTADO['pareto_maior'] == True]
+        lambda_escolhido = linha['cod'].values[0]
+        VENCEDOR = lambdas.index(lambda_escolhido)
         frequencias[VENCEDOR] = frequencias[VENCEDOR] + 1
-        escolhas.append(VENCEDOR)
-      
-    ORDENADO = PRIMEIRA_IT.sort_values('cod')    
-    ordem = ORDENADO.index.values
-    diversidades = ORDENADO['cod']
-    for it in ordem:
-        frequencias_ord.append(frequencias[it])
-        diversidades_ord.append(round(diversidades[it], 6))
-    return frequencias_ord, diversidades_ord, escolhas
+        escolhas_lambdas.append(lambda_escolhido)
+        
+    return frequencias, lambdas, escolhas_lambdas
+    
 
 def localiza_vencedores(path_file, base):
     VENCEDORES = []
