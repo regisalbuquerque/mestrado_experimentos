@@ -8,6 +8,7 @@ import br.ufam.metodo.util.model.IEnsemblesResultados;
 import experimental.analise.AnaliseCompleta;
 import experimental.analise.RelatDiversidade;
 import experimental.analise.RelatResumoAcc;
+import experimental.analise.RelatResumoDrift;
 import experimental.bases.BaseFactory;
 import experimental.model.MetodoFactory;
 import experimental.testes.TestePrequential;
@@ -19,7 +20,7 @@ public class TesteExperimento {
 	int numExecTermino = 1;
 	List<BaseFactory> bases = new ArrayList<>();
 	List<MetodoFactory> classificadores = new ArrayList<>();
-
+	
 	public TesteExperimento(String pathCSV, int numExecInicio, int numExecTermino, List<BaseFactory> bases, 
 			List<MetodoFactory> classificadores) {
 		this.PATH_CSV = pathCSV;
@@ -53,6 +54,9 @@ public class TesteExperimento {
 					
 					//Gravar a diversidade do Método
 					RelatDiversidade.gravar(resultadoClassificador, PATH_CSV, FILENAME + "_div");
+					
+					//Gravar os drifts do Método
+					RelatResumoDrift.gravar(resultadoClassificador, PATH_CSV, FILENAME + "_drift");
 					
 					if (classificadores.get(c).getClassificador() instanceof IEnsemblesResultados) {
 						IEnsemblesResultados classificadorEnsembler = (IEnsemblesResultados) classificadores.get(c).getClassificador();

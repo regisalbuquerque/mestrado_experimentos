@@ -14,7 +14,7 @@ import experimentos.config.Configuracoes;
 
 public class TesteV12_V13_sinteticas_Iteracoes {
 	
-	static String PATH_EXPERIMENTO = Configuracoes.PATH_BASE + "Teste_v12_v13/";
+	static String PATH_EXPERIMENTO = Configuracoes.PATH_BASE + "Teste_v12_v13_com_drift/";
 	
 	public static void main(String[] args) {
 		

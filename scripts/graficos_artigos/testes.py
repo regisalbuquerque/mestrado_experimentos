@@ -22,6 +22,9 @@ limiteBase = {
         }
 
 path_file = '/Users/regisalbuquerque/Documents/drive/regis/mestrado/resultados/Teste_v12_v13/pareto/V12_HOM_LeverageBagging_ADWINChangeDetector/Line/V12_HOM_LeverageBagging_ADWINChangeDetector_Line_pareto__exec_1_it_'
+path_file_drift = '/Users/regisalbuquerque/Documents/drive/regis/mestrado/resultados/Teste_v12_v13_com_drift/V12_HOM_LeverageBagging_ADWINChangeDetector_Line_pareto__exec_1_drift.csv'
+
+
 ROOT_PATH_IMG = '/Users/regisalbuquerque/Desktop/'
 base = 'Line'
 
@@ -68,7 +71,15 @@ for it in range(1, limiteBase[base]+1):
 
 
 
-    
+
+drifts = []
+RESULTADO = pd.read_csv(path_file_drift)
+DRIFTS = RESULTADO.loc[RESULTADO['drift']==1]
+
+for index, row in DRIFTS.iterrows():
+    drifts.append(row['iteracao'])
+
+
     
     
 ORDENADO = PRIMEIRA_IT.sort_values('cod')    

@@ -14,7 +14,8 @@ conjunto_heterogeneo = '_HET/'
 
 #Path
 ROOT_PATH = '/Users/regisalbuquerque/Documents/git/regis/mestrado_resultados/comparacao3/pareto/'
-ROOT_PATH2 = '/Users/regisalbuquerque/Documents/drive/regis/mestrado/resultados/Teste_v12_v13/pareto/'
+ROOT_PATH2 = '/Users/regisalbuquerque/Documents/drive/regis/mestrado/resultados/Teste_v12_v13_com_drift/pareto/'
+ROOT_PATH_DRIFT = '/Users/regisalbuquerque/Documents/drive/regis/mestrado/resultados/Teste_v12_v13_com_drift/'
 
 #PATH = '/Users/regisalbuquerque/Documents/drive/regis/mestrado/resultados/Teste_v12_v13/pareto/V12_HOM_LeverageBagging_ADWINChangeDetector/Line/V12_HOM_LeverageBagging_ADWINChangeDetector_Line_pareto__exec_1_it_1.csv'
 
@@ -284,7 +285,11 @@ def subplot_grafico5(metodo, base, titulo):
     frequencias, lambdas, escolhas_lambdas = calcula_frequencias(PATH_FILE, base)
     
     Y = frequencias
-    X_Labels = lambdas
+    
+    X_Labels = []
+    for x in lambdas:
+        X_Labels.append(round(x,6))
+    
     X = range(1, len(Y)+1)
     
     plt.bar(X, Y, align='center', alpha=0.5)
@@ -306,6 +311,8 @@ def subplot_grafico6(metodo, base, titulo):
     
     PATH_FILE = ROOT_PATH2 + metodo + '/' + base + '/' + metodo + '_' + base + '_pareto__exec_1_it_';
     
+    PATH_DRIFT = ROOT_PATH_DRIFT + metodo + '_' + base + '_pareto__exec_1_drift';
+    
     X = range(1, limiteBase[base]+1)
     
     frequencias, lambdas, escolhas_lambdas = calcula_frequencias(PATH_FILE, base)
@@ -325,6 +332,10 @@ def subplot_grafico6(metodo, base, titulo):
     if baseEhReal[base] == False:
         for xc in drifts[base]:
             plt.axvline(x=xc)
+            
+    resets = localiza_drifts_metodo(PATH_DRIFT)
+    for xc in resets:
+        plt.axvline(x=xc, color='r')
     
     axes = plt.gca()
     #axes.set_xlim([-0.01, 0.52])
@@ -336,7 +347,13 @@ def subplot_grafico6(metodo, base, titulo):
     plt.legend()
     plt.subplots_adjust(hspace=0.6)
     
-
+def localiza_drifts_metodo(path_file):
+    drifts = []
+    RESULTADO = pd.read_csv(path_file + '.csv')
+    DRIFTS = RESULTADO.loc[RESULTADO['drift']==1]
+    for index, row in DRIFTS.iterrows():
+        drifts.append(row['iteracao'])
+    return drifts
 
 def localiza_diversidades_top(lambda_x, path_file, base):
     DIVERSIDADES = []
