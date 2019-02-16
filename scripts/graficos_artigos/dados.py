@@ -317,7 +317,7 @@ def subplot_grafico6(metodo, base, titulo):
     
     frequencias, lambdas, escolhas_lambdas = calcula_frequencias(PATH_FILE, base)
     top_index, top_lambda = consulta_top1(frequencias, lambdas)
-    Y_TOP1 = localiza_diversidades_top(top_lambda, PATH_FILE, base);
+    Y_TOP1 = localiza_diversidades_top(top_lambda, PATH_FILE, base, 1, limiteBase[base]+1);
     
     plt.plot(X, Y_TOP1, '-', label='FIRST', color='k', markersize=10)
     
@@ -346,18 +346,10 @@ def subplot_grafico6(metodo, base, titulo):
     plt.title(titulo)
     plt.legend()
     plt.subplots_adjust(hspace=0.6)
-    
-def localiza_drifts_metodo(path_file):
-    drifts = []
-    RESULTADO = pd.read_csv(path_file + '.csv')
-    DRIFTS = RESULTADO.loc[RESULTADO['drift']==1]
-    for index, row in DRIFTS.iterrows():
-        drifts.append(row['iteracao'])
-    return drifts
 
-def localiza_diversidades_top(lambda_x, path_file, base):
+def localiza_diversidades_top(lambda_x, path_file, base, inicio, termino):
     DIVERSIDADES = []
-    for it in range(1, limiteBase[base]+1):
+    for it in range(inicio, termino+1):
         RESULTADO = pd.read_csv(path_file + str(it) + '.csv')
         LINHA = RESULTADO.loc[RESULTADO['cod'] == lambda_x]
         DIVERSIDADE = LINHA['diversidade'].values[0]

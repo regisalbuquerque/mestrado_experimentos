@@ -1,0 +1,98 @@
+import matplotlib.pyplot as plt
+import pandas as pd
+import dados as dados
+
+bases = ['Line', 'Sine1', 'Gauss', 'Circle']
+
+metodo1 = 'V12_HOM_LeverageBagging_ADWINChangeDetector' #'Fixed_Initialization'
+metodo2 = 'V13_HOM_LeverageBagging_ADWINChangeDetector' #'Random_Initialization'
+base = 'Line'
+ 
+
+def localiza_diversidades_top(lambda_x, path_file, base, inicio, termino):
+    DIVERSIDADES = []
+    for it in range(inicio, termino+1):
+        RESULTADO = pd.read_csv(path_file + str(it) + '.csv')
+        LINHA = RESULTADO.loc[RESULTADO['cod'] == lambda_x]
+        DIVERSIDADE = LINHA['diversidade'].values[0]
+        DIVERSIDADES.append(DIVERSIDADE)
+    return DIVERSIDADES
+
+
+def localiza_drifts_metodo(path_file):
+    drifts = []
+    RESULTADO = pd.read_csv(path_file + '.csv')
+    DRIFTS = RESULTADO.loc[RESULTADO['drift']==1]
+    for index, row in DRIFTS.iterrows():
+        drifts.append(row['iteracao'])
+    return drifts
+
+def consulta_top1(frequencias, lambdas):
+    top_freq = max(frequencias)    
+    top_index = frequencias.index(top_freq) 
+    top_lambda = lambdas[top_index] 
+    return top_index, top_lambda
+
+
+def subplot_grafico7(metodo, base, titulo, inicio, termino):
+    
+    # DIVERSIDADES DO TOP1
+    
+    PATH_FILE = dados.ROOT_PATH2 + metodo + '/' + base + '/' + metodo + '_' + base + '_pareto__exec_1_it_';
+    
+    PATH_DRIFT = dados.ROOT_PATH_DRIFT + metodo + '_' + base + '_pareto__exec_1_drift';
+    
+    X = range(inicio, termino+1)
+    
+    frequencias, lambdas, escolhas_lambdas = dados.calcula_frequencias(PATH_FILE, base)
+    top_index, top_lambda = consulta_top1(frequencias, lambdas)
+    Y_TOP1 = localiza_diversidades_top(top_lambda, PATH_FILE, base, inicio, termino);
+    
+    plt.plot(X, Y_TOP1, '-', label='FIRST', color='k', markersize=10)
+    
+    #X_TOP1_ESCOLHAS, Y_TOP1_ESCOLHAS = calcula_pontos_escolhidos(top_lambda, Y_TOP1, escolhas_lambdas)
+    #plt.plot(X_TOP1_ESCOLHAS, Y_TOP1_ESCOLHAS, '3', label='FIRST(CHOOSEN)', color='k', markersize=10)
+    
+    
+    # DRIFTS 
+    if dados.baseEhReal[base] == False:
+        for xc in dados.drifts[base]:
+            plt.axvline(x=xc)
+            
+    resets = localiza_drifts_metodo(PATH_DRIFT)
+    for xc in resets:
+        plt.axvline(x=xc, color='r')
+    
+    
+    axes = plt.gca()
+    #axes.set_xlim([-0.01, 0.52])
+    axes.set_ylim(dados.range_div[base])
+    
+    plt.xlabel('Iteration')
+    plt.ylabel('Diversity')
+    plt.title(titulo)
+    plt.legend()
+    plt.subplots_adjust(hspace=0.6)
+    
+    
+    
+fig, ax = plt.subplots()
+
+#subplot_grafico7(metodo, base, titulo, inicio, termino):
+
+plt.subplot(211)
+subplot_grafico7(metodo1, base, 'Fixed_Initialization', 1, 1000)
+plt.subplot(212)
+subplot_grafico7(metodo1, base, 'Fixed_Initialization', 1001, 2000)
+
+#plt.show()
+
+fig.set_figheight(8)
+fig.set_figwidth(15)
+fig.savefig(dados.ROOT_PATH_IMG + 'grafico7_' + '_' + base + '.eps', format='eps', dpi=1200, bbox_inches='tight')
+
+
+
+
+        
+
