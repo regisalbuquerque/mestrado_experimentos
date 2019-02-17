@@ -37,7 +37,7 @@ drifts = {
            }
 
 range_div = {
-        'Line':[-0.1,1], 
+        'Line':[-0.1,0.6], 
         'Sine1': [-0.1,1], 
         'Gauss': [-0.1,1], 
         'Circle': [-0.1,1],
@@ -365,6 +365,7 @@ def calcula_pontos_escolhidos(lambda_x, diversidades, escolhas_lambdas):
             pontos_escolhidos.append(it)
             diversidade_escolhido.append(diversidades[it])
     return pontos_escolhidos, diversidade_escolhido
+
 
 def consulta_top1(frequencias, lambdas):
     top_freq = max(frequencias)    

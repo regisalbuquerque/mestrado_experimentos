@@ -27,12 +27,24 @@ def localiza_drifts_metodo(path_file):
         drifts.append(row['iteracao'])
     return drifts
 
+
 def consulta_top1(frequencias, lambdas):
     top_freq = max(frequencias)    
     top_index = frequencias.index(top_freq) 
     top_lambda = lambdas[top_index] 
     return top_index, top_lambda
 
+
+def calcula_pontos_escolhidos(lambda_x, diversidades, escolhas_lambdas, inicio, termino):
+    pontos_escolhidos = []
+    diversidade_escolhido = []
+    i = 0
+    for it in range(inicio, termino):
+        if escolhas_lambdas[it] == lambda_x:
+            pontos_escolhidos.append(it)
+            diversidade_escolhido.append(diversidades[i])
+        i = i + 1
+    return pontos_escolhidos, diversidade_escolhido
 
 def subplot_grafico7(metodo, base, titulo, inicio, termino):
     
@@ -50,18 +62,20 @@ def subplot_grafico7(metodo, base, titulo, inicio, termino):
     
     plt.plot(X, Y_TOP1, '-', label='FIRST', color='k', markersize=10)
     
-    #X_TOP1_ESCOLHAS, Y_TOP1_ESCOLHAS = calcula_pontos_escolhidos(top_lambda, Y_TOP1, escolhas_lambdas)
-    #plt.plot(X_TOP1_ESCOLHAS, Y_TOP1_ESCOLHAS, '3', label='FIRST(CHOOSEN)', color='k', markersize=10)
+    X_TOP1_ESCOLHAS, Y_TOP1_ESCOLHAS = calcula_pontos_escolhidos(top_lambda, Y_TOP1, escolhas_lambdas, inicio, termino)
+    plt.plot(X_TOP1_ESCOLHAS, Y_TOP1_ESCOLHAS, '3', label='FIRST(CHOOSEN)', color='k', markersize=10)
     
     
     # DRIFTS 
     if dados.baseEhReal[base] == False:
         for xc in dados.drifts[base]:
-            plt.axvline(x=xc)
+            if xc in X:
+                plt.axvline(x=xc)
             
     resets = localiza_drifts_metodo(PATH_DRIFT)
     for xc in resets:
-        plt.axvline(x=xc, color='r')
+        if xc in X:
+            plt.axvline(x=xc, color='r')
     
     
     axes = plt.gca()
@@ -80,10 +94,14 @@ fig, ax = plt.subplots()
 
 #subplot_grafico7(metodo, base, titulo, inicio, termino):
 
-plt.subplot(211)
-subplot_grafico7(metodo1, base, 'Fixed_Initialization', 1, 1000)
-plt.subplot(212)
-subplot_grafico7(metodo1, base, 'Fixed_Initialization', 1001, 2000)
+plt.subplot(411)
+subplot_grafico7(metodo1, base, 'Fixed_Initialization', 1, 500)
+plt.subplot(412)
+subplot_grafico7(metodo1, base, 'Fixed_Initialization', 501, 1000)
+plt.subplot(413)
+subplot_grafico7(metodo1, base, 'Fixed_Initialization', 1001, 1500)
+plt.subplot(414)
+subplot_grafico7(metodo1, base, 'Fixed_Initialization', 1501, 2000)
 
 #plt.show()
 
