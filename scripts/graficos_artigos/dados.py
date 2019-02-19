@@ -187,6 +187,17 @@ def get_slice(ARRAY, base):
     ARRAY_STEP.append(ARRAY[-1])
     return ARRAY_STEP
 
+def get_parts(tam, base):
+    partes = []
+    count = limiteBase[base]//tam
+    inicio = 1
+    termino = tam
+    for index in range(1, count+1): 
+        partes.append(inicio)
+        partes.append(termino)
+        inicio = termino + 1
+        termino = termino + tam
+    return partes
     
 
 def subplot_grafico2(metodo, conjunto, base):

@@ -95,13 +95,13 @@ fig, ax = plt.subplots()
 #subplot_grafico7(metodo, base, titulo, inicio, termino):
 
 plt.subplot(411)
-subplot_grafico7(metodo1, base, 'Fixed_Initialization', 1, 500)
+subplot_grafico7(metodo2, base, 'Fixed_Initialization', 1, 500)
 plt.subplot(412)
-subplot_grafico7(metodo1, base, 'Fixed_Initialization', 501, 1000)
+subplot_grafico7(metodo2, base, 'Fixed_Initialization', 501, 1000)
 plt.subplot(413)
-subplot_grafico7(metodo1, base, 'Fixed_Initialization', 1001, 1500)
+subplot_grafico7(metodo2, base, 'Fixed_Initialization', 1001, 1500)
 plt.subplot(414)
-subplot_grafico7(metodo1, base, 'Fixed_Initialization', 1501, 2000)
+subplot_grafico7(metodo2, base, 'Fixed_Initialization', 1501, 2000)
 
 #plt.show()
 
