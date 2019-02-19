@@ -4,6 +4,13 @@ import dados as dados
 
 bases = ['Line', 'Sine1', 'Gauss', 'Circle']
 
+metodos = ['V12_HOM_LeverageBagging_ADWINChangeDetector', 'V13_HOM_LeverageBagging_ADWINChangeDetector']
+
+titulos = {
+           'V12_HOM_LeverageBagging_ADWINChangeDetector':'Fixed_Initialization', 
+           'V13_HOM_LeverageBagging_ADWINChangeDetector': 'Random_Initialization'
+           }
+
 metodo1 = 'V12_HOM_LeverageBagging_ADWINChangeDetector' #'Fixed_Initialization'
 metodo2 = 'V13_HOM_LeverageBagging_ADWINChangeDetector' #'Random_Initialization'
 base = 'Line'
@@ -90,24 +97,25 @@ def subplot_grafico7(metodo, base, titulo, inicio, termino):
     
     
     
-fig, ax = plt.subplots()
-
-#subplot_grafico7(metodo, base, titulo, inicio, termino):
-
-plt.subplot(411)
-subplot_grafico7(metodo2, base, 'Fixed_Initialization', 1, 500)
-plt.subplot(412)
-subplot_grafico7(metodo2, base, 'Fixed_Initialization', 501, 1000)
-plt.subplot(413)
-subplot_grafico7(metodo2, base, 'Fixed_Initialization', 1001, 1500)
-plt.subplot(414)
-subplot_grafico7(metodo2, base, 'Fixed_Initialization', 1501, 2000)
-
-#plt.show()
-
-fig.set_figheight(8)
-fig.set_figwidth(15)
-fig.savefig(dados.ROOT_PATH_IMG + 'grafico7_' + '_' + base + '.eps', format='eps', dpi=1200, bbox_inches='tight')
+for metodo in metodos:
+    for base in bases:
+        print(metodo + ' - ' + base)
+    
+        fig, ax = plt.subplots()
+        
+        partes = dados.get_parts(500, base)
+        
+        c = len(partes)
+        
+        i = 1
+        for parte in partes:
+            plt.subplot(c,1,i)
+            subplot_grafico7(metodo, base, titulos[metodo], parte[0], parte[1])
+            i = i + 1
+        
+        fig.set_figheight(8)
+        fig.set_figwidth(15)
+        fig.savefig(dados.ROOT_PATH_IMG + 'grafico7_' + '_' + titulos[metodo] + '_' + base + '.eps', format='eps', dpi=1200, bbox_inches='tight')
 
 
 

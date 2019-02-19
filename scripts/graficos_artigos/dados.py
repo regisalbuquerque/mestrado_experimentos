@@ -193,8 +193,8 @@ def get_parts(tam, base):
     inicio = 1
     termino = tam
     for index in range(1, count+1): 
-        partes.append(inicio)
-        partes.append(termino)
+        t = (inicio, termino)
+        partes.append(t)
         inicio = termino + 1
         termino = termino + tam
     return partes
