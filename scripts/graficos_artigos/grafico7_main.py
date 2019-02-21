@@ -101,11 +101,14 @@ for metodo in metodos:
     for base in bases:
         print(metodo + ' - ' + base)
     
-        fig, ax = plt.subplots()
-        
         partes = dados.get_parts(500, base)
         
         c = len(partes)
+        
+        c_aux = 1
+        
+        if c_aux == 1:
+            fig, ax = plt.subplots()
         
         i = 1
         for parte in partes:
