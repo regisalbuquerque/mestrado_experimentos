@@ -107,14 +107,17 @@ for metodo in metodos:
         fig, ax = plt.subplots() #Para o primeiro gráfico
         
         i = 1
+        x = 1
         for parte in partes:
-            plt.subplot(c,1,i)
+            plt.subplot(4,1,x)
+            x = x + 1
             subplot_grafico7(metodo, base, titulos[metodo], parte[0], parte[1])
             if i % 4 == 0:
                 fig.set_figheight(8)
                 fig.set_figwidth(15)
-                fig.savefig(dados.ROOT_PATH_IMG + 'grafico7_' + str(i//4) + '_' + titulos[metodo] + '_' + base + '.eps', format='eps', dpi=1200, bbox_inches='tight')
+                fig.savefig(dados.ROOT_PATH_IMG + 'grafico7_'  + '_' + titulos[metodo] + '_' + base + '_' + str(i//4) + '.eps', format='eps', dpi=1200, bbox_inches='tight')
                 fig, ax = plt.subplots() 
+                x = 1
             i = i + 1
 
 
