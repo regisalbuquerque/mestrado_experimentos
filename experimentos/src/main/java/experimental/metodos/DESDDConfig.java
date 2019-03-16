@@ -46,6 +46,8 @@ public class DESDDConfig implements MetodoTeste{
 			codigo = "V13";
 			metodoClassificadorDESDD = new MetodoClassificadorV13();
 			MetodoClassificadorV13 v13 = (MetodoClassificadorV13) metodoClassificadorDESDD;
+			
+			v13.lambdasOption.setValueViaCLIString("99.61200861412439,36.55414207024308,67.92271054320723,41.63812120946448,7.970389050693205,66.54491782828323,79.85414980992073,21.76491697893891,27.061342359340998,61.288316583438174,22.526020005390873");
 			v13.lambdaMinOption.setValueViaCLIString("0.001");
 			v13.lambdaMaxOption.setValueViaCLIString("100");
 			break;

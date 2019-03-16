@@ -14,7 +14,7 @@ import experimentos.config.Configuracoes;
 
 public class TesteV12_V13_sinteticas_Iteracoes {
 	
-	static String PATH_EXPERIMENTO = Configuracoes.PATH_BASE + "Teste_v12_v13_com_drift/";
+	static String PATH_EXPERIMENTO = Configuracoes.PATH_BASE + "Teste_v12_v13_com_drift_OnlineBuffer/";
 	
 	public static void main(String[] args) {
 		
@@ -29,10 +29,10 @@ public class TesteV12_V13_sinteticas_Iteracoes {
 		bases.add(new BaseCircle());
 		
 		// Método v12
-		classificadores.add(new DESDDConfig("12", "LeverageBagging", "SimpleReset", "Ambiguidade", 1, "ADWINChangeDetector", 1).getMetodo());
+		classificadores.add(new DESDDConfig("12", "OnlineBagging", "RetreinaTodosComBufferWarning", "Ambiguidade", 1, "DDM", 1).getMetodo());
 		
 		//Método v13 
-		classificadores.add(new DESDDConfig("13", "LeverageBagging", "SimpleReset", "Ambiguidade", 1, "ADWINChangeDetector", 1).getMetodo());
+		classificadores.add(new DESDDConfig("13", "OnlineBagging", "RetreinaTodosComBufferWarning", "Ambiguidade", 1, "DDM", 1).getMetodo());
 		
 		TesteExperimento teste = new TesteExperimento(PATH_EXPERIMENTO, 1, 1, bases, classificadores);
 		teste.run();
