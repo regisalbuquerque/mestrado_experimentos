@@ -14,8 +14,8 @@ conjunto_heterogeneo = '_HET/'
 
 #Path
 ROOT_PATH = '/Users/regisalbuquerque/Documents/git/regis/mestrado_resultados/comparacao3/pareto/'
-ROOT_PATH2 = '/Users/regisalbuquerque/Documents/drive/regis/mestrado/resultados/Teste_v12_v13_com_drift/pareto/'
-ROOT_PATH_DRIFT = '/Users/regisalbuquerque/Documents/drive/regis/mestrado/resultados/Teste_v12_v13_com_drift/'
+ROOT_PATH2 = '/Users/regisalbuquerque/Documents/drive/regis/mestrado/resultados/Teste_v12_v13_com_drift_OnlineBuffer/pareto/'
+ROOT_PATH_DRIFT = '/Users/regisalbuquerque/Documents/drive/regis/mestrado/resultados/Teste_v12_v13_com_drift_OnlineBuffer/'
 
 #PATH = '/Users/regisalbuquerque/Documents/drive/regis/mestrado/resultados/Teste_v12_v13/pareto/V12_HOM_LeverageBagging_ADWINChangeDetector/Line/V12_HOM_LeverageBagging_ADWINChangeDetector_Line_pareto__exec_1_it_1.csv'
 

@@ -3,17 +3,17 @@ import pandas as pd
 import dados as dados
 
 bases = ['Line', 'Sine1', 'Gauss', 'Circle']
-#bases = ['Line']
+    #bases = ['Line']
 
-metodos = ['V12_HOM_LeverageBagging_ADWINChangeDetector', 'V13_HOM_LeverageBagging_ADWINChangeDetector']
+metodos = ['V12_HOM_OnlineBagging_DDM', 'V13_HOM_OnlineBagging_DDM']
 
 titulos = {
-           'V12_HOM_LeverageBagging_ADWINChangeDetector':'Fixed_Initialization', 
-           'V13_HOM_LeverageBagging_ADWINChangeDetector': 'Random_Initialization'
+           'V12_HOM_OnlineBagging_DDM':'Fixed_Initialization', 
+           'V13_HOM_OnlineBagging_DDM': 'Random_Initialization'
            }
 
-metodo1 = 'V12_HOM_LeverageBagging_ADWINChangeDetector' #'Fixed_Initialization'
-metodo2 = 'V13_HOM_LeverageBagging_ADWINChangeDetector' #'Random_Initialization'
+metodo1 = 'V12_HOM_OnlineBagging_DDM' #'Fixed_Initialization'
+metodo2 = 'V13_HOM_OnlineBagging_DDM' #'Random_Initialization'
 base = 'Line'
  
 
