@@ -1,6 +1,6 @@
 package testes;
 
-import moa.evaluation.LearningCurve;
+import moa.evaluation.preview.LearningCurve;
 import moa.streams.ArffFileStream;
 import moa.tasks.EvaluatePrequential;
 import moa.tasks.StandardTaskMonitor;
