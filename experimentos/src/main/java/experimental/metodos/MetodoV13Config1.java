@@ -6,6 +6,7 @@ import experimentos.config.Configuracoes;
 
 public class MetodoV13Config1 implements MetodoTeste {
 	
+	private String geracao;
     private String reacao;
     private String medidaCalculo;
     private int randomSeed = 1;
@@ -13,8 +14,9 @@ public class MetodoV13Config1 implements MetodoTeste {
     private int numBaseLeaners = 1;
     
     
-    public MetodoV13Config1(String reacao, String medida, int randomSeed, String detectorOpt, int numBaseLeaners)
+    public MetodoV13Config1(String geracao, String reacao, String medida, int randomSeed, String detectorOpt, int numBaseLeaners)
     {
+       this.geracao = geracao;
        this.reacao = reacao;
        this.medidaCalculo = medida;
        this.randomSeed = randomSeed;
@@ -27,6 +29,7 @@ public class MetodoV13Config1 implements MetodoTeste {
     public MetodoFactory getMetodo() {
         MetodoClassificadorV13 metodoClassificadorV13 = new MetodoClassificadorV13();
         
+        metodoClassificadorV13.selectionOptionEstrategiaGeracao.setValueViaCLIString(this.geracao);
         metodoClassificadorV13.driftDetectionMethodOption.setValueViaCLIString(this.detector);
         metodoClassificadorV13.ensemblesNumberOption.setValue(11);
         metodoClassificadorV13.ensembleSizeOption.setValue(10);
@@ -47,7 +50,17 @@ public class MetodoV13Config1 implements MetodoTeste {
         metodoClassificadorV13.setRandomSeed(this.randomSeed);
         
         MetodoFactory metodo = new MetodoFactory(metodoClassificadorV13);
-        metodo.setCodigo("V13_"+this.reacao+"_"+this.medidaCalculo+"_"+this.detector+"_basesLearners"+this.numBaseLeaners);
+        
+        String codigo = "V13"; 
+        
+        if (this.numBaseLeaners > 1)
+        	codigo = codigo + "_HET";
+        else
+        	codigo = codigo + "_HOM";
+        
+        codigo = codigo + "_" + this.geracao + "_" + this.detector;
+        
+        metodo.setCodigo(codigo);
         return metodo;
     }
     
