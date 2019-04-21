@@ -12,9 +12,9 @@ import experimental.metodos.DESDDConfig;
 import experimental.model.MetodoFactory;
 import experimentos.config.Configuracoes;
 
-public class TesteV13_OnLineBagging_DDM_Reset {
+public class TesteV1x_OnLineBagging_DDM_Reset {
 	
-	static String PATH_EXPERIMENTO = Configuracoes.PATH_BASE + "v13_Online_DDM_ResetAll/";
+	static String PATH_EXPERIMENTO = Configuracoes.PATH_BASE + "v1x_Online_DDM_ResetAll/";
 	
 	public static void main(String[] args) {
 		
@@ -28,6 +28,9 @@ public class TesteV13_OnLineBagging_DDM_Reset {
 		bases.add(new BaseGauss());
 		bases.add(new BaseCircle());
 		
+		
+		// Método v12
+		classificadores.add(new DESDDConfig("12", "OnlineBagging", "SimpleResetSystem1Detector", "Ambiguidade", 1, "DDM", 1).getMetodo());
 		
 		// Método v13
 		classificadores.add(new DESDDConfig("13", "OnlineBagging", "SimpleResetSystem1Detector", "Ambiguidade", 1, "DDM", 1).getMetodo());

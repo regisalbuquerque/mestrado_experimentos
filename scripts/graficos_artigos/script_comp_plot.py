@@ -37,18 +37,21 @@ baseEhReal = {
         }
 
 
-base = 'Sine1'
+base = 'Circle'
 real = baseEhReal[base]
 xcoord = xcoords[base]
 rangey = rangesy[base]
 
-#Path
-ROOT_PATH = '/Users/regisalbuquerque/Documents/drive/regis/mestrado/resultados/Teste_v12_v13_com_drift/'
-path_file = ROOT_PATH 
+#Paths
+ROOT_PATH = '/Users/regisalbuquerque/Documents/drive/regis/mestrado/resultados/';
+EXPERIMENT = "v1x_Online_DDM_ResetAll/";
+METHOD = "V12_HOM_OnlineBagging_DDM";
+
 ROOT_PATH_IMG = '/Users/regisalbuquerque/Desktop/'
 
+path_file = ROOT_PATH + EXPERIMENT + METHOD;
 
-dataset_DESDD = pd.read_csv(path_file + 'V12_HOM_LeverageBagging_ADWINChangeDetector_' + base + '_pareto__exec_1_drift.csv')
+dataset_DESDD = pd.read_csv(path_file + '_' + base + '_pareto__exec_1_drift.csv')
 
 
 X = dataset_DESDD['iteracao'].values;
