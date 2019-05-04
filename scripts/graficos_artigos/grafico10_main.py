@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import pandas as pd
 import dados as dados
-import seaborn as sns
+#import seaborn as sns
 
 
 #bases = ['Line', 'Sine1', 'Gauss', 'Circle']
@@ -51,7 +51,17 @@ def subplot_grafico10(metodo, base):
         Y_ARRAY.append(Y)
     
     
-    sns.boxplot(data=Y_ARRAY)
+    plt.boxplot(Y_ARRAY, notch=True)
+    
+    axes = plt.gca()
+    axes.set_ylim([0, 1])
+    
+    X_range = range(1, len(X)+1)
+    plt.xticks(X_range, X)
+    
+    plt.xlabel('Lambda')     
+    plt.ylabel('Diversity')
+    #plt.title(titulo)
     
     return Y_ARRAY, X
 
