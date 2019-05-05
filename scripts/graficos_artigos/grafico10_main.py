@@ -4,8 +4,7 @@ import dados as dados
 #import seaborn as sns
 
 
-#bases = ['Line', 'Sine1', 'Gauss', 'Circle']
-bases = ['Line']
+bases = ['Line','Sine1', 'Gauss', 'Circle']
 
 metodos = ['V12_HOM_OnlineBagging_DDM']
 
@@ -54,7 +53,7 @@ def subplot_grafico10(metodo, base):
     plt.boxplot(Y_ARRAY, notch=True)
     
     axes = plt.gca()
-    axes.set_ylim([0, 1])
+    axes.set_ylim([-0.1, 0.6])
     
     X_range = range(1, len(X)+1)
     plt.xticks(X_range, X)
@@ -68,14 +67,15 @@ def subplot_grafico10(metodo, base):
 
 for metodo in metodos:
     for base in bases:
-        print(metodo + ' - ' + base)
+        print(metodo + '_Reset' + ' - ' + base)
     
         fig, ax = plt.subplots() #Para o primeiro gráfico
         plt.subplot(4,1,1)
         retorno1, retorno2 = subplot_grafico10(metodo, base)
-        fig.set_figheight(8)
+        plt.title(metodo + '_Reset - ' + base)
+        fig.set_figheight(10)
         fig.set_figwidth(15)
-        fig.savefig(dados.ROOT_PATH_IMG + 'grafico10_'  + '_' + titulos[metodo] + '_' + base + '_' + '.eps', format='eps', dpi=1200, bbox_inches='tight')
+        fig.savefig(dados.ROOT_PATH_IMG + 'grafico10_'  + '_' + titulos[metodo] + '_Reset_' + base + '_' + '.eps', format='eps', dpi=1200, bbox_inches='tight')
 
 
 
