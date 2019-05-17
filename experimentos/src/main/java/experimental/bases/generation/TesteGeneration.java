@@ -10,9 +10,11 @@ public class TesteGeneration {
 		
 		SEAGenerator seaGenerator3 = new SEAGenerator();
 		seaGenerator3.functionOption.setValue(3);
+		seaGenerator3.noisePercentageOption.setValue(10);
 		
 		SEAGenerator seaGenerator2 = new SEAGenerator();
 		seaGenerator2.functionOption.setValue(2);
+		seaGenerator2.noisePercentageOption.setValue(10);
 		
 		ConceptDriftStream conceptDriftStream = new ConceptDriftStream();
 		conceptDriftStream.streamOption.setCurrentObject(seaGenerator3);
@@ -23,7 +25,7 @@ public class TesteGeneration {
 		
 		WriteStreamToARFFFile writeStreamToARFFFile = new WriteStreamToARFFFile();
 		writeStreamToARFFFile.streamOption.setCurrentObject(conceptDriftStream);
-		writeStreamToARFFFile.arffFileOption.setValue("example1.arff");
+		writeStreamToARFFFile.arffFileOption.setValue("/Users/regisalbuquerque/Desktop/example1_noise.arff");
 		writeStreamToARFFFile.maxInstancesOption.setValue(100000);
 		writeStreamToARFFFile.prepareForUse();
 		writeStreamToARFFFile.doTask();
