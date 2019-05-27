@@ -87,7 +87,7 @@ public class DESDDConfig implements MetodoTeste{
         else
         	codigo = codigo + "_HOM";
         
-        codigo = codigo + "_" + this.geracao + "_" + this.detector;
+        codigo = codigo + "_" + this.geracao + "_" + this.detector + "_" + this.reacao;
         
         metodo.setCodigo(codigo);
         return metodo;
