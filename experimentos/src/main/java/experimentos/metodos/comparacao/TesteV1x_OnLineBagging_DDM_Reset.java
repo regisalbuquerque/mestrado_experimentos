@@ -3,6 +3,7 @@ package experimentos.metodos.comparacao;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.ufam.metodos.leveraging.v1.LeveragingBagOriginal;
 import experimental.bases.BaseAgrawalAbrupt;
 import experimental.bases.BaseAgrawalAbruptNoise;
 import experimental.bases.BaseAgrawalGradual;
@@ -16,7 +17,9 @@ import experimental.bases.BaseSEAAbruptNoise;
 import experimental.bases.BaseSEAGradual;
 import experimental.bases.BaseSEAGradualNoise;
 import experimental.bases.BaseSine1;
+import experimental.metodos.DDMConfig1;
 import experimental.metodos.DESDDConfig;
+import experimental.metodos.LeveragingBagVersaoOriginal;
 import experimental.model.MetodoFactory;
 import experimentos.config.Configuracoes;
 
@@ -48,10 +51,16 @@ public class TesteV1x_OnLineBagging_DDM_Reset {
 		
 
 		// Método v12
-		classificadores.add(new DESDDConfig("12", "OnlineBagging", "SimpleResetSystem1Detector", "Ambiguidade", 1, "DDM", 1).getMetodo());
+		//classificadores.add(new DESDDConfig("12", "OnlineBagging", "SimpleResetSystem1Detector", "Ambiguidade", 1, "DDM", 1).getMetodo());
 		
-		// Método v13
-		classificadores.add(new DESDDConfig("13", "OnlineBagging", "SimpleResetSystem1Detector", "Ambiguidade", 1, "DDM", 1).getMetodo());
+		// Método v14
+		//classificadores.add(new DESDDConfig("14", "OnlineBagging", "SimpleResetSystem1Detector", "Ambiguidade", 1, "DDM", 1).getMetodo());
+		
+		// LeveragingBag
+		//classificadores.add(new LeveragingBagVersaoOriginal().getMetodo());
+		
+		// DDM
+		//classificadores.add(new DDMConfig1().getMetodo());
 		
 		TesteExperimento teste = new TesteExperimento(PATH_EXPERIMENTO, 1, 1, bases, classificadores);
 		teste.run();

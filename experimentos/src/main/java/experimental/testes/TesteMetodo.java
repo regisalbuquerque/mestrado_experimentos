@@ -33,7 +33,9 @@ public class TesteMetodo {
         Classifier classificadorEmTeste = classificador.reset(dados);
         
         
-        DiversidadePrequencial diversidadePrequencial = new DiversidadePrequencial(classificadorEmTeste.getSubClassifiers().length, null, new AmbiguidadeCalculoDiversidade());
+        DiversidadePrequencial diversidadePrequencial = null;
+        if (classificadorEmTeste.getSubClassifiers() != null)
+        	diversidadePrequencial = new DiversidadePrequencial(classificadorEmTeste.getSubClassifiers().length, null, new AmbiguidadeCalculoDiversidade());
 
         
         //PARA O CALCULO DO TEMPO DE EXECUCAO ------------------------------------
@@ -60,10 +62,14 @@ public class TesteMetodo {
                 indicadores.errou();
             }
             
-            diversidadePrequencial.calcula(classificadorEmTeste.getSubClassifiers(), instanciaAtual);
+            if (classificadorEmTeste.getSubClassifiers() != null)
+            	diversidadePrequencial.calcula(classificadorEmTeste.getSubClassifiers(), instanciaAtual);
             
             Diversidades diversidades = new Diversidades();
-            diversidades.setAmbiguidade(diversidadePrequencial.getDiv());
+            if (diversidadePrequencial != null)
+            	diversidades.setAmbiguidade(diversidadePrequencial.getDiv());
+            else
+            	diversidades.setAmbiguidade(0);
 
             if (classificadorEmTeste instanceof IEnsembleSelection)
             {
