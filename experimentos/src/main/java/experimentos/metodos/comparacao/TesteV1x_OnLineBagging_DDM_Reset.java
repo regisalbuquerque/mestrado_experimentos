@@ -10,13 +10,17 @@ import experimental.bases.BaseAgrawalGradual;
 import experimental.bases.BaseAgrawalGradualNoise;
 import experimental.bases.BaseCircle;
 import experimental.bases.BaseFactory;
+import experimental.bases.BaseForestCovertype;
 import experimental.bases.BaseGauss;
+import experimental.bases.BaseKDDCup99;
 import experimental.bases.BaseLine;
+import experimental.bases.BasePokerHand;
 import experimental.bases.BaseSEAAbrupt;
 import experimental.bases.BaseSEAAbruptNoise;
 import experimental.bases.BaseSEAGradual;
 import experimental.bases.BaseSEAGradualNoise;
 import experimental.bases.BaseSine1;
+import experimental.bases.BaseSpam;
 import experimental.metodos.DDMConfig1;
 import experimental.metodos.DESDDConfig;
 import experimental.metodos.LeveragingBagVersaoOriginal;
@@ -34,7 +38,6 @@ public class TesteV1x_OnLineBagging_DDM_Reset {
 		List<BaseFactory> bases = new ArrayList<>();
 		List<MetodoFactory> classificadores = new ArrayList<>();
 
-		bases.add(new BaseLine());
 		bases.add(new BaseSine1());
 		bases.add(new BaseGauss());
 		bases.add(new BaseCircle());
@@ -49,12 +52,17 @@ public class TesteV1x_OnLineBagging_DDM_Reset {
 		bases.add(new BaseSEAGradual());
 		bases.add(new BaseSEAGradualNoise());
 		
+		bases.add(new BasePokerHand());
+		bases.add(new BaseForestCovertype());
+		bases.add(new BaseSpam());
+		bases.add(new BaseKDDCup99());
+		
 
 		// Método v12
-		//classificadores.add(new DESDDConfig("12", "OnlineBagging", "SimpleResetSystem1Detector", "Ambiguidade", 1, "DDM", 1).getMetodo());
+		classificadores.add(new DESDDConfig("12", "OnlineBagging", "RetreinaTodosComBufferWarning", "Ambiguidade", 1, "DDM", 1).getMetodo());
 		
 		// Método v14
-		//classificadores.add(new DESDDConfig("14", "OnlineBagging", "SimpleResetSystem1Detector", "Ambiguidade", 1, "DDM", 1).getMetodo());
+		//classificadores.add(new DESDDConfig("14", "OnlineBagging", "RetreinaTodosComBufferWarning", "Ambiguidade", 1, "DDM", 1).getMetodo());
 		
 		// LeveragingBag
 		//classificadores.add(new LeveragingBagVersaoOriginal().getMetodo());
