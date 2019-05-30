@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
-ROOT_PATH = '/Users/regisalbuquerque/Documents/drive/regis/mestrado/resultados/v1x_Online_DDM_ResetAll_newbases/'
+ROOT_PATH = '/Users/regisalbuquerque/Documents/drive/regis/mestrado/resultados/VX_DDM_LB_LambdasMaiores/'
 
 bases = [
         'Sine1', 
