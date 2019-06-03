@@ -2,6 +2,7 @@ package moea.testes;
 
 import java.util.List;
 
+import br.ufam.metodo.util.pareto.FronteiraDePareto;
 import br.ufam.metodo.util.pareto.ParetoFront;
 import br.ufam.metodo.util.pareto.Solucao;
 
@@ -22,10 +23,21 @@ public class TestePareto2 {
         solucoes[3] = new Solucao(4, 1.0, 2.0);
         solucoes[4] = new Solucao(5, 1.0, 3.0);
         
-        ParetoFront pareto = new ParetoFront(solucoes, false, false);
+        ParetoFront pareto = new ParetoFront(solucoes, true, false);
+        
         List<Solucao> solucoesPareto = pareto.getParetoSoluctions();
         
         for (Solucao valorValor : solucoesPareto) {
+            System.out.println(valorValor.getIndex() + " # " + valorValor.getValor1() + " -  " + valorValor.getValor2());
+        }
+        
+        System.out.println();
+        
+        FronteiraDePareto pareto2 = new FronteiraDePareto(solucoes, true, false);
+        
+        List<Solucao> solucoesPareto2 = pareto2.getParetoSoluctions();
+        
+        for (Solucao valorValor : solucoesPareto2) {
             System.out.println(valorValor.getIndex() + " # " + valorValor.getValor1() + " -  " + valorValor.getValor2());
         }
         

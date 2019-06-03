@@ -40,10 +40,10 @@ public class TesteV1x_bases_reais {
 		List<BaseFactory> bases = new ArrayList<>();
 
 		
-		bases.add(new BasePokerHand());
-		bases.add(new BaseForestCovertype());
-//		bases.add(new BaseSpam());
-//		bases.add(new BaseKDDCup99());
+		//bases.add(new BasePokerHand());
+		//bases.add(new BaseForestCovertype());
+		bases.add(new BaseSpam());
+		bases.add(new BaseKDDCup99());
 		
 
 		List<MetodoFactory> classificadores1 = new ArrayList<>();
