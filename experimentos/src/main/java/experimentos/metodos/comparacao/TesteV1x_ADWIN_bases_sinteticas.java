@@ -40,10 +40,21 @@ public class TesteV1x_ADWIN_bases_sinteticas {
 		List<BaseFactory> bases = new ArrayList<>();
 
 		
-		//bases.add(new BasePokerHand());
-		//bases.add(new BaseForestCovertype());
-		bases.add(new BaseSpam());
-		bases.add(new BaseKDDCup99());
+		bases.add(new BaseSine1());
+		bases.add(new BaseGauss());
+		bases.add(new BaseCircle());
+		
+		bases.add(new BaseAgrawalAbrupt());
+		bases.add(new BaseAgrawalAbruptNoise());
+		bases.add(new BaseAgrawalGradual());
+		bases.add(new BaseAgrawalGradualNoise());
+		
+		bases.add(new BaseSEAAbrupt());
+		bases.add(new BaseSEAAbruptNoise());
+		bases.add(new BaseSEAGradual());
+		bases.add(new BaseSEAGradualNoise());
+		
+
 		
 
 		List<MetodoFactory> classificadores1 = new ArrayList<>();
@@ -60,13 +71,13 @@ public class TesteV1x_ADWIN_bases_sinteticas {
 		// Método v12
 		MetodoClassificadorV12 v12 = new MetodoClassificadorV12();
 		v12.lambdasOption.setValueViaCLIString("100,50,10,5,1,0.5,0.1,0.05,0.01,0.005,0.001");
-		classificadores3.add(new DESDDConfig(v12, "12", "OnlineBagging", "RetreinaTodosComBufferWarning", "Ambiguidade", 1, "DDM", 1).getMetodo());
+		classificadores3.add(new DESDDConfig(v12, "12", "OnlineBagging", "SimpleResetSystem", "Ambiguidade", 1, "ADWINChangeDetector", 1).getMetodo());
 		
 		// Método v14
 		MetodoClassificadorV14 v14 = new MetodoClassificadorV14();
 		v14.lambdaMinOption.setValueViaCLIString("0.001");
 		v14.lambdaMaxOption.setValueViaCLIString("100");
-		classificadores4.add(new DESDDConfig(v14, "14", "OnlineBagging", "RetreinaTodosComBufferWarning", "Ambiguidade", 1, "DDM", 1).getMetodo());
+		classificadores4.add(new DESDDConfig(v14, "14", "OnlineBagging", "SimpleResetSystem", "Ambiguidade", 1, "ADWINChangeDetector", 1).getMetodo());
 		
 
 		
@@ -75,7 +86,7 @@ public class TesteV1x_ADWIN_bases_sinteticas {
 		TesteExperimento testeV12 = new TesteExperimento(PATH_EXPERIMENTO, 1, 1, bases, classificadores3);
 		TesteExperimento testeV14 = new TesteExperimento(PATH_EXPERIMENTO, 1, 30, bases, classificadores4);
 		
-		testeV12.run();
+		testeV14.run();
 		testeDDM.run();
 		testeLB.run();
 
