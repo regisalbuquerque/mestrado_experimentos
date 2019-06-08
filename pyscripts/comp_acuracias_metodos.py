@@ -4,14 +4,14 @@ import matplotlib.pyplot as plt
 
 ROOT_PATH = '/Users/regisalbuquerque/Documents/drive/regis/mestrado/resultados/v1x_Online_DDM_Buffer_realbases/'
 
-bases = [
+basesr = [
         'PokerHand', 
         'ForestCovertype', 
         'Spam', 
         'KDDCup99'
         ]
 
-bases2 = [
+basess = [
         'Sine1', 
         'Gauss', 
         'Circle', 
@@ -25,8 +25,10 @@ bases2 = [
         'SEAGradualNoise'
         ]
 
+bases = basesr
 
-metodos = ['V12_HOM_OnlineBagging_DDM_RetreinaTodosComBufferWarning', 'LB_Original', 'DDM_Original']
+
+metodos = ['V14_HOM_OnlineBagging_ADWINChangeDetector_SimpleResetSystem', 'LB_Original', 'DDM_Original']
 
 datasets = {}
 
