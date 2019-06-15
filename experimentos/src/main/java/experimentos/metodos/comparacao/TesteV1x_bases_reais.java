@@ -41,7 +41,7 @@ public class TesteV1x_bases_reais {
 
 		
 		bases.add(new BasePokerHand());
-		bases.add(new BaseForestCovertype());
+		//bases.add(new BaseForestCovertype());
 		//bases.add(new BaseSpam());
 		//bases.add(new BaseKDDCup99());
 		
