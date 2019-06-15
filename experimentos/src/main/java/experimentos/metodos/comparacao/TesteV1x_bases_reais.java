@@ -31,7 +31,7 @@ import experimentos.config.Configuracoes;
 
 public class TesteV1x_bases_reais {
 	
-	static String PATH_EXPERIMENTO = Configuracoes.PATH_BASE + "v1x_Online_DDM_Buffer_realbases/";
+	static String PATH_EXPERIMENTO = Configuracoes.PATH_BASE + "v14_Online_DDM_Buffer_realbases/";
 	
 	public static void main(String[] args) {
 		
@@ -40,10 +40,10 @@ public class TesteV1x_bases_reais {
 		List<BaseFactory> bases = new ArrayList<>();
 
 		
-		//bases.add(new BasePokerHand());
-		//bases.add(new BaseForestCovertype());
-		bases.add(new BaseSpam());
-		bases.add(new BaseKDDCup99());
+		bases.add(new BasePokerHand());
+		bases.add(new BaseForestCovertype());
+		//bases.add(new BaseSpam());
+		//bases.add(new BaseKDDCup99());
 		
 
 		List<MetodoFactory> classificadores1 = new ArrayList<>();
@@ -75,9 +75,9 @@ public class TesteV1x_bases_reais {
 		TesteExperimento testeV12 = new TesteExperimento(PATH_EXPERIMENTO, 1, 1, bases, classificadores3);
 		TesteExperimento testeV14 = new TesteExperimento(PATH_EXPERIMENTO, 1, 30, bases, classificadores4);
 		
-		testeV12.run();
-		testeDDM.run();
-		testeLB.run();
+		testeV14.run();
+		//testeDDM.run();
+		//testeLB.run();
 
 	}
 	

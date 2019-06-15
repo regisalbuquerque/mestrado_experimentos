@@ -49,7 +49,7 @@ public class TesteExperimento {
 					// GRAVAR: Classificador + Base + Execução + Acc + Tempo
 					RelatResumoAcc.gravar(resultadoClassificador, i, pathFileName);
 					
-					String PATH_CLASS = classificadores.get(c).getCodigo() + "/"+ bases.get(b).getBase().getNome() + "/";
+					String PATH_CLASS = classificadores.get(c).getCodigo() + "/"+ bases.get(b).getBase().getNome() + "/" + "pareto__exec_" + i + "/";
 					String FILENAME = classificadores.get(c).getCodigo() + "_" + bases.get(b).getBase().getNome() + "_pareto__exec_" + i;
 					
 					//Gravar a diversidade do Método
