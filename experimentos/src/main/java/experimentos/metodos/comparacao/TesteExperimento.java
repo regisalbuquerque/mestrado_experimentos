@@ -53,20 +53,20 @@ public class TesteExperimento {
 					String FILENAME = classificadores.get(c).getCodigo() + "_" + bases.get(b).getBase().getNome() + "_pareto__exec_" + i;
 					
 					//Gravar a diversidade do Método
-					RelatDiversidade.gravar(resultadoClassificador, PATH_CSV, FILENAME + "_div");
+//					RelatDiversidade.gravar(resultadoClassificador, PATH_CSV, FILENAME + "_div");
 					
 					//Gravar os drifts do Método
-					RelatResumoDrift.gravar(resultadoClassificador, PATH_CSV, FILENAME + "_drift");
+//					RelatResumoDrift.gravar(resultadoClassificador, PATH_CSV, FILENAME + "_drift");
 					
-					if (classificadores.get(c).getClassificador() instanceof IEnsemblesResultados) {
-						IEnsemblesResultados classificadorEnsembler = (IEnsemblesResultados) classificadores.get(c).getClassificador();
-						// Análise de Pareto - Dos Ensembles
-						AnaliseCompleta analiseCompleta = new AnaliseCompleta(
-								classificadorEnsembler.getEnsemblesResultados(),
-								PATH_CSV + "/pareto/" + PATH_CLASS,
-								FILENAME);
-						analiseCompleta.analisa(false); // False para minimizar
-					}
+//					if (classificadores.get(c).getClassificador() instanceof IEnsemblesResultados) {
+//						IEnsemblesResultados classificadorEnsembler = (IEnsemblesResultados) classificadores.get(c).getClassificador();
+//						// Análise de Pareto - Dos Ensembles
+//						AnaliseCompleta analiseCompleta = new AnaliseCompleta(
+//								classificadorEnsembler.getEnsemblesResultados(),
+//								PATH_CSV + "/pareto/" + PATH_CLASS,
+//								FILENAME);
+//						analiseCompleta.analisa(false); // False para minimizar
+//					}
 					
 					testePrequential = null;
 
