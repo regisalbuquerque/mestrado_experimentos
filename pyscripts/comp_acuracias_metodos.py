@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
-ROOT_PATH = '/Users/regisalbuquerque/Documents/drive/regis/mestrado/resultados/v1x_Online_DDM_Buffer_realbases/'
+ROOT_PATH = '/Users/regisalbuquerque/Documents/drive/regis/mestrado/resultados/comp_v12_v14_LB_DDM__reais/'
 
 basesr = [
         'PokerHand', 
@@ -28,7 +28,7 @@ basess = [
 bases = basesr
 
 
-metodos = ['V14_HOM_OnlineBagging_ADWINChangeDetector_SimpleResetSystem', 'LB_Original', 'DDM_Original']
+metodos = ['V12_HOM_OnlineBagging_DDM_RetreinaTodosComBufferWarning', 'V14_HOM_OnlineBagging_DDM_RetreinaTodosComBufferWarning', 'LB_Original', 'DDM_Original']
 
 datasets = {}
 

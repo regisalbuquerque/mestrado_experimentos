@@ -8,8 +8,8 @@ public class Configuracoes {
     
     public final static String BASE_CLASSIFIER = "trees.HoeffdingTree"; //"trees.RandomHoeffdingTree"
     
-    //public static String PATH_BASE = "/Users/regisalbuquerque/Documents/drive/regis/mestrado/resultados/";
-    public static String PATH_BASE = "/home/regis/Documents/drive/regis/mestrado/resultados/";
+    public static String PATH_BASE = "/Users/regisalbuquerque/Documents/drive/regis/mestrado/resultados/";
+    //public static String PATH_BASE = "/home/regis/Documents/drive/regis/mestrado/resultados/";
     
     
     //OLD WAYs

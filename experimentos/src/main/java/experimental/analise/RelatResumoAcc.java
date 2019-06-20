@@ -40,4 +40,28 @@ public class RelatResumoAcc {
 
 		csv.fechar();
 	}
+	
+	public static void gravarPorResumo(Resultado resultado, int execucao, String pathFileName) {
+
+		CSVUtil csv;
+
+		if (execucao == 1)
+		{
+			csv = new CSVUtil(pathFileName);
+			csv.cabecalho("cod,execucao,taxa_media,acc_media,tempo,RamHours");
+		}
+		else
+		{
+			csv = new CSVUtil(pathFileName, true); //APPEND
+		}
+			
+		double media_taxa = resultado.getAcuraciaMedia();
+		double media_acc = resultado.getAcuraciaPrequencialMedia();
+
+		csv.registro(resultado.getCodigo() + "," + execucao + "," + media_taxa + "," + media_acc + "," + resultado.getTempo() + ","
+				+ resultado.getRamHours());
+
+		csv.fechar();
+	}
+	
 }

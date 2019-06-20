@@ -6,6 +6,7 @@ import java.util.List;
 import br.ufam.metodos.leveraging.v1.LeveragingBagOriginal;
 import br.ufam.metodos.v12.MetodoClassificadorV12;
 import br.ufam.metodos.v14.MetodoClassificadorV14;
+import br.ufam.metodos.v14.MetodoClassificadorV14LITE;
 import experimental.bases.BaseAgrawalAbrupt;
 import experimental.bases.BaseAgrawalAbruptNoise;
 import experimental.bases.BaseAgrawalGradual;
@@ -25,13 +26,14 @@ import experimental.bases.BaseSine1;
 import experimental.bases.BaseSpam;
 import experimental.metodos.DDMConfig1;
 import experimental.metodos.DESDDConfig;
+import experimental.metodos.DESDDLITEConfig;
 import experimental.metodos.LeveragingBagVersaoOriginal;
 import experimental.model.MetodoFactory;
 import experimentos.config.Configuracoes;
 
 public class TesteV1x_bases_reais {
 	
-	static String PATH_EXPERIMENTO = Configuracoes.PATH_BASE + "v14_Online_DDM_Buffer_realbases/";
+	static String PATH_EXPERIMENTO = Configuracoes.PATH_BASE + "comp_v12_v14_LB_DDM__reais/";
 	
 	public static void main(String[] args) {
 		
@@ -50,6 +52,7 @@ public class TesteV1x_bases_reais {
 		List<MetodoFactory> classificadores2 = new ArrayList<>();
 		List<MetodoFactory> classificadores3 = new ArrayList<>();
 		List<MetodoFactory> classificadores4 = new ArrayList<>();
+		List<MetodoFactory> classificadores5 = new ArrayList<>();
 		
 		// LeveragingBag
 		classificadores1.add(new LeveragingBagVersaoOriginal().getMetodo());
@@ -63,19 +66,24 @@ public class TesteV1x_bases_reais {
 		classificadores3.add(new DESDDConfig(v12, "12", "OnlineBagging", "RetreinaTodosComBufferWarning", "Ambiguidade", 1, "DDM", 1).getMetodo());
 		
 		// Método v14
-		MetodoClassificadorV14 v14 = new MetodoClassificadorV14();
-		v14.lambdaMinOption.setValueViaCLIString("0.001");
-		v14.lambdaMaxOption.setValueViaCLIString("100");
-		classificadores4.add(new DESDDConfig(v14, "14", "OnlineBagging", "RetreinaTodosComBufferWarning", "Ambiguidade", 1, "DDM", 1).getMetodo());
+		MetodoClassificadorV14LITE v14lite = new MetodoClassificadorV14LITE();
+		v14lite.lambdaMinOption.setValueViaCLIString("0.001");
+		v14lite.lambdaMaxOption.setValueViaCLIString("100");
+		classificadores4.add(new DESDDLITEConfig(v14lite, "14", "OnlineBagging", "RetreinaTodosComBufferWarning", "Ambiguidade", 1, "DDM", 1).getMetodo());
+		
+		// Método v14
+		MetodoClassificadorV14LITE v14lite_adwin = new MetodoClassificadorV14LITE();
+		v14lite_adwin.lambdaMinOption.setValueViaCLIString("0.001");
+		v14lite_adwin.lambdaMaxOption.setValueViaCLIString("100");
+		classificadores5.add(new DESDDLITEConfig(v14lite_adwin, "14", "OnlineBagging", "SimpleResetSystem", "Ambiguidade", 1, "ADWINChangeDetector", 1).getMetodo());
 		
 
+		TesteExperimentoLITE testev14lite = new TesteExperimentoLITE(PATH_EXPERIMENTO, 12, 30, bases, classificadores4);
+		TesteExperimentoLITE testev14lite_adwin = new TesteExperimentoLITE(PATH_EXPERIMENTO, 1, 30, bases, classificadores5);
 		
-		TesteExperimento testeLB = new TesteExperimento(PATH_EXPERIMENTO, 1, 1, bases, classificadores1);
-		TesteExperimento testeDDM = new TesteExperimento(PATH_EXPERIMENTO, 1, 1, bases, classificadores2);
-		TesteExperimento testeV12 = new TesteExperimento(PATH_EXPERIMENTO, 1, 1, bases, classificadores3);
-		TesteExperimento testeV14 = new TesteExperimento(PATH_EXPERIMENTO, 1, 30, bases, classificadores4);
 		
-		testeV14.run();
+		testev14lite_adwin.run();
+		testev14lite.run();
 		//testeDDM.run();
 		//testeLB.run();
 
