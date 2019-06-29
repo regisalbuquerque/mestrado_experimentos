@@ -56,7 +56,7 @@ public class TesteExperimento {
 //					RelatDiversidade.gravar(resultadoClassificador, PATH_CSV, FILENAME + "_div");
 					
 					//Gravar os drifts do Método
-//					RelatResumoDrift.gravar(resultadoClassificador, PATH_CSV, FILENAME + "_drift");
+					RelatResumoDrift.gravar(resultadoClassificador, PATH_CSV, FILENAME + "_drift");
 					
 //					if (classificadores.get(c).getClassificador() instanceof IEnsemblesResultados) {
 //						IEnsemblesResultados classificadorEnsembler = (IEnsemblesResultados) classificadores.get(c).getClassificador();

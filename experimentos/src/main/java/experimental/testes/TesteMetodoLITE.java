@@ -36,6 +36,8 @@ public class TesteMetodoLITE {
         // -----------------------------------------------------------------------        
         
         for (int iteracao = 1; dados.hasMoreInstances(); iteracao++) {
+        	
+        	System.out.println("ITERACAO: " + iteracao);
             
             if (base.getNumInstances() < iteracao) break;
             
