@@ -41,24 +41,24 @@ public class TesteV1x_ALL {
 		
 		List<BaseFactory> bases = new ArrayList<>();
 
-//		bases.add(new BaseSine1());
-//		bases.add(new BaseGauss());
-//		bases.add(new BaseCircle());
-//		
-//		bases.add(new BaseAgrawalAbrupt());
-//		bases.add(new BaseAgrawalAbruptNoise());
-//		bases.add(new BaseAgrawalGradual());
-//		bases.add(new BaseAgrawalGradualNoise());
-//		
-//		bases.add(new BaseSEAAbrupt());
-//		bases.add(new BaseSEAAbruptNoise());
-//		bases.add(new BaseSEAGradual());
-//		bases.add(new BaseSEAGradualNoise());
+		bases.add(new BaseSine1());
+		bases.add(new BaseGauss());
+		bases.add(new BaseCircle());
 		
-		bases.add(new BasePokerHand());
-		bases.add(new BaseForestCovertype());
-		bases.add(new BaseSpam());
-		bases.add(new BaseKDDCup99());
+		bases.add(new BaseAgrawalAbrupt());
+		bases.add(new BaseAgrawalAbruptNoise());
+		bases.add(new BaseAgrawalGradual());
+		bases.add(new BaseAgrawalGradualNoise());
+		
+		bases.add(new BaseSEAAbrupt());
+		bases.add(new BaseSEAAbruptNoise());
+		bases.add(new BaseSEAGradual());
+		bases.add(new BaseSEAGradualNoise());
+		
+//		bases.add(new BasePokerHand());
+//		bases.add(new BaseForestCovertype());
+//		bases.add(new BaseSpam());
+//		bases.add(new BaseKDDCup99());
 		
 //		bases.add(new BaseLine());
 		
