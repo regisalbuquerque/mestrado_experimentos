@@ -102,13 +102,14 @@ baseEhReal = {
         }
 
 
-base = 'Circle'
+base = 'Spam'
 real = baseEhReal[base]
 xcoord = drifts[base]
 rangey = rangesy[base]
 
 #Path
-ROOT_PATH = '/Users/regisalbuquerque/Documents/drive/regis/mestrado/resultados/comp_v12_v14_LB_DDM__Online_DDM_BufferAndReset__sinteticas/'
+#ROOT_PATH = '/Users/regisalbuquerque/Documents/drive/regis/mestrado/resultados/comp_v12_v14_LB_DDM__Online_DDM_BufferAndReset__sinteticas/'
+ROOT_PATH = '/Users/regisalbuquerque/Documents/drive/regis/mestrado/resultados/comp_v12_LB_DDM__allbases/'
 ROOT_PATH_IMG = '/Users/regisalbuquerque/Desktop/'
 
 dataset_DESDD = pd.read_csv(ROOT_PATH + 'V12_HOM_OnlineBagging_DDM_RetreinaTodosComBufferWarning' + '_' + base + '_pareto__exec_1_drift.csv')
@@ -183,10 +184,13 @@ print(drifts)
 #CALCULO DAS PRIMEIRAS DETECCOES
 DESDD_1_DETECCAO = []
 DESDD_ATRASO_ACUMULADO = 0;
+
 DDM_1_DETECCAO = []
 DDM_ATRASO_ACUMULADO = 0;
+
 LB_1_DETECCAO = []
 LB_ATRASO_ACUMULADO = 0;
+
 for idx, val in enumerate(xcoord):
     if (idx+1 < len(xcoord)):
         #Proximo
@@ -224,20 +228,25 @@ for idx, val in enumerate(xcoord):
                 LB_ATRASO_ACUMULADO = LB_ATRASO_ACUMULADO + lb - val
                 break
         
-        
-TAXA_DESDD = DESDD_ATRASO_ACUMULADO / len(xcoord)
-TAXA_DDM = DDM_ATRASO_ACUMULADO / len(xcoord)
-TAXA_LB = LB_ATRASO_ACUMULADO / len(xcoord)
+if real == False:    
+    TAXA_DESDD = DESDD_ATRASO_ACUMULADO / len(xcoord)
+    TAXA_DDM = DDM_ATRASO_ACUMULADO / len(xcoord)
+    TAXA_LB = LB_ATRASO_ACUMULADO / len(xcoord)
 
-FD_DESDD = DESDD_QTD_DETECACAO - len(xcoord)
-FD_DDM = DDM_QTD_DETECCAO - len(xcoord)
-FD_LB = LB_QTD_DETECCAO - len(xcoord)
-        
-        
+FD_DESDD = DESDD_QTD_DETECACAO - len(DESDD_1_DETECCAO)
+FD_DDM = DDM_QTD_DETECCAO - len(DDM_1_DETECCAO)
+FD_LB = LB_QTD_DETECCAO - len(LB_1_DETECCAO)
 
-print('\n\nDESDD:')
+DESDD_DETECOES_PERDIDAS = len(xcoord) - len(DESDD_1_DETECCAO)
+DDM_DETECOES_PERDIDAS = len(xcoord) - len(DDM_1_DETECCAO)
+LB_DETECOES_PERDIDAS = len(xcoord) - len(LB_1_DETECCAO)
+        
+        
+print('\n\n', base)
+print('\nDESDD:')
 print('Deteccoes: ',DESDD_QTD_DETECACAO)
 print('Falsas Deteccoes: ',FD_DESDD)
+print('Deteccoes Perdidas: ',DESDD_DETECOES_PERDIDAS)
 print('DRIFTS: ', DESDD_X_DRIFT)
 print('1_DETECCOES: ', DESDD_1_DETECCAO)
 print('Atraso Acumulado: ', DESDD_ATRASO_ACUMULADO)
@@ -246,6 +255,7 @@ print('Taxa: ', TAXA_DESDD)
 print('\nDDM:')
 print('Deteccoes: ', DDM_QTD_DETECCAO)
 print('Falsas Deteccoes: ',FD_DDM)
+print('Deteccoes Perdidas: ',DDM_DETECOES_PERDIDAS)
 print('DRIFTS: ', DDM_X_DRIFT)
 print('1_DETECCOES: ', DDM_1_DETECCAO)
 print('Atraso Acumulado: ', DDM_ATRASO_ACUMULADO)
@@ -254,6 +264,7 @@ print('Taxa: ', TAXA_DDM)
 print('\nLB:')
 print('Deteccoes: ', LB_QTD_DETECCAO)
 print('Falsas Deteccoes: ',FD_LB)
+print('Deteccoes Perdidas: ',LB_DETECOES_PERDIDAS)
 print('DRIFTS: ', LB_X_DRIFT)
 print('1_DETECCOES: ', LB_1_DETECCAO)
 print('Atraso Acumulado: ', LB_ATRASO_ACUMULADO)
