@@ -2,7 +2,8 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
-ROOT_PATH = '/Users/regisalbuquerque/Documents/drive/regis/mestrado/resultados/comp_v12_v14_LB_DDM__reais/'
+#ROOT_PATH = '/Users/regisalbuquerque/Documents/drive/regis/mestrado/resultados/comp_HDDM_DDD_allbases/'
+ROOT_PATH = '/home/regis/Documents/drive/regis/mestrado/resultados/comp_HDDM_DDD_allbases/'
 
 basesr = [
         'PokerHand', 
@@ -27,8 +28,14 @@ basess = [
 
 bases = basesr
 
+#'V12_HOM_OnlineBagging_DDM_RetreinaTodosComBufferWarning', 
+#'V14_HOM_OnlineBagging_DDM_RetreinaTodosComBufferWarning',
 
-metodos = ['V12_HOM_OnlineBagging_DDM_RetreinaTodosComBufferWarning', 'V14_HOM_OnlineBagging_DDM_RetreinaTodosComBufferWarning', 'LB_Original', 'DDM_Original']
+metodos = ['V14_HOM_OnlineBagging_HDDM_A_Test_RetreinaTodosComBufferWarning',
+           'V12_HOM_OnlineBagging_HDDM_A_Test_RetreinaTodosComBufferWarning',
+           'LB_Original', 
+           'DDM_Original',
+           'DDD_Original']
 
 datasets = {}
 

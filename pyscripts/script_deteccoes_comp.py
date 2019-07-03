@@ -6,6 +6,12 @@ import pandas as pd
 
 #style.use('default')
 
+#Path
+#ROOT_PATH = '/Users/regisalbuquerque/Documents/drive/regis/mestrado/resultados/comp_v12_v14_LB_DDM__Online_DDM_BufferAndReset__sinteticas/'
+#ROOT_PATH = '/Users/regisalbuquerque/Documents/drive/regis/mestrado/resultados/comp_v12_LB_DDM__allbases/'
+ROOT_PATH = '/home/regis/Documents/drive/regis/mestrado/resultados/comp_HDDM_DDD_allbases/'
+ROOT_PATH_IMG = '/Users/regisalbuquerque/Desktop/'
+
 basesr = [
         'PokerHand', 
         'ForestCovertype', 
@@ -101,174 +107,132 @@ baseEhReal = {
         'KDDCup99': True
         }
 
+metodos = [
+        'V12_HOM_OnlineBagging_DDM_RetreinaTodosComBufferWarning', 
+        'DDM_Original', 
+        'LB_Original',
+        'DDD_Original']
+siglas = [
+        'DESDD', 
+        'DDM', 
+        'LB_Original',
+        'DDD']
 
-base = 'AgrawalAbrupt'
+cores = [
+        'k',
+        'b',
+        'g']
+
+marcador_tam = [50,10,10]      
+
+
+base = 'Circle'
 real = baseEhReal[base]
-xcoord = drifts[base]
+drift_base = drifts[base]
 rangey = rangesy[base]
 
-#Path
-#ROOT_PATH = '/Users/regisalbuquerque/Documents/drive/regis/mestrado/resultados/comp_v12_v14_LB_DDM__Online_DDM_BufferAndReset__sinteticas/'
-ROOT_PATH = '/Users/regisalbuquerque/Documents/drive/regis/mestrado/resultados/comp_v12_LB_DDM__allbases/'
-ROOT_PATH_IMG = '/Users/regisalbuquerque/Desktop/'
+DATASETS = []
+Y = []
+DRIFT = []
+DRIFT_X = []
+DRIFT_Y = []
+QTD_DETECCAO = []
 
-dataset_DESDD = pd.read_csv(ROOT_PATH + 'V12_HOM_OnlineBagging_DDM_RetreinaTodosComBufferWarning' + '_' + base + '_pareto__exec_1_drift.csv')
-dataset_DDM = pd.read_csv(ROOT_PATH + 'DDM_Original' + '_' + base + '_pareto__exec_1_drift.csv')
-dataset_LB = pd.read_csv(ROOT_PATH + 'LB_Original' + '_' + base + '_pareto__exec_1_drift.csv')
+DETECCAO_1 = [] #vai ser array de array
+ATRASO_ACUMULADO = [];
 
+for idx, val in enumerate(metodos):
+    dataset_aux = pd.read_csv(ROOT_PATH + val + '_' + base + '_pareto__exec_1_drift.csv')
+    DATASETS.append(dataset_aux)
+    Y.append(dataset_aux['taxa'].values)
+    DRIFT.append(dataset_aux.loc[dataset_aux['drift'] == 1])
+    DRIFT_X.append(DRIFT[idx]['iteracao'].values)
+    DRIFT_Y.append(DRIFT[idx]['taxa'].values)
+    QTD_DETECCAO.append(len(DRIFT_X[idx]))
+    #CALCULO DAS PRIMEIRAS DETECCOES
+    DETECCAO_1.append([]) #Inicializacao
+    ATRASO_ACUMULADO.append(0) #Inicializacao
+    
+    
 
-X = dataset_DESDD['iteracao'].values;
-
-Y_DESDD    = dataset_DESDD['taxa'].values;
-Y_DDM = dataset_DDM['taxa'].values;
-Y_LB  = dataset_LB['taxa'].values;
-
-
-DRIFT_DESDD = dataset_DESDD.loc[dataset_DESDD['drift'] == 1]
-DESDD_X_DRIFT = DRIFT_DESDD['iteracao'].values;
-DESDD_Y_DRIFT = DRIFT_DESDD['taxa'].values;
-DESDD_QTD_DETECACAO = len(DESDD_X_DRIFT)
-
-DRIFT_DDM = dataset_DDM.loc[dataset_DDM['drift'] == 1]
-DDM_X_DRIFT = DRIFT_DDM['iteracao'].values;
-DDM_Y_DRIFT = DRIFT_DDM['taxa'].values;
-DDM_QTD_DETECCAO = len(DDM_X_DRIFT)
-
-DRIFT_LB = dataset_LB.loc[dataset_LB['drift'] == 1]
-LB_X_DRIFT = DRIFT_LB['iteracao'].values;
-LB_Y_DRIFT = DRIFT_LB['taxa'].values;
-LB_QTD_DETECCAO = len(LB_X_DRIFT)
+X = DATASETS[0]['iteracao'].values
 
 
-fig, ax = plt.subplots()
+# Plotagem das figuras 
+def plotagem():
+    fig, ax = plt.subplots()
+
+    for idx, val in enumerate(metodos): 
+        plt.plot(X, Y[idx], '-', label=siglas[idx], color=cores[idx], markersize=marcador_tam[idx])
+        if real == False:
+            plt.scatter(DRIFT_X[idx], DRIFT_Y[idx], label=siglas[idx] + ' Detection', color=cores[idx])
+    #Desabilitar as duas linhas a seguir para as bases reais
+    if real == False:
+        for xc in drift_base:
+            plt.axvline(x=xc)
+
+    #ax = fig.add_subplot(111)
+    #axes = plt.gca()
+    #axes.set_xlim([0,1])
+    #axes.set_ylim([0,1])
+    plt.xlabel('Iteration')
+    plt.ylabel('Accuracy')
+    #plt.title(' Gráfico Iteração x Acurácia \n Base ' + base)
+    plt.legend()
+    #plt.show()
+    ax.set_ylim(rangey[0], rangey[1])
+    #plt.savefig(ROOT_PATH_IMG + 'figura.eps', format='eps', dpi=1000)
+    #fig.savefig(ROOT_PATH_IMG + 'figura_' + base + '.eps', format='eps', dpi=1200, bbox_inches='tight')
 
 
-plt.plot(X, Y_DESDD, '-', label='DESDD', color='k', markersize=50)
-if real == False:
-    plt.scatter(DESDD_X_DRIFT, DESDD_Y_DRIFT, label='DESDD Detection', color='k')
-
-plt.plot(X, Y_DDM, '--', label='DDM', color='b', markersize=10)
-if real == False:
-    plt.scatter(DDM_X_DRIFT, DDM_Y_DRIFT, label='DDM Detection', color='b')
-
-plt.plot(X, Y_LB, ':', label='LB', color='g', markersize=10)
-if real == False:
-    plt.scatter(LB_X_DRIFT, LB_Y_DRIFT, label='LB Detection', color='g')
-
-#Desabilitar as duas linhas a seguir para as bases reais
-if real == False:
-    for xc in xcoord:
-        plt.axvline(x=xc)
 
 
-#ax = fig.add_subplot(111)
-
-#axes = plt.gca()
-#axes.set_xlim([0,1])
-#axes.set_ylim([0,1])
-
-plt.xlabel('Iteration')
-plt.ylabel('Accuracy')
-#plt.title(' Gráfico Iteração x Acurácia \n Base ' + base)
-plt.legend()
-#plt.show()
-
-ax.set_ylim(rangey[0], rangey[1])
-#plt.savefig(ROOT_PATH_IMG + 'figura.eps', format='eps', dpi=1000)
-#fig.savefig(ROOT_PATH_IMG + 'figura_' + base + '.eps', format='eps', dpi=1200, bbox_inches='tight')
-
-print('DRIFTS:')
-print(len(drifts))
-print(drifts)
-
-#CALCULO DAS PRIMEIRAS DETECCOES
-DESDD_1_DETECCAO = []
-DESDD_ATRASO_ACUMULADO = 0;
-
-DDM_1_DETECCAO = []
-DDM_ATRASO_ACUMULADO = 0;
-
-LB_1_DETECCAO = []
-LB_ATRASO_ACUMULADO = 0;
-
-for idx, val in enumerate(xcoord):
-    if (idx+1 < len(xcoord)):
+for idx, val in enumerate(drift_base):
+    if (idx+1 < len(drift_base)):
         #Proximo
-        proximo = xcoord[idx+1]
+        proximo = drift_base[idx+1]
         
-        for desdd in DESDD_X_DRIFT:
-            if (desdd >= val and desdd < proximo):
-                DESDD_1_DETECCAO.append(desdd)
-                DESDD_ATRASO_ACUMULADO = DESDD_ATRASO_ACUMULADO + desdd - val 
-                break
-        for ddm in DDM_X_DRIFT:
-            if (ddm >= val and ddm < proximo):
-                DDM_1_DETECCAO.append(ddm)
-                DDM_ATRASO_ACUMULADO = DDM_ATRASO_ACUMULADO + ddm - val
-                break
-        for lb in LB_X_DRIFT:
-            if (lb >= val and lb < proximo):
-                LB_1_DETECCAO.append(lb)
-                LB_ATRASO_ACUMULADO = LB_ATRASO_ACUMULADO + lb - val
-                break
+        #Calcula para cada metodo
+        for idm, valm in enumerate(metodos):
+            for drift_aux in DRIFT_X[idm]:
+                if (drift_aux >= val and drift_aux < proximo):
+                    DETECCAO_1[idm].append(drift_aux)
+                    ATRASO_ACUMULADO[idm] = ATRASO_ACUMULADO[idm] + drift_aux - val 
+                    break
     else:
-        for desdd in DESDD_X_DRIFT:
-            if (desdd >= val):
-                DESDD_1_DETECCAO.append(desdd)
-                DESDD_ATRASO_ACUMULADO = DESDD_ATRASO_ACUMULADO + desdd - val 
-                break
-        for ddm in DDM_X_DRIFT:
-            if (ddm >= val):
-                DDM_1_DETECCAO.append(ddm)
-                DDM_ATRASO_ACUMULADO = DDM_ATRASO_ACUMULADO + ddm - val
-                break
-        for lb in LB_X_DRIFT:
-            if (lb >= val):
-                LB_1_DETECCAO.append(lb)
-                LB_ATRASO_ACUMULADO = LB_ATRASO_ACUMULADO + lb - val
-                break
+        #Calcula para cada metodo
+        for idm, valm in enumerate(metodos):
+            for drift_aux in DRIFT_X[idm]:
+                if (drift_aux >= val):
+                    DETECCAO_1[idm].append(drift_aux)
+                    ATRASO_ACUMULADO[idm] = ATRASO_ACUMULADO[idm] + drift_aux - val 
+                    break
+            
         
-if real == False:    
-    TAXA_DESDD = DESDD_ATRASO_ACUMULADO / len(xcoord)
-    TAXA_DDM = DDM_ATRASO_ACUMULADO / len(xcoord)
-    TAXA_LB = LB_ATRASO_ACUMULADO / len(xcoord)
-
-FD_DESDD = DESDD_QTD_DETECACAO - len(DESDD_1_DETECCAO)
-FD_DDM = DDM_QTD_DETECCAO - len(DDM_1_DETECCAO)
-FD_LB = LB_QTD_DETECCAO - len(LB_1_DETECCAO)
-
-DESDD_DETECOES_PERDIDAS = len(xcoord) - len(DESDD_1_DETECCAO)
-DDM_DETECOES_PERDIDAS = len(xcoord) - len(DDM_1_DETECCAO)
-LB_DETECOES_PERDIDAS = len(xcoord) - len(LB_1_DETECCAO)
+TAXA = []
+FD = [] #FALSE DETECTION
+MD = [] #MISSIN DETECTION
+        
+#CALCULOS FINAIS
+for idx, val in enumerate(metodos):  
+    MD.append(len(drift_base) - len(DETECCAO_1[idx]))
+    FD.append(QTD_DETECCAO[idx] - len(DETECCAO_1[idx]))          
+    if real == False:
+        TAXA.append(ATRASO_ACUMULADO[idx] / len(drift_base))
+    else:
+        TAXA.append(0)
         
         
 print('\n\n', base)
-print('\nDESDD:')
-print('Deteccoes: ',DESDD_QTD_DETECACAO)
-print('Falsas Deteccoes: ',FD_DESDD)
-print('Deteccoes Perdidas: ',DESDD_DETECOES_PERDIDAS)
-print('DRIFTS: ', DESDD_X_DRIFT)
-print('1_DETECCOES: ', DESDD_1_DETECCAO)
-print('Atraso Acumulado: ', DESDD_ATRASO_ACUMULADO)
-print('Taxa: ', TAXA_DESDD)
-
-print('\nDDM:')
-print('Deteccoes: ', DDM_QTD_DETECCAO)
-print('Falsas Deteccoes: ',FD_DDM)
-print('Deteccoes Perdidas: ',DDM_DETECOES_PERDIDAS)
-print('DRIFTS: ', DDM_X_DRIFT)
-print('1_DETECCOES: ', DDM_1_DETECCAO)
-print('Atraso Acumulado: ', DDM_ATRASO_ACUMULADO)
-print('Taxa: ', TAXA_DDM)
-
-print('\nLB:')
-print('Deteccoes: ', LB_QTD_DETECCAO)
-print('Falsas Deteccoes: ',FD_LB)
-print('Deteccoes Perdidas: ',LB_DETECOES_PERDIDAS)
-print('DRIFTS: ', LB_X_DRIFT)
-print('1_DETECCOES: ', LB_1_DETECCAO)
-print('Atraso Acumulado: ', LB_ATRASO_ACUMULADO)
-print('Taxa: ', TAXA_LB)
+for idx, val in enumerate(metodos):      
+    print('\n' + val)
+    print('D: ', QTD_DETECCAO[idx])
+    print('FD: ', FD[idx])
+    print('MD: ', MD[idx])
+    print('DRIFTS: ', DRIFT_X[idx])
+    print('1_DETECCOES: ', DETECCAO_1[idx])
+    print('ATRASO ACUMULADO: ', ATRASO_ACUMULADO[idx])
+    print('ADR: ', TAXA[idx])
 
 
 #fig.savefig(path_img + str(i) + '.png', bbox_inches='tight')
