@@ -1,21 +1,21 @@
   
   # Calculo de WILCOXON - Teste estatistico
 
-  #PATH <- "/Users/regisalbuquerque/Documents/drive/regis/mestrado/resultados/comp_v12_v14_LB_DDM__Online_DDM_BufferAndReset__sinteticas/";
-  PATH <- "/Users/regisalbuquerque/Documents/drive/regis/mestrado/resultados/comp_v12_LB_DDM__allbases/";
+  PATH <- "/Users/regisalbuquerque/Documents/drive/regis/mestrado/resultados/comp_v12_v14_LB_DDM_DDD__Online_DDM_BufferAndReset__sinteticas/";
+  #PATH <- "/Users/regisalbuquerque/Documents/drive/regis/mestrado/resultados/comp_v12_LB_DDM_DDD__allbases/";
   
   TAM <- 30
   LIM_P <- 0.05
   
-  metodo_all = c("V12_HOM_OnlineBagging_DDM_RetreinaTodosComBufferWarning", 
-                 "V14_HOM_OnlineBagging_DDM_RetreinaTodosComBufferWarning",
-                 "DDM_Original", 
-                 "LB_Original")
-  metodo_v12 = c( "V12_HOM_OnlineBagging_DDM_RetreinaTodosComBufferWarning", 
-                  "DDM_Original", 
-                  "LB_Original")
+  #"V14_HOM_OnlineBagging_DDM_RetreinaTodosComBufferWarning"
   
-  metodo = metodo_v12
+  metodo_all = c("V14_HOM_OnlineBagging_DDM_RetreinaTodosComBufferWarning",
+                 "V12_HOM_OnlineBagging_DDM_RetreinaTodosComBufferWarning", 
+                 "DDM_Original", 
+                 "LB_Original",
+                 "DDD_Original")
+
+  metodo = metodo_all
   
   basess = c('Sine1',
              'Gauss',
@@ -33,7 +33,7 @@
              'Spam',
              'KDDCup99')
   
-  bases <- basesr
+  bases <- basess
 
   getTaxasMedias <- function(base, metodo){
     file = paste0(PATH, metodo, "_", base, "_pareto__exec_1_drift.csv")
