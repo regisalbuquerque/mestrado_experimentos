@@ -7,33 +7,48 @@ import pandas as pd
 #style.use('default')
 
 #Path
-#ROOT_PATH = '/Users/regisalbuquerque/Documents/drive/regis/mestrado/resultados/comp_v12_v14_LB_DDM_DDD__Online_DDM_BufferAndReset__sinteticas/'
-ROOT_PATH = '/Users/regisalbuquerque/Documents/drive/regis/mestrado/resultados/comp_v12_LB_DDM_DDD__allbases/'
+ROOT_PATH = '/Users/regisalbuquerque/Documents/drive/regis/mestrado/resultados/comp_baseslines_allbases/'
 
 
 
 ROOT_PATH_IMG = '/Users/regisalbuquerque/Desktop/'
 
 basesr = [
-        'PokerHand', 
         'ForestCovertype', 
-        'Spam', 
-        'KDDCup99'
+        'KDDCup99',
+        'PokerHand',
+        'Spam'
         ]
 
 basess = [
-        'Sine1', 
-        'Gauss', 
-        'Circle', 
         'AgrawalAbrupt', 
         'AgrawalAbruptNoise',
         'AgrawalGradual',
         'AgrawalGradualNoise',
+        'Gauss', 
         'SEAAbrupt', 
         'SEAAbruptNoise',
         'SEAGradual',
-        'SEAGradualNoise'
+        'SEAGradualNoise',
+        'Sine1' 
         ]
+
+bases_names = {
+        'AgrawalAbrupt': 'Agrawal Abrupt', 
+        'AgrawalAbruptNoise': 'Agrawal Abrupt Noise',
+        'AgrawalGradual': 'Agrawal Gradual',
+        'AgrawalGradualNoise': 'Agrawal Gradual Noise',
+        'Gauss': 'Gauss', 
+        'SEAAbrupt': 'SEA Abrupt', 
+        'SEAAbruptNoise': 'SEA Abrupt Noise',
+        'SEAGradual': 'SEA Gradual',
+        'SEAGradualNoise': 'SEA Gradual Noise',
+        'Sine1': 'Sine1' ,
+        'ForestCovertype': 'Forest Covertype', 
+        'KDDCup99': 'KDDCup',
+        'PokerHand': 'Poker Hand',
+        'Spam':  'Spam'
+        }
 
 limiteBase = {
         'Sine1': 10000, 
@@ -111,25 +126,26 @@ baseEhReal = {
 
 #V14_HOM_OnlineBagging_DDM_RetreinaTodosComBufferWarning
 metodos = [
-        'V12_HOM_OnlineBagging_DDM_RetreinaTodosComBufferWarning', 
+        'DESDD',
+        'DDD_Original',
         'DDM_Original', 
-        'LB_Original',
-        'DDD_Original']
+        'LB_Original']
+
 siglas = [
         'DESDD', 
-        'DDM', 
-        'LB',
-        'DDD']
+        'DDD', 
+        'DDM',
+        'LB']
 
 cores = [
         'k',
+        'r',
         'b',
-        'g',
-        'r']
+        'g']
 
 marcador_tam = [50,10,10,10]      
 
-for indice, base in enumerate(basess):
+for indice, base in enumerate(basesr):
     real = baseEhReal[base]
     drift_base = drifts[base]
     rangey = rangesy[base]
@@ -187,7 +203,7 @@ for indice, base in enumerate(basess):
         #plt.savefig(ROOT_PATH_IMG + 'figura.eps', format='eps', dpi=1000)
         fig.savefig(ROOT_PATH_IMG + 'figura_' + base + '.eps', format='eps', dpi=1200, bbox_inches='tight')
     
-    #plotagem()
+    plotagem()
     
     
     for idx, val in enumerate(drift_base):
@@ -226,16 +242,15 @@ for indice, base in enumerate(basess):
             TAXA.append(0)
             
             
-    print('\n\n', base)
+    print(bases_names[base] + ' & ', end = '')
     for idx, val in enumerate(metodos):      
-        print('\n' + val)
-        print('D: ', QTD_DETECCAO[idx])
-        print('FD: ', FD[idx])
-        print('MD: ', MD[idx])
-        print('DRIFTS: ', DRIFT_X[idx])
-        print('1_DETECCOES: ', DETECCAO_1[idx])
-        print('ATRASO ACUMULADO: ', ATRASO_ACUMULADO[idx])
-        print('ADR: ', TAXA[idx])
+        print(QTD_DETECCAO[idx], ' & ', end = '')
+        print(FD[idx], ' & ', end = '')
+        print(MD[idx], ' & ', end = '')
+        print(round(TAXA[idx],2), ' & ', end = '')
+    
+    print(' \\\\ \hline ')
+    
     
     
     #fig.savefig(path_img + str(i) + '.png', bbox_inches='tight')

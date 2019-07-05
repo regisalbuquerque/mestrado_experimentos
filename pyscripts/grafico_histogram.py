@@ -5,7 +5,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
-ROOT_PATH = '/Users/regisalbuquerque/Documents/drive/regis/mestrado/resultados/comp_v12_v14_LB_DDM__Online_DDM_BufferAndReset__sinteticas/'
+ROOT_PATH = '/Users/regisalbuquerque/Documents/drive/regis/mestrado/resultados/comp_v12_v14_LB_DDM_DDD__Online_DDM_BufferAndReset__sinteticas/'
 ROOT_PATH_ITERACOES = ROOT_PATH + 'pareto/'
 ROOT_PATH_IMG = '/Users/regisalbuquerque/Desktop/'
 
@@ -69,10 +69,10 @@ drifts = {
         'ForestCovertype': [] 
        }
 
-bases = basess
+bases = ['SEAGradual']
 
 
-metodos = ['V12_HOM_OnlineBagging_DDM', 'V12_HOM_OnlineBagging_DDM_RetreinaTodosComBufferWarning']
+metodos = ['V12_HOM_OnlineBagging_DDM_RetreinaTodosComBufferWarning']
 
 nomes = {
            'V12_HOM_OnlineBagging_DDM':'v12_OnlineBagging_DDM_Reset', 
@@ -150,11 +150,7 @@ for metodo in metodos:
         print(titulos[metodo] + ' - ' + base)
     
         fig, ax = plt.subplots() #Para o primeiro gráfico
-        plt.subplot(1,1,1)
         subplot_grafico5(metodo, base)
-        #plt.title(titulos[metodo] + ' - ' + base)
-        fig.set_figheight(10)
-        fig.set_figwidth(15)
         fig.savefig(ROOT_PATH_IMG + 'histogram'  + '_' + nomes[metodo] + '__' + base + '_' + '.eps', format='eps', dpi=1200, bbox_inches='tight')
 
 

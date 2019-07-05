@@ -2,16 +2,16 @@
   taxas_DDM_part <- c() 
   taxas_LB_part <- c() 
  
-  DESDD <- "_comp_1__V12_RetreinaTodosComBufferWarning_Ambiguidade_DDM_iteracao"
-  DDM <- "_comp_1__DDM_Original_iteracao"
-  LB <- "_comp_1__LB_Original_iteracao"
+  DESDD <- "V12_HOM_OnlineBagging_DDM_RetreinaTodosComBufferWarning"
+  DDM <- "DDM_Original"
+  LB <- "LB_Original"
   
   TAM <- 30
-  DATASET <- "KDDCup"
+  DATASET <- "Sine1"
   
   getTaxasMedias <- function(base, metodo){
-    path <- "/Users/regisalbuquerque/Documents/git/regis/mestrado/mestrado_resultados/comparacao/";
-    tabela <- read.table(paste0(path, base, metodo, ".csv"), header=T, sep=",")
+    path <- "/Users/regisalbuquerque/Documents/drive/regis/mestrado/resultados/comp_v12_LB_DDM_DDD__allbases/";
+    tabela <- read.table(paste0(path, metodo, "_", base, "_pareto__exec_1_drift.csv"), header=T, sep=",")
     taxas <- unlist(tabela['taxa'])
     return(taxas)
   }

@@ -1,48 +1,127 @@
   
   # Calculo de WILCOXON - Teste estatistico
 
-  PATH <- "/Users/regisalbuquerque/Documents/drive/regis/mestrado/resultados/comp_v12_v14_LB_DDM_DDD__Online_DDM_BufferAndReset__sinteticas/";
-  #PATH <- "/Users/regisalbuquerque/Documents/drive/regis/mestrado/resultados/comp_v12_LB_DDM_DDD__allbases/";
-  
   TAM <- 30
   LIM_P <- 0.05
   
-  #"V14_HOM_OnlineBagging_DDM_RetreinaTodosComBufferWarning"
-  
-  metodo_all = c("V14_HOM_OnlineBagging_DDM_RetreinaTodosComBufferWarning",
-                 "V12_HOM_OnlineBagging_DDM_RetreinaTodosComBufferWarning", 
-                 "DDM_Original", 
-                 "LB_Original",
-                 "DDD_Original")
-
-  metodo = metodo_all
-  
-  basess = c('Sine1',
-             'Gauss',
-             'Circle',
-             'AgrawalAbrupt',
+  basess = c('AgrawalAbrupt',
              'AgrawalAbruptNoise',
              'AgrawalGradual',
              'AgrawalGradualNoise',
+             'Gauss',
              'SEAAbrupt',
              'SEAAbruptNoise',
              'SEAGradual',
-             'SEAGradualNoise')
-  basesr = c('PokerHand',
-             'ForestCovertype', 
-             'Spam',
-             'KDDCup99')
+             'SEAGradualNoise',
+             'Sine1')
   
+  basess_names = c('Agrawal Abrupt',
+                   'Agrawal Abrupt Noise',
+                   'Agrawal Gradual',
+                   'Agrawal Gradual Noise',
+                   'Gauss',
+                   'SEA Abrupt',
+                   'SEA Abrupt Noise',
+                   'SEA Gradual',
+                   'SEA Gradual Noise',
+                   'Sine1')
+  
+  basesr       = c('ForestCovertype',
+                   'KDDCup99',
+                   'PokerHand', 
+                   'Spam')
+  
+  basesr_names = c('Forest Covertype',
+                   'KDDCup',
+                   'Poker-Hand', 
+                   'Spam')
+  
+  metodo_all = c("DESDD",
+                 "DDD_Original",
+                 "DDM_Original", 
+                 "LB_Original")
+  
+  PATH_TEMPO <- "/Users/regisalbuquerque/Documents/drive/regis/mestrado/resultados/comp_v12_LB_DDM_DDD__allbases/"
+  
+  #CONFIG SINTETICAS
+  metodo = metodo_all
   bases <- basess
+  conta_estrelas_num <- 0 # 1 para sinteticas e 0 para real
+  bases_names <- basess_names
+  PATH <- "/Users/regisalbuquerque/Documents/drive/regis/mestrado/resultados/comp_baseslines_allbases/";
+  
 
   getTaxasMedias <- function(base, metodo){
-    file = paste0(PATH, metodo, "_", base, "_pareto__exec_1_drift.csv")
+    iteracao <- 1
+    #if (metodo == "V14_HOM_OnlineBagging_DDM_RetreinaTodosComBufferWarning")
+    #{
+      #Procurar a melhor iteração dentro dos resultados
+      #file = paste0(PATH, "RESULT_", metodo, "_", base)
+      #tabela <- read.table(file, header=T, sep=",")
+      #tabela_ordenada = tabela[order(tabela$taxa_media, decreasing = TRUE),c(1,2,3)]
+      #iteracao <- tabela_ordenada$execucao[1]
+    #}
+    
+    file = paste0(PATH, metodo, "_", base, "_pareto__exec_",iteracao,"_drift.csv")
+    #print(file)
     tabela <- read.table(file, header=T, sep=",")
     taxas <- unlist(tabela['taxa'])
     return(taxas)
   }
   
- 
+  getTempos <- function(base, metodo){
+    if (metodo == "DESDD")
+    {
+      metodo <- "V12_HOM_OnlineBagging_DDM_RetreinaTodosComBufferWarning"
+    }
+    file = paste0(PATH_TEMPO, "RESULT_", metodo, "_", base)
+    tabela <- read.table(file, header=T, sep=",")
+    taxas <- unlist(tabela['tempo'])
+    return(taxas)
+  }
+  
+  imprime <- function(bases_names, metodo, vencedor_index, medias, desvios, tempos, conta_estrelas){
+    #Imprime
+    cat("\n", bases_names[b], " & " )
+    for(it in 1:length(metodo))
+    {
+      if (vencedor_index == it)
+      {
+        cat('\\textbf{')
+        cat(round(medias[it], digits = 2))
+        cat('}')
+        for(ite in 1:conta_estrelas)
+        {
+          if (ite > conta_estrelas_num)
+          {
+            cat('*')
+          }
+        }
+      } else {
+        cat(round(medias[it], digits = 2))
+      }
+      cat(" (", round(desvios[it], digits = 2), ") & ", round(tempos[it], digits = 2))
+      if (it != length(metodo))
+      {
+        cat(" & ")
+      }
+    }
+    cat(' \\\\ \\hline ')
+    #cat("\n", pvalues, " \n ", valores, " \n ")
+  }
+  
+  imprime_medias <- function(bases_names, metodo, medias){
+    #Imprime
+    cat("\n", bases[b], "\t" )
+    for(it in 1:length(metodo))
+    {
+      cat(medias[it]/100)
+      if (it != length(metodo))
+      {
+        cat("\t")
+      }
+    }
+  }
   
   for(b in 1:length(bases))
   {
@@ -52,6 +131,7 @@
     taxas_part <- list()
     taxas <- list()
     
+    tempos <- c()
     medias <- c()
     desvios <- c()
     
@@ -60,6 +140,9 @@
       taxas_aux <- getTaxasMedias(DATASET, metodo[it])
       taxas <- c(taxas, list(taxas_aux))
       taxas_part <- c(taxas_part, list(c()))
+      
+      tempo_aux <- getTempos(DATASET, metodo[it])
+      tempos <- c(tempos, tempo_aux)
     }
   
     particao = length(taxas[[1]])/TAM
@@ -86,17 +169,21 @@
     vencedor_index = 1
     vencedor_media = medias[1]
     
-    for(it in 2:length(metodo))
+    if (length(metodo) >=2 )
     {
-      if (medias[it] > vencedor_media)
+      for(it in 2:length(metodo))
       {
-        vencedor_index = it
-        vencedor_media = medias[it]
+        if (medias[it] > vencedor_media)
+        {
+          vencedor_index = it
+          vencedor_media = medias[it]
+        }
       }
     }
     
     pvalues <- c()
     valores <- c()
+    conta_estrelas <- 0
     
     for(it in 1:length(metodo))
     {
@@ -104,11 +191,15 @@
       pvalues <- c(pvalues, wiltest$p.value)
       valor = FALSE
       if (wiltest$p.value < LIM_P )
+      {
         valor = TRUE
+        conta_estrelas <- conta_estrelas + 1
+      }
       valores <- c(valores, valor)
     }
-    cat("\n", "\n", "--------------------------------------", "\n", DATASET, "\n", metodo, "\n" ,medias, "\n", desvios, "\n", pvalues, "\n", valores)
+    
+    #imprime(bases_names, metodo, vencedor_index, medias, desvios, tempos, conta_estrelas)
+    imprime_medias(bases_names, metodo, medias)
+    
   }
-
-
 
