@@ -36,7 +36,7 @@
                    'Poker-Hand', 
                    'Spam')
   
-  metodo_all = c("DESDD",
+  metodo_all = c("V12_HOM_OnlineBagging_DDM_RetreinaTodosComBufferWarning",
                  "DDD_Original",
                  "DDM_Original", 
                  "LB_Original")
@@ -48,7 +48,7 @@
   bases <- basess
   conta_estrelas_num <- 0 # 1 para sinteticas e 0 para real
   bases_names <- basess_names
-  PATH <- "/Users/regisalbuquerque/Documents/drive/regis/mestrado/resultados/comp_baseslines_allbases/";
+  PATH <- "/Users/regisalbuquerque/Documents/drive/regis/mestrado/resultados/comp_v12_LB_DDM_DDD__allbases/";
   
 
   getTaxasMedias <- function(base, metodo){
@@ -198,8 +198,8 @@
       valores <- c(valores, valor)
     }
     
-    #imprime(bases_names, metodo, vencedor_index, medias, desvios, tempos, conta_estrelas)
-    imprime_medias(bases_names, metodo, medias)
+    imprime(bases_names, metodo, vencedor_index, medias, desvios, tempos, conta_estrelas)
+    #imprime_medias(bases_names, metodo, medias)
     
   }
 

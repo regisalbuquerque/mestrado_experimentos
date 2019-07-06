@@ -7,7 +7,7 @@ import pandas as pd
 #style.use('default')
 
 #Path
-ROOT_PATH = '/Users/regisalbuquerque/Documents/drive/regis/mestrado/resultados/comp_baseslines_allbases/'
+ROOT_PATH = '/Users/regisalbuquerque/Documents/drive/regis/mestrado/resultados/comp_v12_LB_DDM_DDD__allbases/'
 
 
 
@@ -126,7 +126,7 @@ baseEhReal = {
 
 #V14_HOM_OnlineBagging_DDM_RetreinaTodosComBufferWarning
 metodos = [
-        'DESDD',
+        'V12_HOM_OnlineBagging_DDM_RetreinaTodosComBufferWarning',
         'DDD_Original',
         'DDM_Original', 
         'LB_Original']
@@ -157,7 +157,7 @@ for indice, base in enumerate(basesr):
     DRIFT_Y = []
     QTD_DETECCAO = []
     
-    DETECCAO_1 = [] #vai ser array de array
+    DETECCAO_1 = []
     ATRASO_ACUMULADO = [];
     
     for idx, val in enumerate(metodos):

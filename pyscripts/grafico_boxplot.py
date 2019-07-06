@@ -121,7 +121,7 @@ def subplot_grafico10(metodo, base):
     axes.set_ylim([-0.02, 0.52])
     
     X_range = range(1, len(X)+1)
-    plt.xticks(X_range, X)
+    plt.xticks(X_range, X, rotation=20)
     
     plt.xlabel('Lambda Value')     
     plt.ylabel('Diversity Value')

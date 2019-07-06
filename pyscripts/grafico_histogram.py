@@ -129,14 +129,15 @@ def subplot_grafico5(metodo, base):
     X_Labels = []
     for x in lambdas:
         X_Labels.append(round(x,6))
+        
     
     X = range(1, len(Y)+1)
     
     plt.bar(X, Y, align='center', alpha=0.5)
-    plt.xticks(X, X_Labels)
+    plt.xticks(X, X_Labels, rotation=20)
     
     for i in range(len(Y)):
-        plt.text(x = X[i]-0.2 , y = Y[i]+0.1, s = Y[i], size = 15)
+        plt.text(x = X[i]-0.3 , y = Y[i]+0.1, s = Y[i], size = 15)
 
     
     plt.xlabel('Lambda Value')
@@ -151,6 +152,7 @@ for metodo in metodos:
     
         fig, ax = plt.subplots() #Para o primeiro gráfico
         subplot_grafico5(metodo, base)
+        ax.set_ylim(0, 4000)
         fig.savefig(ROOT_PATH_IMG + 'histogram'  + '_' + nomes[metodo] + '__' + base + '_' + '.eps', format='eps', dpi=1200, bbox_inches='tight')
 
 
