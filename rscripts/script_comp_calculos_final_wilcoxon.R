@@ -55,7 +55,7 @@
     iteracao <- 1
     #if (metodo == "V14_HOM_OnlineBagging_DDM_RetreinaTodosComBufferWarning")
     #{
-      #Procurar a melhor iteração dentro dos resultados
+      #Procurar a melhor itera????o dentro dos resultados
       #file = paste0(PATH, "RESULT_", metodo, "_", base)
       #tabela <- read.table(file, header=T, sep=",")
       #tabela_ordenada = tabela[order(tabela$taxa_media, decreasing = TRUE),c(1,2,3)]
@@ -123,6 +123,17 @@
     }
   }
   
+  imprime_taxas <- function(bases_names, metodo, taxas_part){
+    #Imprime
+    cat("\n", bases[b], "\t" )
+    for(it in 1:length(metodo))
+    {
+      cat("\n", metodo[it], "\n")
+      cat(taxas_part[[it]])
+      cat("\n")
+    }
+  }
+  
   for(b in 1:length(bases))
   {
   
@@ -151,7 +162,7 @@
     for (it in 1:TAM)
     {
        index <- particao*it
-       #print(paste0("Particao: ", index))  
+       print(paste0("Particao: ", index))  
        
        for(itm in 1:length(metodo))
        {
@@ -198,8 +209,9 @@
       valores <- c(valores, valor)
     }
     
-    imprime(bases_names, metodo, vencedor_index, medias, desvios, tempos, conta_estrelas)
-    #imprime_medias(bases_names, metodo, medias)
+    #imprime(bases_names, metodo, vencedor_index, medias, desvios, tempos, conta_estrelas)
+    imprime_medias(bases_names, metodo, medias)
+    #imprime_taxas(bases_names, metodo, taxas_part)
     
   }
 

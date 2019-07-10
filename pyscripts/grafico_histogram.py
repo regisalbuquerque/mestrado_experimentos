@@ -69,7 +69,7 @@ drifts = {
         'ForestCovertype': [] 
        }
 
-bases = ['SEAGradual']
+bases = ['AgrawalAbrupt','Gauss']
 
 
 metodos = ['V12_HOM_OnlineBagging_DDM_RetreinaTodosComBufferWarning']
@@ -152,7 +152,7 @@ for metodo in metodos:
     
         fig, ax = plt.subplots() #Para o primeiro gráfico
         subplot_grafico5(metodo, base)
-        ax.set_ylim(0, 4000)
+        ax.set_ylim(0, 5500)
         fig.savefig(ROOT_PATH_IMG + 'histogram'  + '_' + nomes[metodo] + '__' + base + '_' + '.eps', format='eps', dpi=1200, bbox_inches='tight')
 
 

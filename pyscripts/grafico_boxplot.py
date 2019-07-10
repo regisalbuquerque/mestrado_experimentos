@@ -66,7 +66,7 @@ drifts = {
         'ForestCovertype': [] 
        }
 
-bases = ['SEAGradual']
+bases = ['AgrawalAbrupt','Gauss']
 
 
 metodos = ['V12_HOM_OnlineBagging_DDM_RetreinaTodosComBufferWarning']
