@@ -1,7 +1,7 @@
 package experimental.model;
 
 import br.ufam.metodo.util.dados.Dados;
-import br.ufam.metodo.util.model.Ensemble;
+import br.ufam.metodo.util.model.EnsembleOnLineBagging;
 import moa.classifiers.Classifier;
 
 
@@ -31,7 +31,7 @@ public class EnsembleFactory implements Classificador{
     
     @Override
     public Classifier reset(Dados dados) {
-        Ensemble ensemble = new Ensemble();
+        EnsembleOnLineBagging ensemble = new EnsembleOnLineBagging();
         ensemble.lambdaOption.setValue(this.getLambda());
         ensemble.ensembleSizeOption.setValue(this.getNumClassificadores());
         ensemble.numBaseLeanersOption.setValue(this.getNumBaseLearners());

@@ -4,9 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.ufam.metodo.util.medidor.Resultado;
-import br.ufam.metodo.util.model.IEnsemblesResultados;
-import experimental.analise.AnaliseCompleta;
-import experimental.analise.RelatDiversidade;
 import experimental.analise.RelatResumoAcc;
 import experimental.analise.RelatResumoDrift;
 import experimental.bases.BaseFactory;

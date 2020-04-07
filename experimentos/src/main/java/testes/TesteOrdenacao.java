@@ -4,27 +4,27 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import br.ufam.metodo.util.model.Ensemble;
+import br.ufam.metodo.util.model.EnsembleOnLineBagging;
 import br.ufam.metodo.util.model.EnsembleDiversidadeAcuraciaVoto;
 
 public class TesteOrdenacao {
     public static void main(String[] args) {
-        Ensemble e1 = new Ensemble();
+        EnsembleOnLineBagging e1 = new EnsembleOnLineBagging();
         e1.lambda = 1;
         
-        Ensemble e2 = new Ensemble();
+        EnsembleOnLineBagging e2 = new EnsembleOnLineBagging();
         e2.lambda = 2;
         
-        Ensemble e3 = new Ensemble();
+        EnsembleOnLineBagging e3 = new EnsembleOnLineBagging();
         e3.lambda = 3;
         
-        Ensemble e4 = new Ensemble();
+        EnsembleOnLineBagging e4 = new EnsembleOnLineBagging();
         e4.lambda = 4;
         
-        Ensemble e5 = new Ensemble();
+        EnsembleOnLineBagging e5 = new EnsembleOnLineBagging();
         e5.lambda = 5;
         
-        Ensemble e6 = new Ensemble();
+        EnsembleOnLineBagging e6 = new EnsembleOnLineBagging();
         e6.lambda = 6;
         
         
