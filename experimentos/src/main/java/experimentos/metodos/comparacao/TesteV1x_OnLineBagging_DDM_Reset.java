@@ -3,7 +3,6 @@ package experimentos.metodos.comparacao;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.ufam.metodos.leveraging.v1.LeveragingBagOriginal;
 import experimental.bases.BaseAgrawalAbrupt;
 import experimental.bases.BaseAgrawalAbruptNoise;
 import experimental.bases.BaseAgrawalGradual;
@@ -13,7 +12,6 @@ import experimental.bases.BaseFactory;
 import experimental.bases.BaseForestCovertype;
 import experimental.bases.BaseGauss;
 import experimental.bases.BaseKDDCup99;
-import experimental.bases.BaseLine;
 import experimental.bases.BasePokerHand;
 import experimental.bases.BaseSEAAbrupt;
 import experimental.bases.BaseSEAAbruptNoise;
@@ -21,9 +19,7 @@ import experimental.bases.BaseSEAGradual;
 import experimental.bases.BaseSEAGradualNoise;
 import experimental.bases.BaseSine1;
 import experimental.bases.BaseSpam;
-import experimental.metodos.DDMConfig1;
 import experimental.metodos.DESDDConfig;
-import experimental.metodos.LeveragingBagVersaoOriginal;
 import experimental.model.MetodoFactory;
 import experimentos.config.Configuracoes;
 

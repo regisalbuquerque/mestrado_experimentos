@@ -5,7 +5,7 @@
  */
 package experimental.metodos;
 
-import br.ufam.metodos.leveraging.v2.LeveragingBagSelection;
+import br.ufam.metodos.LB.LeveragingBagSelection;
 import experimental.model.MetodoFactory;
 import experimentos.config.Configuracoes;
 

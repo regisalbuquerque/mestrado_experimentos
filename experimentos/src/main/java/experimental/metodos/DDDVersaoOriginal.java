@@ -5,9 +5,8 @@
  */
 package experimental.metodos;
 
-import br.ufam.metodos.DDD.DiversityForDealingWithDrifts;
+import br.ufam.metodos.originais.DiversityForDealingWithDrifts;
 import experimental.model.MetodoFactory;
-import experimentos.config.Configuracoes;
 
 /**
  *

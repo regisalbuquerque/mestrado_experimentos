@@ -2,7 +2,7 @@ package experimental.analise;
 
 import br.ufam.metodo.util.medidor.RegistroIteracao;
 import br.ufam.metodo.util.medidor.Resultado;
-import regisalbuquerque.utilslib.CSVUtil;
+import regisalbuquerque.utilslib.CSVWriterUtil;
 
 /**
  *
@@ -14,7 +14,7 @@ public class RelatResumoDrift {
 
     	Resultado rt = resultadoClassificador;
         
-    	CSVUtil csvITER = new CSVUtil(path, fileNameWithoutEXT + ".csv");
+    	CSVWriterUtil csvITER = new CSVWriterUtil(path, fileNameWithoutEXT + ".csv");
         csvITER.cabecalho("iteracao,taxa,acc,drift");
         
         for (RegistroIteracao registro : rt.getListaRegistrosIteracoes()) {

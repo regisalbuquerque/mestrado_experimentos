@@ -4,7 +4,7 @@ import java.util.List;
 
 import br.ufam.metodo.util.medidor.RegistroIteracao;
 import br.ufam.metodo.util.medidor.Resultado;
-import regisalbuquerque.utilslib.CSVUtil;
+import regisalbuquerque.utilslib.CSVWriterUtil;
 
 /**
  *
@@ -14,11 +14,11 @@ public class RelatResumo {
 
     public static void gravar(List<Resultado> listaResultados, String path, String fileNameWithoutEXT, boolean gravaIteracao) {
         //Gravar o CSV
-        CSVUtil csv = new CSVUtil(path, fileNameWithoutEXT + "_resumo.csv");
+    	CSVWriterUtil csv = new CSVWriterUtil(path, fileNameWithoutEXT + "_resumo.csv");
 
         csv.cabecalho("cod,taxa_media,acc_media,tempo,RamHours");
 
-        CSVUtil csvITER = null;
+        CSVWriterUtil csvITER = null;
         
         for (Resultado rt : listaResultados) //Para cada TESTE
         {
@@ -33,7 +33,7 @@ public class RelatResumo {
             
             if(gravaIteracao)
             {
-            	csvITER = new CSVUtil(path, fileNameWithoutEXT + rt.getCodigo() + "_iteracao.csv");
+            	csvITER = new CSVWriterUtil(path, fileNameWithoutEXT + rt.getCodigo() + "_iteracao.csv");
 
             	csvITER.cabecalho("iteracao,taxa,acc,drift");
             }

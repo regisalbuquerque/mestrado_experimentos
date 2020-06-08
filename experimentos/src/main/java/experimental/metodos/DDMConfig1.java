@@ -5,7 +5,7 @@
  */
 package experimental.metodos;
 
-import br.ufam.metodos.DDM.DriftDetectionMethodClassifier;
+import br.ufam.metodos.originais.DriftDetectionMethodClassifier;
 import experimental.model.MetodoFactory;
 import experimentos.config.Configuracoes;
 

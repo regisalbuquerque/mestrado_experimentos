@@ -3,8 +3,8 @@ package testes;
 import com.yahoo.labs.samoa.instances.Instance;
 
 import br.ufam.metodo.util.dados.Dados;
-import br.ufam.metodos.leveraging.v1.LeveragingBagOriginal;
-import br.ufam.metodos.v12.MetodoClassificadorV12;
+import br.ufam.metodos.DESDD.MetodoClassificadorV12;
+import br.ufam.metodos.originais.LeveragingBagOriginal;
 import moa.classifiers.Classifier;
 
 public class TesteMetodo {

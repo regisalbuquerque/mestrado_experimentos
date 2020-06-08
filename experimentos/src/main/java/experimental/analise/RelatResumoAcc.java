@@ -3,22 +3,22 @@ package experimental.analise;
 
 import br.ufam.metodo.util.medidor.RegistroIteracao;
 import br.ufam.metodo.util.medidor.Resultado;
-import regisalbuquerque.utilslib.CSVUtil;
+import regisalbuquerque.utilslib.CSVWriterUtil;
 
 public class RelatResumoAcc {
 
 	public static void gravar(Resultado resultado, int execucao, String pathFileName) {
 
-		CSVUtil csv;
+		CSVWriterUtil csv;
 
 		if (execucao == 1)
 		{
-			csv = new CSVUtil(pathFileName);
+			csv = new CSVWriterUtil(pathFileName);
 			csv.cabecalho("cod,execucao,taxa_media,acc_media,tempo,RamHours");
 		}
 		else
 		{
-			csv = new CSVUtil(pathFileName, true); //APPEND
+			csv = new CSVWriterUtil(pathFileName, true); //APPEND
 		}
 			
 		double soma_taxa = 0;
@@ -43,16 +43,16 @@ public class RelatResumoAcc {
 	
 	public static void gravarPorResumo(Resultado resultado, int execucao, String pathFileName) {
 
-		CSVUtil csv;
+		CSVWriterUtil csv;
 
 		if (execucao == 1)
 		{
-			csv = new CSVUtil(pathFileName);
+			csv = new CSVWriterUtil(pathFileName);
 			csv.cabecalho("cod,execucao,taxa_media,acc_media,tempo,RamHours");
 		}
 		else
 		{
-			csv = new CSVUtil(pathFileName, true); //APPEND
+			csv = new CSVWriterUtil(pathFileName, true); //APPEND
 		}
 			
 		double media_taxa = resultado.getAcuraciaMedia();

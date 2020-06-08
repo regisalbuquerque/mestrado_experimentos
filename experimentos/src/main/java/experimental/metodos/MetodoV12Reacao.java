@@ -5,7 +5,7 @@
  */
 package experimental.metodos;
 
-import br.ufam.metodos.v12.MetodoClassificadorV12;
+import br.ufam.metodos.DESDD.MetodoClassificadorV12;
 import experimental.model.MetodoFactory;
 import experimentos.config.Configuracoes;
 

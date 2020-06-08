@@ -5,14 +5,14 @@ import com.yahoo.labs.samoa.instances.Instance;
 import br.ufam.metodo.util.model.IEnsembleSelection;
 import moa.classifiers.Classifier;
 import moa.core.Utils;
-import regisalbuquerque.utilslib.CSVUtil;
+import regisalbuquerque.utilslib.CSVWriterUtil;
 
 public class RelatIteracao {
 
 	
 	String path;
-	CSVUtil[] CSVUtil;
-	CSVUtil CSVEscolhas;
+	CSVWriterUtil[] CSVUtil;
+	CSVWriterUtil CSVEscolhas;
 	String nomeMetodo;
 	
 	
@@ -33,13 +33,13 @@ public class RelatIteracao {
 		
 		if (CSVUtil == null)
 		{
-			CSVUtil = new CSVUtil[metodo.getClassifiers().length];
+			CSVUtil = new CSVWriterUtil[metodo.getClassifiers().length];
 			
 			for (int i = 0; i < CSVUtil.length; i++) {
-				CSVUtil[i] = new CSVUtil(path, this.nomeMetodo + "_" + String.valueOf(i) + ".csv");
+				CSVUtil[i] = new CSVWriterUtil(path, this.nomeMetodo + "_" + String.valueOf(i) + ".csv");
 			}
 			
-			CSVEscolhas = new CSVUtil(path, this.nomeMetodo + "_escolhas.csv");
+			CSVEscolhas = new CSVWriterUtil(path, this.nomeMetodo + "_escolhas.csv");
 			
 		}
 		

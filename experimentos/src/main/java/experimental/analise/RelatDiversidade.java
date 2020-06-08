@@ -4,7 +4,7 @@ import java.util.List;
 
 import br.ufam.metodo.util.medidor.RegistroIteracao;
 import br.ufam.metodo.util.medidor.Resultado;
-import regisalbuquerque.utilslib.CSVUtil;
+import regisalbuquerque.utilslib.CSVWriterUtil;
 
 /**
  *
@@ -14,7 +14,7 @@ public class RelatDiversidade {
 
     public static void gravar(Resultado resultadoClassificador, String path, String fileName) {
         //Gravar o CSV
-        CSVUtil csv = new CSVUtil(path, fileName);
+    	CSVWriterUtil csv = new CSVWriterUtil(path, fileName);
 
         csv.cabecalho("iteracao,ambiguidade,margem,qstatisics,correlation,disagreement,doublefault,acertou,acc");
 

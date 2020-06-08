@@ -1,9 +1,9 @@
 package experimental.metodos;
 
 import br.ufam.metodo.util.model.DESDDClassifier;
-import br.ufam.metodos.v12.MetodoClassificadorV12;
-import br.ufam.metodos.v13.MetodoClassificadorV13;
-import br.ufam.metodos.v14.MetodoClassificadorV14;
+import br.ufam.metodos.DESDD.MetodoClassificadorV12;
+import br.ufam.metodos.DESDD.MetodoClassificadorV13;
+import br.ufam.metodos.DESDD.MetodoClassificadorV14;
 import experimental.model.MetodoFactory;
 import experimentos.config.Configuracoes;
 

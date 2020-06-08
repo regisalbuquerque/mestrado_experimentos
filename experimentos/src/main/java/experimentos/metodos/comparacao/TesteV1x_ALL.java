@@ -3,8 +3,8 @@ package experimentos.metodos.comparacao;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.ufam.metodos.v12.MetodoClassificadorV12;
-import br.ufam.metodos.v14.MetodoClassificadorV14;
+import br.ufam.metodos.DESDD.MetodoClassificadorV12;
+import br.ufam.metodos.DESDD.MetodoClassificadorV14;
 import experimental.bases.BaseAgrawalAbrupt;
 import experimental.bases.BaseAgrawalAbruptNoise;
 import experimental.bases.BaseAgrawalGradual;

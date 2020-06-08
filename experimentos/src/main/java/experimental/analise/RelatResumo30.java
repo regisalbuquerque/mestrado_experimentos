@@ -4,7 +4,7 @@ import java.util.List;
 
 import br.ufam.metodo.util.medidor.RegistroIteracao;
 import br.ufam.metodo.util.medidor.Resultado;
-import regisalbuquerque.utilslib.CSVUtil;
+import regisalbuquerque.utilslib.CSVWriterUtil;
 
 /**
  *
@@ -14,7 +14,7 @@ public class RelatResumo30 {
 
     public static void gravar(List<Resultado> listaResultados, String path, String fileNameWithoutEXT) {
         //Gravar o CSV
-        CSVUtil csv = new CSVUtil(path, fileNameWithoutEXT + "_resumo.csv");
+    	CSVWriterUtil csv = new CSVWriterUtil(path, fileNameWithoutEXT + "_resumo.csv");
 
         csv.cabecalho("cod, taxa30_media, acc30_media");
 

@@ -1,6 +1,6 @@
 package experimental.metodos;
 
-import br.ufam.metodos.leveraging.v1.LeveragingBagOriginal;
+import br.ufam.metodos.originais.LeveragingBagOriginal;
 import experimental.model.MetodoFactory;
 import experimentos.config.Configuracoes;
 

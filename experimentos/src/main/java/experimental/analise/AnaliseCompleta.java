@@ -9,7 +9,7 @@ import br.ufam.metodo.util.medidor.RegistroIteracao;
 import br.ufam.metodo.util.medidor.Resultado;
 import br.ufam.metodo.util.pareto.ParetoFront;
 import br.ufam.metodo.util.pareto.Solucao;
-import regisalbuquerque.utilslib.CSVUtil;
+import regisalbuquerque.utilslib.CSVWriterUtil;
 
 /**
  *
@@ -115,7 +115,7 @@ public class AnaliseCompleta {
     
     private void gravarIteracao(int iteracao, Solucao[] solucoes, List<Solucao> listaPareto, String codMenorDiv, String codMaiorDiv, String codParetoMenor, String codParetoMaior) {
         //Gravar o CSV
-        CSVUtil csv = new CSVUtil(path, fileName_without_ext + "_it_" + iteracao + ".csv");
+        CSVWriterUtil csv = new CSVWriterUtil(path, fileName_without_ext + "_it_" + iteracao + ".csv");
 
         csv.cabecalho("cod,iteracao,diversidade,acc,acertou,menor_div,maior_div,pareto_member,pareto_menor,pareto_maior");
         
@@ -160,7 +160,7 @@ public class AnaliseCompleta {
     
     private void gravarResumo(ResultadoAnalise[] resultadosDaAnalise) {
         //Gravar o CSV
-        CSVUtil csv = new CSVUtil(path, fileName_without_ext);
+    	CSVWriterUtil csv = new CSVWriterUtil(path, fileName_without_ext);
 
         csv.cabecalho("cod,acertos,iteracoes,taxa");
         
